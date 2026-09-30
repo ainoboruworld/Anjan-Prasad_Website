@@ -2431,3 +2431,19 @@ body.nav-open{overflow:hidden}
 .csb .csmx b{font-size:40px}
 .more-r{max-width:none;margin-top:56px;padding:36px 0 0}
 @media(max-width:900px){.aw{padding:0 20px}.csb .csmx{grid-template-columns:1fr 1fr}.abn{aspect-ratio:4/3!important}}
+
+/* Consultation diagnosis: calmer pane. */
+.dx .wnote{display:none}
+.dx .wp h3{font-size:clamp(26px,2.4vw,34px)!important;line-height:1.15;margin-bottom:18px!important;max-width:560px}
+.dx .wp ul{margin-bottom:16px!important}
+.dx .wp li{padding:8px 0 8px 22px!important;font-size:15px!important;border-top:0!important;color:var(--harb)}
+.dx .wp li:before{top:15px!important;left:2px;width:6px;height:6px;border:0;background:#CDB27A}
+.dx .whelp{font-size:15px;color:var(--harb);margin-bottom:22px;max-width:560px}
+.dx .whelp b{color:var(--navy)}
+.dx .wn{padding:10px 0!important;gap:14px!important}
+.dx .wn span{font-size:19px}
+.dx .wn em{font-size:11px}
+.dxh{margin-bottom:28px}
+.dxh h2{font-size:clamp(32px,3.4vw,48px)}
+.dxh p{font-size:14.5px;max-width:380px}
+.dxg{gap:44px!important;align-items:center}
