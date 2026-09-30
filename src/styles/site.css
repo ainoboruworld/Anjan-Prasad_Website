@@ -2638,3 +2638,9 @@ footer .ft7 a{padding:6px 0}
 #wheel-h .wn b{opacity:1;transform:none}
 #wheel-h .wring{max-width:min(88vw,360px)}
 }
+
+/* About intro: cap the portrait so the section hugs its content. */
+.about2 .ph{max-height:440px}
+.about2 .ph img{height:100%;max-height:440px;width:100%;object-fit:cover;object-position:top}
+.about2{padding-bottom:40px!important}
+.about2 + .jr{padding-top:44px!important}
