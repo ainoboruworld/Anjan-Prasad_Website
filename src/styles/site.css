@@ -2447,3 +2447,7 @@ body.nav-open{overflow:hidden}
 .dxh h2{font-size:clamp(32px,3.4vw,48px)}
 .dxh p{font-size:14.5px;max-width:380px}
 .dxg{gap:44px!important;align-items:center}
+
+/* Record band: Fortune 500 mark in place of the "F500" figure. */
+.rstats b .rlogo{display:block;height:46px;width:auto;mix-blend-mode:multiply;margin:4px 0 6px}
+@media(max-width:900px){.rstats b .rlogo{height:36px}}
