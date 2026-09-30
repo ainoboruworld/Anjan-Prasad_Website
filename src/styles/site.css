@@ -2346,3 +2346,74 @@ body.nav-open{overflow:hidden}
 /* Mobile hero: the portrait sits above the headline, so drop the desktop
    min-height and top padding that left a large empty band between them. */
 @media(max-width:900px){.hero .wrap{min-height:0;padding-top:28px}}
+
+/* ── Rhythm: one consistent, tighter gap between any two sections ───── */
+.sec,.kb,.close,.trust4,.rec,.life2,.jr,.bel,.story,.proof,.hear,.exp,.mani,.ask,.cases,.wheel{padding-top:56px!important;padding-bottom:56px!important}
+.trust4{padding-top:64px!important}
+.ph1{padding:128px 0 56px!important}
+.abz{padding:120px 0 52px!important}
+.rtop{margin-bottom:32px}
+.sh{margin-bottom:34px}
+@media(max-width:900px){
+.sec,.kb,.close,.trust4,.rec,.life2,.jr,.bel,.story,.proof,.hear,.exp,.mani,.ask,.cases,.wheel{padding-top:44px!important;padding-bottom:44px!important}
+.ph1{padding:112px 0 44px!important}
+.abz{padding:104px 0 40px!important}
+}
+
+/* ── Record band: stat tiles instead of a sparse grid ──────────────── */
+.rstats{gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;padding:0}
+.rstats div{background:var(--off);padding:30px 28px;display:flex;flex-direction:column;justify-content:center;transition:background .3s}
+.rstats div:hover{background:#ece8e0}
+.rstats b{font-size:clamp(44px,3.6vw,58px);letter-spacing:-.02em}
+.rstats i{font-size:.6em;margin-left:2px}
+.rstats small{margin-top:12px;font-size:13px;color:var(--harb)}
+.rstats small:before{content:"";display:block;width:22px;height:1px;background:var(--gold);margin-bottom:10px}
+.rfeat{padding:36px 36px 32px}
+.rfeat b{margin:22px 0 14px}
+@media(max-width:900px){.rstats div{padding:22px 18px}.rstats b{font-size:40px}}
+
+/* Contact list: sized to sit level with the form beside it. */
+.cl{margin-top:6px}
+.cl li{padding:11px 0}
+.cl a,.cl span{font-size:19px}
+.cgrid>div>p{max-width:440px}
+
+/* Home wheel: a more compact ring so the section reads in one screen. */
+#wheel-h .wring{max-width:420px}
+#wheel-h .whg{gap:40px;align-items:center}
+#wheel-h .wn{width:104px;gap:6px;font-size:12px}
+#wheel-h .wpanes{min-height:0!important}
+#wheel-h .wp{padding:30px 32px}
+#wheel-h .wp h3{font-size:clamp(24px,2.2vw,32px)}
+#wheel-h .whx{margin-bottom:26px}
+#wheel-h .whx h2{font-size:clamp(32px,3.2vw,46px)}
+
+/* Slim CTA strip placed between home sections. */
+.ctas{padding:0!important;background:var(--off)}
+.ctas .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:26px;padding-bottom:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ctas p{font:400 clamp(20px,2vw,26px)/1.25 var(--font-serif);color:var(--navy);margin:0}
+.ctas p em{color:var(--slate)}
+.ctas .cta{white-space:nowrap}
+.ctas.dark{background:var(--navy)}
+.ctas.dark .wrap{border-color:rgba(169,189,209,.18)}
+.ctas.dark p{color:var(--off)}
+.ctas.dark p em{color:#A9BDD1}
+@media(max-width:900px){.ctas .wrap{flex-direction:column;align-items:flex-start;gap:16px}}
+
+/* Knowledge Hub: chips sit right above the grid. */
+.ph1.ctr{padding-bottom:28px!important}
+.sec.hubs{padding-top:8px!important}
+
+/* About manifesto: shorter band. */
+.mani{padding-top:44px!important;padding-bottom:44px!important}
+.mani blockquote{margin:14px auto 18px;font-size:clamp(30px,3.6vw,52px)}
+
+/* Trust wall: supplied colour logos on white tiles. */
+.lg-tile{display:inline-flex;align-items:center;justify-content:center;width:150px;height:54px;padding:6px 12px;background:#fff;border-radius:10px;box-shadow:0 10px 24px -16px rgba(0,0,0,.7);transition:transform .3s,box-shadow .3s}
+.lg-tile img{display:block;height:100%;width:auto;max-width:100%;object-fit:contain}
+.lg-tile:hover{transform:translateY(-2px);box-shadow:0 16px 30px -16px rgba(0,0,0,.8)}
+.lg-tile.large{width:200px;height:70px;padding:8px 16px}
+.vc2 .vlg{display:flex;justify-content:center}
+.mq ul li{display:flex;align-items:center}
+.fac{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+@media(max-width:700px){.lg-tile{width:124px;height:46px}.lg-tile.large{width:170px;height:60px}}

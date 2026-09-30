@@ -25,7 +25,7 @@ export default function ContactPage() {
             <ul className="cl">
               <li>
                 <small>Email</small>
-                <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                <span>Coming soon</span>
               </li>
               <li>
                 <small>LinkedIn</small>

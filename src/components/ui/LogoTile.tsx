@@ -1,4 +1,4 @@
-import { logoSrc, type BrandLogo } from "@/lib/data/brands";
+import { HAS_TILE, logoSrc, tileSrc, type BrandLogo } from "@/lib/data/brands";
 
 /**
  * A brand logo box: the tinted version by default, the full-colour version on
@@ -11,6 +11,17 @@ export function LogoTile({ logo }: { logo: BrandLogo }) {
       <img className="lt" src={logoSrc(logo.slug)} alt={logo.name} loading="lazy" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="lc2" src={logoSrc(logo.slug, true)} alt="" aria-hidden loading="lazy" />
+    </span>
+  );
+}
+
+/** White tile with the full-colour logo — used on the navy trust wall. */
+export function LogoBox({ logo, large = false }: { logo: BrandLogo; large?: boolean }) {
+  const src = HAS_TILE.has(logo.slug) ? tileSrc(logo.slug) : logoSrc(logo.slug, true);
+  return (
+    <span className={`lg-tile${large ? " large" : ""}`} title={logo.name}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={logo.name} loading="lazy" />
     </span>
   );
 }
