@@ -70,3 +70,10 @@ Flagged in the UI with a small "placeholder" tag: the "Off the clock" photos,
 the testimonials, the article banner images, the About story details and the
 beliefs list. Swap the files in `public/images/` and the copy in
 `src/lib/data/*`.
+
+## Deployment
+
+Hosted on Vercel, connected to this repository. Every push to `main` builds and
+deploys to production automatically; other branches get preview deployments.
+Set `NEXT_PUBLIC_SITE_URL` in the Vercel project's Environment Variables to the
+live domain so canonical links, the sitemap and share previews point at it.
