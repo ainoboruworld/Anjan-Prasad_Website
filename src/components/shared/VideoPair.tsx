@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { VIDEOS } from "@/lib/data/site";
 
 /** Two YouTube feature cards. */
@@ -31,6 +32,12 @@ export function FeaturedMedia() {
           </div>
         </div>
         <VideoPair />
+        <div className="secta secta-line rv on">
+          <p>The same method, written down.</p>
+          <Link href="/knowledge-hub" className="ul">
+            Playbooks &amp; field notes →
+          </Link>
+        </div>
       </div>
     </section>
   );

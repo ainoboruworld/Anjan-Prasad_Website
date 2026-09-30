@@ -10,7 +10,6 @@ import { FeaturedMedia } from "@/components/shared/VideoPair";
 import { Testimonials } from "@/components/home/Testimonials";
 import { KnowledgeTeaser } from "@/components/home/KnowledgeTeaser";
 import { CloseCta } from "@/components/shared/CloseCta";
-import { CtaStrip } from "@/components/shared/CtaStrip";
 import { getArticles } from "@/lib/sanity";
 
 export const revalidate = 300;
@@ -23,45 +22,18 @@ export default async function HomePage() {
       <Hero />
       <TrustWall />
       <CasesRow />
-      <CtaStrip
-        text={
-          <>
-            Facing a decision in your business? <em>Let&rsquo;s talk it through.</em>
-          </>
-        }
-      />
       <RecordBand />
       <AboutIntro />
-      <CtaStrip
-        text={
-          <>
-            Building for the long run? <em>Apply for advisory.</em>
-          </>
-        }
-        label="Apply for advisory"
-        href="/business-advisory#apply"
+      <Journey
+        cta={{
+          href: "/about",
+          text: "If this road sounds familiar, read the long version.",
+          label: "My story",
+        }}
       />
-      <Journey />
       <LifeStrip />
-      <CtaStrip
-        text={
-          <>
-            One hour that moves the whole decision. <em>Request a session.</em>
-          </>
-        }
-        label="Request a session"
-      />
       <Wheel />
       <FeaturedMedia />
-      <CtaStrip
-        text={
-          <>
-            Not sure where it hurts? <em>Start with the 360° diagnosis.</em>
-          </>
-        }
-        label="Start the diagnosis"
-        href="/consultation#wheel"
-      />
       <Testimonials />
       <KnowledgeTeaser articles={articles} />
       <CloseCta

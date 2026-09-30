@@ -2614,3 +2614,12 @@ footer .ft7 a{padding:6px 0}
 /* Trust wall: back to transparent logos directly on navy (no white tiles). */
 .trust4 .lg-tile{display:none}
 .fac{gap:28px}
+
+/* In-section CTAs: part of the section's flow, not a separate band. */
+.secta{margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.secta p{font:400 clamp(19px,1.8vw,24px)/1.3 var(--font-serif);color:var(--navy);margin:0;max-width:560px}
+.secta p em{color:var(--slate)}
+.secta-line{border-top:1px solid var(--line);padding-top:24px;margin-top:34px}
+.secta .ul{font-size:14.5px;color:var(--slate);align-self:center}
+.tst2 .tcta{margin-top:26px;align-self:flex-start}
+@media(max-width:900px){.secta{flex-direction:column;align-items:flex-start;gap:16px;margin-top:28px}}
