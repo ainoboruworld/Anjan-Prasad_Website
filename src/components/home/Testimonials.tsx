@@ -36,6 +36,9 @@ export function Testimonials() {
               →
             </button>
           </div>
+          <a className="cta tcta" href="/business-advisory#apply">
+            Apply for advisory <span>→</span>
+          </a>
         </div>
 
         <div className="tr2 rv on" aria-live="polite">

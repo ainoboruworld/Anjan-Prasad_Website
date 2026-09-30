@@ -103,6 +103,15 @@ export function RecordBand() {
             ))}
           </div>
         </div>
+
+        <div className="secta rv on">
+          <p>
+            Numbers like these start with one conversation. <em>Yours can too.</em>
+          </p>
+          <a className="cta" href="/consultation#capply">
+            Book a consultation <span>→</span>
+          </a>
+        </div>
       </div>
     </section>
   );

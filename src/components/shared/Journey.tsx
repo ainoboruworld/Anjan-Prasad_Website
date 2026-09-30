@@ -1,7 +1,14 @@
+import Link from "next/link";
 import { JOURNEY } from "@/lib/data/site";
 
+interface JourneyCta {
+  href: string;
+  text: string;
+  label: string;
+}
+
 /** "From a corporate desk to building my own." — used on Home and About. */
-export function Journey() {
+export function Journey({ cta }: { cta?: JourneyCta }) {
   return (
     <section className="jr">
       <div className="wrap">
@@ -23,6 +30,14 @@ export function Journey() {
             </li>
           ))}
         </ol>
+        {cta && (
+          <div className="secta secta-line rv on">
+            <p>{cta.text}</p>
+            <Link href={cta.href} className="ul">
+              {cta.label} →
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
