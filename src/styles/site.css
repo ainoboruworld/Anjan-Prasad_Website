@@ -2716,16 +2716,30 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .dxh{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:20px}
 }
 
-/* Trust wall on touch screens: no hover exists, so show the light tinted
-   logos at rest. They stay legible on navy where the dark colour versions
-   (Lushful above all) go muddy. Compact venture cards while stacked. */
-@media(hover:none){
-.trust4 .lx .lt{opacity:.95!important}
-.trust4 .lx .lc2{opacity:0!important}
-}
 @media(max-width:900px){
 .ven{gap:0}
 .vc2{padding:18px 16px!important}
 .vc2 small{margin-bottom:10px}
 .vc2 .vlg .lx{transform:scale(1)}
 }
+
+/* Very wide screens (Mac and large monitors): scale the whole layout up so
+   it does not float small in the middle of the display. */
+@media(min-width:1680px){body{zoom:1.18}}
+@media(min-width:2100px){body{zoom:1.4}}
+@media(min-width:2500px){body{zoom:1.6}}
+
+/* Under the wide-screen zoom, vw units inflate, so the hero portrait sizes
+   itself against the hero section instead of the viewport. */
+@media(min-width:1680px){
+.hero .stage{right:max(24px,calc((100% - 1320px)/2));width:min(640px,42%)}
+}
+
+/* Logos show their colour versions at rest on every device; hover only
+   lifts and brightens. A slight brightness lift keeps the darker marks
+   readable on navy. */
+.mq .lx .lt,.fac .lx .lt,.vc2 .lx .lt{opacity:0!important}
+.mq .lx .lc2,.fac .lx .lc2,.vc2 .lx .lc2{opacity:.94!important;filter:brightness(1.18) saturate(1.05)}
+.mq .lx:hover .lc2,.fac .lx:hover .lc2{opacity:1!important;filter:brightness(1.3) saturate(1.05)}
+.trust4 .lx .lt{opacity:0!important}
+.trust4 .lx .lc2{opacity:.94!important;filter:brightness(1.18) saturate(1.05)}
