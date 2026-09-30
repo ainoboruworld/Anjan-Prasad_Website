@@ -1,0 +1,29 @@
+/*
+ * Tailwind v4 is available for utilities, but the site's design language is
+ * the hand-tuned stylesheet in src/styles/site.css (ported from the approved
+ * prototype). Preflight is intentionally NOT imported so the prototype's own
+ * reset and element defaults render exactly as designed.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "../styles/site.css";
+
+/* Brand fonts come from next/font (see src/app/layout.tsx). */
+:root {
+  --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+}
+
+@theme inline {
+  --color-navy: #0b1a2e;
+  --color-harbour: #16324f;
+  --color-slate: #4c6b8a;
+  --color-softblue: #a9bdd1;
+  --color-mist: #dfe6ee;
+  --color-offwhite: #f4f1eb;
+  --color-gold: #cdb27a;
+  --color-deepgold: #a5874a;
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+}
