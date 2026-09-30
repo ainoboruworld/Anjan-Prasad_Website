@@ -2417,3 +2417,17 @@ body.nav-open{overflow:hidden}
 .mq ul li{display:flex;align-items:center}
 .fac{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
 @media(max-width:700px){.lg-tile{width:124px;height:46px}.lg-tile.large{width:170px;height:60px}}
+
+/* Article pages: use the full page width. */
+.art{padding-top:120px!important;padding-bottom:64px!important}
+.aw{max-width:1200px;padding:0 48px}
+.art h1{font-size:clamp(40px,4.6vw,68px);max-width:1000px}
+.art p{font-size:19px;line-height:1.7}
+.art .lead{font-size:clamp(24px,2.2vw,30px);max-width:1000px}
+.art h2{font-size:36px;max-width:1000px}
+.art #abody>img,.art #aalt>img{width:100%;border-radius:16px}
+.abn{aspect-ratio:21/9!important;margin-bottom:36px!important}
+.csb .csmx{grid-template-columns:repeat(4,1fr);gap:14px}
+.csb .csmx b{font-size:40px}
+.more-r{max-width:none;margin-top:56px;padding:36px 0 0}
+@media(max-width:900px){.aw{padding:0 20px}.csb .csmx{grid-template-columns:1fr 1fr}.abn{aspect-ratio:4/3!important}}
