@@ -86,7 +86,6 @@ export function LifeStrip({ variant = "home" }: { variant?: "home" | "about" }) 
               →
             </button>
           </div>
-          <span className="ph-flag">Placeholder photos: replace with Anjan&rsquo;s own</span>
         </div>
 
         <div className={`strip rv on${variant === "about" ? " strip2" : ""}`} ref={strip} onScroll={measure}>

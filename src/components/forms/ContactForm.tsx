@@ -23,11 +23,11 @@ export function ContactForm() {
       onSubmit={handleSubmit((values) => mutation.mutate({ kind: "contact", values }))}
     >
       <div className="row2">
-        <TextField label="Your name" autoComplete="name" registration={register("name")} error={e.name?.message} />
-        <TextField label="Email" type="email" autoComplete="email" registration={register("email")} error={e.email?.message} />
+        <TextField label="Your name" required autoComplete="name" registration={register("name")} error={e.name?.message} />
+        <TextField label="Email" required type="email" autoComplete="email" registration={register("email")} error={e.email?.message} />
       </div>
       <SelectField label="Reason" options={CONTACT_REASONS} registration={register("reason")} error={e.reason?.message} />
-      <TextareaField label="Message" rows={5} registration={register("message")} error={e.message?.message} />
+      <TextareaField label="Message" required rows={5} registration={register("message")} error={e.message?.message} />
 
       <SubmitButton pending={mutation.isPending}>Send message</SubmitButton>
       {mutation.isError && (

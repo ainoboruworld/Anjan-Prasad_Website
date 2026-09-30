@@ -8,12 +8,17 @@ import { AREA_NAMES } from "@/lib/data/areas";
 
 const emailField = z.string().trim().min(1, "Email is required").email("Please enter a valid email address");
 const nameField = z.string().trim().min(2, "Please enter your name").max(120);
-const phoneField = z
+const phoneOptional = z
   .string()
   .trim()
   .max(24, "Please enter a valid phone number")
   .optional()
   .or(z.literal(""));
+const phoneRequired = z
+  .string()
+  .trim()
+  .min(7, "Please enter your phone number")
+  .max(24, "Please enter a valid phone number");
 
 export const STAGES = ["Idea stage", "Early revenue", "Growing", "Established"] as const;
 export const HEARD_FROM = ["LinkedIn", "Instagram", "An article", "A friend or founder", "Other"] as const;
@@ -29,7 +34,7 @@ export const CONTACT_REASONS = ["Speaking or events", "Collaboration", "Press or
 export const advisorySchema = z.object({
   name: nameField,
   email: emailField,
-  phone: phoneField,
+  phone: phoneRequired,
   company: z.string().trim().max(160).optional().or(z.literal("")),
   website: z.string().trim().max(200).optional().or(z.literal("")),
   stage: z.enum(STAGES),
@@ -44,7 +49,7 @@ export const consultationSchema = z.object({
   name: nameField,
   email: emailField,
   identity: z.enum(IDENTITIES),
-  phone: phoneField,
+  phone: phoneRequired,
   area: z.string().trim().min(1, "Pick an area"),
   decision: z.string().trim().min(10, "Tell me a little more about the decision"),
 });

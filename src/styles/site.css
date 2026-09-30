@@ -2644,3 +2644,88 @@ footer .ft7 a{padding:6px 0}
 .about2 .ph img{height:100%;max-height:440px;width:100%;object-fit:cover;object-position:top}
 .about2{padding-bottom:40px!important}
 .about2 + .jr{padding-top:44px!important}
+
+/* ── Mobile polish round 2 ──────────────────────────────────────────── */
+
+/* Hero on phones: headline first, a shorter portrait after. */
+@media(max-width:900px){
+.hero{display:flex;flex-direction:column}
+.hero .wrap{order:1;padding-top:104px;padding-bottom:8px}
+.hero .stage{order:2;height:340px;margin-top:6px}
+.hero .fig{height:96%}
+.hero h1{margin-top:10px}
+.hero .more{margin-top:24px}
+}
+@media(max-width:480px){.hero .stage{height:300px}}
+
+/* Hero rise after the loader: desktop only, and never leaves text hidden. */
+.ldr-done .hero .wrap>*{animation:none}
+@media(min-width:901px){
+.ldr-done .hero .wrap>*{animation:hrise .7s ease backwards}
+.ldr-done .hero .wrap>*:nth-child(2){animation-delay:.08s}
+.ldr-done .hero .wrap>*:nth-child(3){animation-delay:.16s}
+}
+
+/* Articles on phones: calmer type, tighter banner, smaller images. */
+@media(max-width:900px){
+.art{padding-top:96px!important;padding-bottom:44px!important}
+.art h1{font-size:clamp(28px,7.6vw,34px);margin:10px 0 16px}
+.art .lab{font-size:10px;letter-spacing:.18em}
+.art .lead{font-size:19px;line-height:1.55}
+.art p{font-size:16px;line-height:1.65;margin-bottom:16px}
+.art h2{font-size:24px;margin:30px 0 10px}
+.abn{aspect-ratio:16/10!important;margin:0 0 26px!important}
+.abn .abn-t b{font-size:19px}
+.abn figcaption{font-size:10px}
+.art #abody>img,.art #aalt>img{margin:6px 0 18px}
+.art blockquote{padding:14px 16px;font-size:15px}
+.by{margin-bottom:18px}
+.more-r{margin-top:36px;padding-top:26px}
+.mr{gap:18px}
+.mr .im{aspect-ratio:16/9}
+.csb .csmx b{font-size:30px}
+.endcta{padding:20px 18px}
+}
+
+/* Programs dropdown: a proper button with a drawn chevron and a soft panel. */
+nav .l .dd .ddbtn{display:flex;align-items:center;gap:7px;background:none;border:0;cursor:pointer;font:inherit;color:var(--harb);padding:6px 0}
+nav .l .dd .ddbtn svg{width:10px;height:6px;transition:transform .25s}
+nav .l .dd:hover .ddbtn svg,nav .l .dd.open .ddbtn svg{transform:rotate(180deg)}
+nav .l .dd .menu{border-radius:var(--r-md);min-width:230px;padding:8px;box-shadow:0 24px 50px -30px rgba(11,26,46,.45);border:var(--line-soft);left:-14px}
+nav .l .dd .menu a{border-radius:var(--r-sm);padding:11px 14px;font-size:14px}
+nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
+
+/* Required markers on forms. */
+.fm label .req,.nlp label .req{font-style:normal;color:#A5874A;margin-left:3px;font-weight:600}
+
+/* Consultation diagnosis on phones and tablets: the nine areas become a
+   swipeable chip row, with the pane reading full-width underneath. */
+@media(max-width:1120px){
+.dxg{grid-template-columns:1fr!important;gap:22px!important}
+.dxl{flex-direction:row;overflow-x:auto;gap:8px;border:0!important;padding:2px 16px 8px;margin:0 -16px;scrollbar-width:none}
+.dxl::-webkit-scrollbar{display:none}
+.dx .wn{flex:0 0 auto;width:auto!important;min-height:42px;padding:9px 16px!important;border:1px solid var(--line)!important;border-radius:var(--r-pill)!important;background:#fff!important;gap:8px!important}
+.dx .wn:before{display:none!important}
+.dx .wn em{display:none}
+.dx .wn span{font-size:14px;transform:none!important;color:var(--harb)}
+.dx .wn.on{background:var(--navy)!important;border-color:var(--navy)!important}
+.dx .wn.on span{color:var(--off)!important}
+.dx .wpanes{position:static}
+.dx .wp{padding:0!important;border:0!important}
+.dx .wp h3{font-size:clamp(24px,5.6vw,30px)!important}
+.dxh{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:20px}
+}
+
+/* Trust wall on touch screens: no hover exists, so show the light tinted
+   logos at rest. They stay legible on navy where the dark colour versions
+   (Lushful above all) go muddy. Compact venture cards while stacked. */
+@media(hover:none){
+.trust4 .lx .lt{opacity:.95!important}
+.trust4 .lx .lc2{opacity:0!important}
+}
+@media(max-width:900px){
+.ven{gap:0}
+.vc2{padding:18px 16px!important}
+.vc2 small{margin-bottom:10px}
+.vc2 .vlg .lx{transform:scale(1)}
+}
