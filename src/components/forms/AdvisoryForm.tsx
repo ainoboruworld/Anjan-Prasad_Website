@@ -23,11 +23,11 @@ export function AdvisoryForm() {
       onSubmit={handleSubmit((values) => mutation.mutate({ kind: "advisory", values }))}
     >
       <div className="row2">
-        <TextField label="Your name" autoComplete="name" registration={register("name")} error={e.name?.message} />
-        <TextField label="Email" type="email" autoComplete="email" registration={register("email")} error={e.email?.message} />
+        <TextField label="Your name" required autoComplete="name" registration={register("name")} error={e.name?.message} />
+        <TextField label="Email" required type="email" autoComplete="email" registration={register("email")} error={e.email?.message} />
       </div>
       <div className="row2">
-        <TextField label="Phone" type="tel" autoComplete="tel" registration={register("phone")} error={e.phone?.message} />
+        <TextField label="Phone" required type="tel" autoComplete="tel" registration={register("phone")} error={e.phone?.message} />
         <TextField label="Company" autoComplete="organization" registration={register("company")} error={e.company?.message} />
       </div>
       <div className="row2">
@@ -35,7 +35,7 @@ export function AdvisoryForm() {
         <SelectField label="Stage" options={STAGES} registration={register("stage")} error={e.stage?.message} />
       </div>
       <TextareaField
-        label="What's the decision in front of you right now?"
+        label="What's the decision in front of you right now?" required
         rows={4}
         registration={register("decision")}
         error={e.decision?.message}

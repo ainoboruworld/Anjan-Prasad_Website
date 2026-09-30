@@ -36,15 +36,15 @@ export function ConsultationForm({ presetArea }: { presetArea?: string }) {
       onSubmit={handleSubmit((values) => mutation.mutate({ kind: "consultation", values }))}
     >
       <div className="row2">
-        <TextField label="Your name" autoComplete="name" registration={register("name")} error={e.name?.message} />
-        <TextField label="Email" type="email" autoComplete="email" registration={register("email")} error={e.email?.message} />
+        <TextField label="Your name" required autoComplete="name" registration={register("name")} error={e.name?.message} />
+        <TextField label="Email" required type="email" autoComplete="email" registration={register("email")} error={e.email?.message} />
       </div>
       <div className="row2">
         <SelectField label="I am" options={IDENTITIES} registration={register("identity")} error={e.identity?.message} />
-        <TextField label="Phone" type="tel" autoComplete="tel" registration={register("phone")} error={e.phone?.message} />
+        <TextField label="Phone" required type="tel" autoComplete="tel" registration={register("phone")} error={e.phone?.message} />
       </div>
       <SelectField label="Area you need help with" id="area" options={CONSULT_AREAS} registration={register("area")} error={e.area?.message} />
-      <TextareaField label="The decision you're facing" rows={4} registration={register("decision")} error={e.decision?.message} />
+      <TextareaField label="The decision you're facing" required rows={4} registration={register("decision")} error={e.decision?.message} />
 
       <SubmitButton pending={mutation.isPending}>Send request</SubmitButton>
       {mutation.isError && (

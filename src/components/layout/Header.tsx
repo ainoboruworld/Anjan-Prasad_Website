@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ApMark } from "../brand/ApMark";
@@ -16,6 +16,19 @@ export function Header() {
   const [openedAt, setOpenedAt] = useState<string | null>(null);
   const open = openedAt === pathname;
   const setOpen = (next: boolean) => setOpenedAt(next ? pathname : null);
+
+  // Programs dropdown: hover on desktop, click as well; closes on outside click.
+  const [ddOpen, setDdOpen] = useState(false);
+  const ddRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!ddOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (ddRef.current && !ddRef.current.contains(e.target as Node)) setDdOpen(false);
+    };
+    window.addEventListener("pointerdown", onDown);
+    return () => window.removeEventListener("pointerdown", onDown);
+  }, [ddOpen]);
+  useEffect(() => setDdOpen(false), [pathname]);
 
   // Lock body scroll while the sheet is open.
   useEffect(() => {
@@ -41,11 +54,20 @@ export function Header() {
           <div className="l">
             {NAV.map((item) =>
               item.children ? (
-                <div className="dd" key={item.label}>
-                  <span>
-                    {item.label} <small style={{ fontSize: 10 }}>▾</small>
-                  </span>
-                  <div className="menu">
+                <div className={`dd${ddOpen ? " open" : ""}`} key={item.label} ref={ddRef}>
+                  <button
+                    type="button"
+                    className="ddbtn"
+                    aria-haspopup="menu"
+                    aria-expanded={ddOpen}
+                    onClick={() => setDdOpen((o) => !o)}
+                  >
+                    {item.label}
+                    <svg viewBox="0 0 10 6" aria-hidden>
+                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  </button>
+                  <div className="menu" role="menu">
                     {item.children.map((c) => (
                       <Link key={c.href} href={c.href} className={isCurrent(c.href) ? "cur" : undefined}>
                         {c.label}
