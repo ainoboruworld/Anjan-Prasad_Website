@@ -4,6 +4,8 @@ import "./globals.css";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Loader } from "@/components/shared/Loader";
+import { NewsletterPopup } from "@/components/shared/NewsletterPopup";
 import { SITE } from "@/lib/data/site";
 import { env } from "@/lib/env";
 
@@ -90,9 +92,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSONLD) }} />
         <QueryProvider>
+          <Loader />
           <Header />
           {children}
           <Footer />
+          <NewsletterPopup />
         </QueryProvider>
       </body>
     </html>

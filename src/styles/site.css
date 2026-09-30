@@ -2346,3 +2346,267 @@ body.nav-open{overflow:hidden}
 /* Mobile hero: the portrait sits above the headline, so drop the desktop
    min-height and top padding that left a large empty band between them. */
 @media(max-width:900px){.hero .wrap{min-height:0;padding-top:28px}}
+
+/* ── Rhythm: one consistent, tighter gap between any two sections ───── */
+.sec,.kb,.close,.trust4,.rec,.life2,.jr,.bel,.story,.proof,.hear,.exp,.mani,.ask,.cases,.wheel{padding-top:56px!important;padding-bottom:56px!important}
+.trust4{padding-top:64px!important}
+.ph1{padding:128px 0 56px!important}
+.abz{padding:120px 0 52px!important}
+.rtop{margin-bottom:32px}
+.sh{margin-bottom:34px}
+@media(max-width:900px){
+.sec,.kb,.close,.trust4,.rec,.life2,.jr,.bel,.story,.proof,.hear,.exp,.mani,.ask,.cases,.wheel{padding-top:44px!important;padding-bottom:44px!important}
+.ph1{padding:112px 0 44px!important}
+.abz{padding:104px 0 40px!important}
+}
+
+/* ── Record band: stat tiles instead of a sparse grid ──────────────── */
+.rstats{gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;padding:0}
+.rstats div{background:var(--off);padding:30px 28px;display:flex;flex-direction:column;justify-content:center;transition:background .3s}
+.rstats div:hover{background:#ece8e0}
+.rstats b{font-size:clamp(44px,3.6vw,58px);letter-spacing:-.02em}
+.rstats i{font-size:.6em;margin-left:2px}
+.rstats small{margin-top:12px;font-size:13px;color:var(--harb)}
+.rstats small:before{content:"";display:block;width:22px;height:1px;background:var(--gold);margin-bottom:10px}
+.rfeat{padding:36px 36px 32px}
+.rfeat b{margin:22px 0 14px}
+@media(max-width:900px){.rstats div{padding:22px 18px}.rstats b{font-size:40px}}
+
+/* Contact list: sized to sit level with the form beside it. */
+.cl{margin-top:6px}
+.cl li{padding:11px 0}
+.cl a,.cl span{font-size:19px}
+.cgrid>div>p{max-width:440px}
+
+/* Home wheel: a more compact ring so the section reads in one screen. */
+#wheel-h .wring{max-width:420px}
+#wheel-h .whg{gap:40px;align-items:center}
+#wheel-h .wn{width:104px;gap:6px;font-size:12px}
+#wheel-h .wpanes{min-height:0!important}
+#wheel-h .wp{padding:30px 32px}
+#wheel-h .wp h3{font-size:clamp(24px,2.2vw,32px)}
+#wheel-h .whx{margin-bottom:26px}
+#wheel-h .whx h2{font-size:clamp(32px,3.2vw,46px)}
+
+/* Slim CTA strip placed between home sections. */
+.ctas{padding:0!important;background:var(--off)}
+.ctas .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:26px;padding-bottom:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ctas p{font:400 clamp(20px,2vw,26px)/1.25 var(--font-serif);color:var(--navy);margin:0}
+.ctas p em{color:var(--slate)}
+.ctas .cta{white-space:nowrap}
+.ctas.dark{background:var(--navy)}
+.ctas.dark .wrap{border-color:rgba(169,189,209,.18)}
+.ctas.dark p{color:var(--off)}
+.ctas.dark p em{color:#A9BDD1}
+@media(max-width:900px){.ctas .wrap{flex-direction:column;align-items:flex-start;gap:16px}}
+
+/* Knowledge Hub: chips sit right above the grid. */
+.ph1.ctr{padding-bottom:28px!important}
+.sec.hubs{padding-top:8px!important}
+
+/* About manifesto: shorter band. */
+.mani{padding-top:44px!important;padding-bottom:44px!important}
+.mani blockquote{margin:14px auto 18px;font-size:clamp(30px,3.6vw,52px)}
+
+/* Trust wall: supplied colour logos on white tiles. */
+.lg-tile{display:inline-flex;align-items:center;justify-content:center;width:150px;height:54px;padding:6px 12px;background:#fff;border-radius:10px;box-shadow:0 10px 24px -16px rgba(0,0,0,.7);transition:transform .3s,box-shadow .3s}
+.lg-tile img{display:block;height:100%;width:auto;max-width:100%;object-fit:contain}
+.lg-tile:hover{transform:translateY(-2px);box-shadow:0 16px 30px -16px rgba(0,0,0,.8)}
+.lg-tile.large{width:200px;height:70px;padding:8px 16px}
+.vc2 .vlg{display:flex;justify-content:center}
+.mq ul li{display:flex;align-items:center}
+.fac{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+@media(max-width:700px){.lg-tile{width:124px;height:46px}.lg-tile.large{width:170px;height:60px}}
+
+/* Article pages: use the full page width. */
+.art{padding-top:120px!important;padding-bottom:64px!important}
+.aw{max-width:1200px;padding:0 48px}
+.art h1{font-size:clamp(40px,4.6vw,68px);max-width:1000px}
+.art p{font-size:19px;line-height:1.7}
+.art .lead{font-size:clamp(24px,2.2vw,30px);max-width:1000px}
+.art h2{font-size:36px;max-width:1000px}
+.art #abody>img,.art #aalt>img{width:100%;border-radius:16px}
+.abn{aspect-ratio:21/9!important;margin-bottom:36px!important}
+.csb .csmx{grid-template-columns:repeat(4,1fr);gap:14px}
+.csb .csmx b{font-size:40px}
+.more-r{max-width:none;margin-top:56px;padding:36px 0 0}
+@media(max-width:900px){.aw{padding:0 20px}.csb .csmx{grid-template-columns:1fr 1fr}.abn{aspect-ratio:4/3!important}}
+
+/* Consultation diagnosis: calmer pane. */
+.dx .wnote{display:none}
+.dx .wp h3{font-size:clamp(26px,2.4vw,34px)!important;line-height:1.15;margin-bottom:18px!important;max-width:560px}
+.dx .wp ul{margin-bottom:16px!important}
+.dx .wp li{padding:8px 0 8px 22px!important;font-size:15px!important;border-top:0!important;color:var(--harb)}
+.dx .wp li:before{top:15px!important;left:2px;width:6px;height:6px;border:0;background:#CDB27A}
+.dx .whelp{font-size:15px;color:var(--harb);margin-bottom:22px;max-width:560px}
+.dx .whelp b{color:var(--navy)}
+.dx .wn{padding:10px 0!important;gap:14px!important}
+.dx .wn span{font-size:19px}
+.dx .wn em{font-size:11px}
+.dxh{margin-bottom:28px}
+.dxh h2{font-size:clamp(32px,3.4vw,48px)}
+.dxh p{font-size:14.5px;max-width:380px}
+.dxg{gap:44px!important;align-items:center}
+
+/* Record band: Fortune 500 mark in place of the "F500" figure. */
+.rstats b .rlogo{display:block;height:46px;width:auto;mix-blend-mode:multiply;margin:4px 0 6px}
+@media(max-width:900px){.rstats b .rlogo{height:36px}}
+
+/* ════════════════════════════════════════════════════════════════════
+   Radius tokens (Task: soft corners, one system, no hard-coded values)
+   --r-sm chips, small tiles, inputs, buttons · --r-md standard cards
+   --r-lg large panels · --r-pill tags, chips, round arrows
+   ════════════════════════════════════════════════════════════════════ */
+:root{--r-sm:12px;--r-md:18px;--r-lg:26px;--r-pill:999px;--shadow-card:0 24px 50px -36px rgba(11,26,46,.35);--line-soft:1px solid rgba(11,26,46,.07)}
+@media(max-width:900px){:root{--r-lg:20px}}
+
+/* Buttons and inputs (gold CTAs were square). */
+.cta,.cta2,.btn2{border-radius:var(--r-sm)!important}
+.fm input,.fm select,.fm textarea{border-radius:var(--r-sm)!important}
+nav .burger{border-radius:var(--r-sm)!important}
+.skip{border-radius:var(--r-sm)!important}
+.lg-tile{border-radius:var(--r-sm)!important}
+.pc .im,.pc{border-radius:var(--r-sm)!important;overflow:hidden}
+.mr .im{border-radius:var(--r-sm)!important}
+.tiles span{border-radius:var(--r-sm)!important}
+.srch input{border-radius:var(--r-pill)!important}
+.vc .pl{border-radius:var(--r-sm)!important}
+.mos figure{border-radius:var(--r-sm)!important}
+.cvdots button{border-radius:var(--r-pill)!important}
+.cvm div,.ccm div,.csb .csmx div,.cvv blockquote,.csq{border-radius:var(--r-sm)!important}
+
+/* Pills: tags, filter chips, round arrows, flags. */
+.chips button,.ph-flag,.abz-tag,.abh .tag,.csb .tags span,.cvc span,.cst,.snext span,.sprev span,.pills span{border-radius:var(--r-pill)!important}
+.ctl button,.cvctl button,.snav button,.ccp,.ccn,.mclose{border-radius:var(--r-pill)!important}
+
+/* Standard cards. */
+.cc,.ac,.wp,.csp,.vc2,.fm,.grid,.mq-card,.kh .ac,.dd .menu,.mnav,.vc{border-radius:var(--r-md)!important}
+.ac{overflow:hidden;background:#fff;border:var(--line-soft);box-shadow:var(--shadow-card)}
+.ac .im{border-radius:0!important}
+.cc{border:var(--line-soft);box-shadow:var(--shadow-card)}
+.dd .menu{overflow:hidden;box-shadow:var(--shadow-card)}
+.fm{background:transparent}
+.apply .fm{border-radius:var(--r-md)!important}
+
+/* Large panels. */
+.rfeat,.rstats,.cv,.abn,.abz-ph,.feat,.trust4 .ven,.dx .wp{border-radius:var(--r-lg)!important}
+.rstats{overflow:hidden}
+.abn,.abz-ph,.feat,.cv{overflow:hidden}
+.art #abody>img,.art #aalt>img{border-radius:var(--r-md)!important}
+
+/* Soft shadows, no harsh borders. */
+.cv{box-shadow:var(--shadow-card)!important;border:var(--line-soft)!important}
+.csp{box-shadow:var(--shadow-card)!important}
+.abz-ph{box-shadow:var(--shadow-card)!important}
+
+/* ════════════════════════════════════════════════════════════════════
+   Responsive pass
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Wide screens (Mac and larger monitors): let the layout breathe less
+   white, more content. */
+@media(min-width:1440px){
+.wrap{max-width:1320px}
+.hero .stage{right:max(24px,calc((100vw - 1320px)/2));width:min(42vw,640px)}
+.aw{max-width:1320px}
+}
+
+/* Mobile: 16px gutters, readable body text, comfortable tap targets. */
+@media(max-width:900px){
+.wrap{padding:0 16px}
+.aw{padding:0 16px}
+body{font-size:15px}
+.art p,.wp li,.dx .wp li{font-size:15px!important}
+.mr small,.ac .b small{font-size:12px}
+.cl a,.cl span{padding:4px 0;display:inline-block}
+.chips button{min-height:44px;padding:10px 16px}
+.ctl button,.cvctl button,.snav button,.ccp,.ccn{width:44px;height:44px}
+.dx .wn{min-height:44px}
+nav .burger{width:44px;height:44px}
+.fb a{padding:10px 0;display:inline-block}
+footer .ft7 a{padding:6px 0}
+.nlf button{min-height:44px}
+.cta,.cta2,.btn2{min-height:44px}
+/* Hero: portrait below the text, headline scales. */
+.hero .wrap{padding-top:24px}
+.hero h1{font-size:clamp(34px,9.6vw,44px)}
+.hero p{font-size:15.5px;max-width:none}
+/* Marquees: slightly smaller logos, keep the edge fade. */
+.lg-tile{width:112px;height:42px;padding:5px 10px}
+.lg-tile.large{width:156px;height:56px}
+.mq ul{gap:40px;padding-right:40px}
+/* Case cards: one swipeable card at 85% width. */
+.ccrow{gap:14px;padding-bottom:22px}
+.cc{flex:0 0 85%!important}
+/* 360° home ring scales to the screen; pane sits below (grid is already
+   one column under 900). */
+#wheel-h .wring{max-width:min(88vw,360px)}
+#wheel-h .wn{width:92px;font-size:10.5px;gap:4px}
+#wheel-h .wn b{font-size:10.5px;line-height:1.25}
+#wheel-h .whub small{font-size:10px}
+#wheel-h .wp{padding:22px 18px}
+/* Forms: full-width rows. */
+.row2{gap:14px}
+}
+@media(max-width:480px){
+.hero .stage{height:380px}
+#wheel-h .wn{width:84px}
+}
+
+/* Mobile menu: full-screen off-white panel, large centred serif links. */
+.mnav{background:var(--off);color:var(--navy);text-align:center;padding:96px 16px 40px;border-radius:0!important}
+.mnav > a{font:400 clamp(30px,8.5vw,38px)/1.2 var(--font-serif);border-bottom:0;padding:12px 0;color:var(--navy)}
+.mnav > a em{color:var(--slate)}
+.mnav small{color:var(--slate);margin:26px 0 4px}
+.mnav .mclose{border:1px solid rgba(11,26,46,.18);color:var(--navy);width:44px;height:44px}
+.mnav .mcta{display:flex;justify-content:center}
+
+/* ════════════════════════════════════════════════════════════════════
+   360° first-visit loader
+   ════════════════════════════════════════════════════════════════════ */
+.ldr{position:fixed;inset:0;z-index:200;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px}
+.ldr .ring360{width:170px;height:170px;position:relative;display:flex;align-items:center;justify-content:center}
+.ldr .ring360>svg:not(.ap){position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ldr circle{fill:none;stroke:var(--gold);stroke-width:1.5;stroke-dasharray:502.65;stroke-dashoffset:502.65;animation:ldraw 1.1s ease-in-out forwards}
+.ldr .ap{width:64px;height:auto;opacity:0;animation:lfade .7s .3s ease forwards}
+.ldr .cap{font:500 11px var(--font-sans);letter-spacing:.3em;text-transform:uppercase;color:var(--blue);opacity:0;animation:lfade .6s .55s ease forwards}
+.ldr.out .ring360{animation:lgrow .45s ease-in forwards}
+.ldr.out{animation:llift .45s .05s ease forwards}
+@keyframes ldraw{to{stroke-dashoffset:0}}
+@keyframes lfade{to{opacity:1}}
+@keyframes lgrow{to{transform:scale(6);opacity:0}}
+@keyframes llift{to{opacity:0;visibility:hidden}}
+/* Hero rises in after the loader. */
+.ldr-done .hero .wrap>*{animation:hrise .7s ease both}
+.ldr-done .hero .wrap>*:nth-child(2){animation-delay:.08s}
+.ldr-done .hero .wrap>*:nth-child(3){animation-delay:.16s}
+@keyframes hrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ldr{display:none}.ldr-done .hero .wrap>*{animation:none}}
+
+/* ════════════════════════════════════════════════════════════════════
+   Newsletter pop-up
+   ════════════════════════════════════════════════════════════════════ */
+.nlp{position:fixed;right:24px;bottom:24px;z-index:150;width:380px;max-width:calc(100vw - 32px);background:var(--off);color:var(--navy);border-radius:var(--r-md);box-shadow:0 24px 50px -30px rgba(11,26,46,.5);border:var(--line-soft);overflow:hidden;transform:translateY(24px);opacity:0;transition:transform .45s ease,opacity .45s ease}
+.nlp.show{transform:none;opacity:1}
+.nlp:before{content:"";display:block;height:2px;background:var(--gold)}
+.nlp .inner{padding:22px 24px 24px}
+.nlp .lab{display:block;margin-bottom:8px}
+.nlp h3{font:400 26px/1.15 var(--font-serif);margin-bottom:8px}
+.nlp p{font-size:14px;line-height:1.6;color:var(--harb);margin-bottom:16px}
+.nlp form{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
+.nlp input{border:1px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:12px 14px;font:400 15px var(--font-sans);color:var(--navy);outline:0;min-height:44px}
+.nlp input:focus{border-color:var(--gold)}
+.nlp button[type=submit]{grid-column:1/-1;border:0;background:var(--gold);color:var(--navy);border-radius:var(--r-sm);padding:13px 18px;font:500 14px var(--font-sans);cursor:pointer;min-height:44px}
+.nlp button[type=submit]:hover{background:#D9C08C}
+.nlp .later{display:inline-block;margin-top:12px;font:400 13px var(--font-sans);color:var(--slate);background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:6px 0}
+.nlp .x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:var(--r-pill);border:0;background:transparent;color:var(--slate);font-size:18px;cursor:pointer;line-height:1}
+.nlp .x:hover{color:var(--navy)}
+.nlp .done-msg{font-size:14.5px;color:var(--harb)}
+@media(max-width:700px){.nlp{right:0;left:0;bottom:0;width:100%;max-width:none;border-radius:var(--r-md) var(--r-md) 0 0;transform:translateY(100%)}.nlp.show{transform:none}}
+@media(prefers-reduced-motion:reduce){.nlp{transition:none}}
+
+/* Loader: pin the monogram to the exact circle centre. */
+.ldr .ap{position:absolute;inset:0;margin:auto;width:64px;height:58px}
+/* Pop-up: inputs shrink inside the grid instead of overflowing the card. */
+.nlp input{min-width:0;width:100%}
+.nlp form{grid-template-columns:1fr 1.3fr}

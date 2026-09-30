@@ -15,6 +15,18 @@ export function logoSrc(slug: string, colour = false): string {
   return `/brand-logos/${slug}${colour ? "-colour" : ""}.png`;
 }
 
+/** Full-colour logo on white, as supplied (212×72), for the white tiles. */
+export function tileSrc(slug: string): string {
+  return `/brand-logos/${slug}-tile.png`;
+}
+
+/** Brands supplied as 212×72 colour tiles; the rest use their `-colour` file. */
+export const HAS_TILE = new Set([
+  "fortune-500", "aditya-birla-capital", "american-express", "bml-munjal", "black-decker", "cheapoair", "dabur",
+  "digit", "filing-buddy", "google", "iift", "imt-ghaziabad", "kfc", "lushful", "motorola", "niit", "noboru-world",
+  "pizza-hut", "pwc", "snapdeal", "sony", "tata-housing", "tommy-hilfiger", "akounto", "urban-kisaan",
+]);
+
 export const VENTURES: (BrandLogo & { role: string })[] = [
   { slug: "noboru-world", name: "Noboru World", width: 108, height: 37, role: "01 · Founder & CEO" },
   { slug: "lushful", name: "Lushful", width: 130, height: 31, role: "02 · Co-founder" },
@@ -22,6 +34,7 @@ export const VENTURES: (BrandLogo & { role: string })[] = [
 ];
 
 export const COMPANIES_ADVISED: BrandLogo[] = [
+  { slug: "fortune-500", name: "Fortune 500", width: 150, height: 44 },
   { slug: "american-express", name: "American Express", width: 150, height: 10 },
   { slug: "sony", name: "Sony", width: 149, height: 27 },
   { slug: "dabur", name: "Dabur", width: 49, height: 44 },

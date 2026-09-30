@@ -25,9 +25,6 @@ export function Testimonials() {
           <h2>
             In their <em>own words.</em>
           </h2>
-          <span className="ph-flag" style={{ margin: "14px 0 0" }}>
-            Placeholder: replace with real quotes
-          </span>
           <div className="ctl">
             <button type="button" aria-label="Previous" onClick={() => { setPaused(true); go(-1); }}>
               ←

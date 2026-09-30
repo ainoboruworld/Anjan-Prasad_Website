@@ -63,7 +63,7 @@ export function HubExplorer({ articles, initialCategory }: { articles: Article[]
         </div>
       </header>
 
-      <section className="sec" style={{ paddingTop: 20 }}>
+      <section className="sec hubs">
         <div className="wrap">
           <p className="empty" id="empty" style={{ display: empty ? "block" : "none" }} aria-live="polite">
             Nothing here yet. <span>Meanwhile, here are three good places to start.</span>
