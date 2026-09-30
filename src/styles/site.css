@@ -2623,3 +2623,18 @@ footer .ft7 a{padding:6px 0}
 .secta .ul{font-size:14.5px;color:var(--slate);align-self:center}
 .tst2 .tcta{margin-top:26px;align-self:flex-start}
 @media(max-width:900px){.secta{flex-direction:column;align-items:flex-start;gap:16px;margin-top:28px}}
+
+/* Home 360° ring: quiet by default. Only the active or hovered area shows
+   its name; the rest are simple icons on the orbit. */
+#wheel-h .wn b{opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s;line-height:1.25}
+#wheel-h .wn.on b,#wheel-h .wn:hover b,#wheel-h .wn:focus-visible b{opacity:1;transform:none}
+#wheel-h .wn .wi{width:46px;height:46px}
+#wheel-h .wn{width:110px;gap:8px}
+#wheel-h .wring{max-width:440px}
+#wheel-h .whg{gap:64px}
+#wheel-h .whx p{max-width:400px;font-size:14.5px}
+@media(max-width:900px){
+/* On touch screens there is no hover, so keep the small labels visible. */
+#wheel-h .wn b{opacity:1;transform:none}
+#wheel-h .wring{max-width:min(88vw,360px)}
+}
