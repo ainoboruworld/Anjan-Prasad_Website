@@ -1,4 +1,4 @@
-import { LogoBox } from "../ui/LogoTile";
+import { LogoTile } from "../ui/LogoTile";
 import { CAREER, COMPANIES_ADVISED, FACULTY, VENTURES, type BrandLogo } from "@/lib/data/brands";
 
 function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boolean }) {
@@ -6,7 +6,7 @@ function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boo
     <ul aria-hidden={hidden || undefined}>
       {logos.map((l) => (
         <li key={l.slug}>
-          <LogoBox logo={l} />
+          <LogoTile logo={l} />
         </li>
       ))}
     </ul>
@@ -37,7 +37,7 @@ export function TrustWall() {
             <div className="vc2" key={v.slug} style={{ ["--d" as string]: `${i * 90}ms` }}>
               <small>{v.role}</small>
               <b className="vlg">
-                <LogoBox logo={v} large />
+                <LogoTile logo={v} />
               </b>
             </div>
           ))}
@@ -62,7 +62,7 @@ export function TrustWall() {
           </div>
           <div className="fac">
             {FACULTY.map((l) => (
-              <LogoBox key={l.slug} logo={l} />
+              <LogoTile key={l.slug} logo={l} />
             ))}
           </div>
         </div>

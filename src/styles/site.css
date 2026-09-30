@@ -2610,3 +2610,7 @@ footer .ft7 a{padding:6px 0}
 /* Pop-up: inputs shrink inside the grid instead of overflowing the card. */
 .nlp input{min-width:0;width:100%}
 .nlp form{grid-template-columns:1fr 1.3fr}
+
+/* Trust wall: back to transparent logos directly on navy (no white tiles). */
+.trust4 .lg-tile{display:none}
+.fac{gap:28px}
