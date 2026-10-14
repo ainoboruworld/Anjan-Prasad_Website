@@ -23,15 +23,6 @@ export default async function KnowledgeHubPage({
     <main className="pg on" data-p="knowledge" id="main">
       <HubExplorer articles={articles} initialCategory={cat} />
 
-      <section className="sec">
-        <div className="wrap">
-          <div className="secta">
-            <p>Reading is a start. A session moves the decision.</p>
-            <Cta href="/business-advisory#capply">Book a consultation</Cta>
-          </div>
-        </div>
-      </section>
-
       <section className="ask">
         <div className="wrap">
           <div>

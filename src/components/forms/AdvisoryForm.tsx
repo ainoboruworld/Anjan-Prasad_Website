@@ -1,17 +1,24 @@
 "use client";
 
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { advisorySchema, HEARD_FROM, STAGES, type AdvisoryValues } from "@/lib/validation/schemas";
+import { advisorySchema, CONSULT_AREAS, HEARD_FROM, STAGES, type AdvisoryValues } from "@/lib/validation/schemas";
 import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
 
-/** Advisory or mentorship application → /api/leads (kind prop decides). */
-export function AdvisoryForm({ kind = "advisory" }: { kind?: "advisory" | "mentorship" }) {
-  const { register, handleSubmit, formState } = useForm<AdvisoryValues>({
+/**
+ * Advisory application → /api/leads (kind: "advisory"). `presetArea` is set
+ * by the diagnosis picker's CTA ("Book a consultation on finance").
+ */
+export function AdvisoryForm({ presetArea }: { presetArea?: string }) {
+  const { register, handleSubmit, formState, setValue } = useForm<AdvisoryValues>({
     resolver: zodResolver(advisorySchema),
-    defaultValues: { stage: "Idea stage", heardFrom: "LinkedIn" },
+    defaultValues: { stage: "Idea stage", heardFrom: "LinkedIn", area: presetArea ?? "Not sure yet" },
   });
+  useEffect(() => {
+    if (presetArea) setValue("area", presetArea, { shouldDirty: true });
+  }, [presetArea, setValue]);
   const mutation = useSubmitLead();
   const e = formState.errors;
   const done = mutation.isSuccess;
@@ -20,7 +27,7 @@ export function AdvisoryForm({ kind = "advisory" }: { kind?: "advisory" | "mento
     <form
       className={`fm${done ? " done" : ""}`}
       noValidate
-      onSubmit={handleSubmit((values) => mutation.mutate({ kind, values }))}
+      onSubmit={handleSubmit((values) => mutation.mutate({ kind: "advisory", values }))}
     >
       <div className="row2">
         <TextField label="Your name" required autoComplete="name" registration={register("name")} error={e.name?.message} />
@@ -34,6 +41,7 @@ export function AdvisoryForm({ kind = "advisory" }: { kind?: "advisory" | "mento
         <TextField label="Website" placeholder="https://" inputMode="url" registration={register("website")} error={e.website?.message} />
         <SelectField label="Stage" options={STAGES} registration={register("stage")} error={e.stage?.message} />
       </div>
+      <SelectField label="Area you need help with" id="area" options={CONSULT_AREAS} registration={register("area")} error={e.area?.message} />
       <TextareaField
         label="What's the decision in front of you right now?" required
         rows={4}

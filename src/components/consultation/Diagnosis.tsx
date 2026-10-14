@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ConsultationForm } from "../forms/ConsultationForm";
+import { AdvisoryForm } from "../forms/AdvisoryForm";
 import { WheelPanes } from "../shared/WheelPanes";
 import { AREAS, findArea, type AreaKey } from "@/lib/data/areas";
 
@@ -118,7 +118,7 @@ export function Diagnosis({ initialKey }: { initialKey?: string }) {
             </h2>
             <p>Share a little about where you are. I&rsquo;ll come back with a time that works.</p>
           </div>
-          <ConsultationForm presetArea={presetArea} />
+          <AdvisoryForm presetArea={presetArea} />
         </div>
       </section>
     </>

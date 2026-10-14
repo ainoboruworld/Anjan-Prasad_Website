@@ -38,15 +38,12 @@ export const advisorySchema = z.object({
   company: z.string().trim().max(160).optional().or(z.literal("")),
   website: z.string().trim().max(200).optional().or(z.literal("")),
   stage: z.enum(STAGES),
+  area: z.string().trim().max(80).optional().or(z.literal("")),
   decision: z.string().trim().min(10, "Tell me a little more about the decision"),
   tried: z.string().trim().max(4000).optional().or(z.literal("")),
   heardFrom: z.enum(HEARD_FROM),
 });
 export type AdvisoryValues = z.infer<typeof advisorySchema>;
-
-/* ── Mentorship application (same shape as advisory) ────────────────────── */
-export const mentorshipSchema = advisorySchema;
-export type MentorshipValues = z.infer<typeof mentorshipSchema>;
 
 /* ── Consultation request ───────────────────────────────────────────────── */
 export const consultationSchema = z.object({
@@ -101,7 +98,7 @@ export type LeadKind = (typeof LEAD_KINDS)[number];
 export const leadRequestSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("advisory"), values: advisorySchema, sourcePage: z.string().optional() }),
   z.object({ kind: z.literal("consultation"), values: consultationSchema, sourcePage: z.string().optional() }),
-  z.object({ kind: z.literal("mentorship"), values: mentorshipSchema, sourcePage: z.string().optional() }),
+  z.object({ kind: z.literal("mentorship"), values: consultationSchema, sourcePage: z.string().optional() }),
   z.object({ kind: z.literal("speaking"), values: speakingSchema, sourcePage: z.string().optional() }),
   z.object({ kind: z.literal("contact"), values: contactSchema, sourcePage: z.string().optional() }),
 ]);

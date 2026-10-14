@@ -25,7 +25,6 @@ function flatten(input: LeadRequest): Record<string, string | undefined> {
   const v = input.values as Record<string, string | undefined>;
   switch (input.kind) {
     case "advisory":
-    case "mentorship":
       return {
         Name: v.name,
         Email: v.email,
@@ -33,12 +32,14 @@ function flatten(input: LeadRequest): Record<string, string | undefined> {
         Company: v.company,
         Website: v.website,
         Stage: v.stage,
+        Area: v.area,
         "The decision": v.decision,
         "Already tried": v.tried,
         "Heard about me via": v.heardFrom,
         Page: input.sourcePage,
       };
     case "consultation":
+    case "mentorship":
       return {
         Name: v.name,
         Email: v.email,

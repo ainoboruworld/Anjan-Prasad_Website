@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
-import { AdvisoryForm } from "@/components/forms/AdvisoryForm";
+import { ConsultationForm } from "@/components/forms/ConsultationForm";
 
 export const metadata: Metadata = {
   title: "Mentorship",
@@ -98,7 +98,7 @@ export default function MentorshipPage() {
             <p>There&rsquo;s no fee to apply and no sales call. I read every form and reply personally.</p>
             <Signature />
           </div>
-          <AdvisoryForm kind="mentorship" />
+          <ConsultationForm kind="mentorship" />
         </div>
       </section>
     </main>

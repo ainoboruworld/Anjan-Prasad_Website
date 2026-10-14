@@ -13,10 +13,16 @@ import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
 
 /**
- * Consultation request → /api/leads (kind: "consultation"). `presetArea` is
- * set by the diagnosis picker's CTA ("Book a consultation on finance").
+ * Consultation or mentorship request → /api/leads (kind prop decides).
+ * `presetArea` is set by the diagnosis picker's CTA.
  */
-export function ConsultationForm({ presetArea }: { presetArea?: string }) {
+export function ConsultationForm({
+  presetArea,
+  kind = "consultation",
+}: {
+  presetArea?: string;
+  kind?: "consultation" | "mentorship";
+}) {
   const { register, handleSubmit, formState, setValue } = useForm<ConsultationValues>({
     resolver: zodResolver(consultationSchema),
     defaultValues: { identity: "Running a business", area: presetArea ?? "Not sure yet" },
@@ -33,7 +39,7 @@ export function ConsultationForm({ presetArea }: { presetArea?: string }) {
     <form
       className={`fm${done ? " done" : ""}`}
       noValidate
-      onSubmit={handleSubmit((values) => mutation.mutate({ kind: "consultation", values }))}
+      onSubmit={handleSubmit((values) => mutation.mutate({ kind, values }))}
     >
       <div className="row2">
         <TextField label="Your name" required autoComplete="name" registration={register("name")} error={e.name?.message} />
