@@ -2779,3 +2779,7 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* "How I work" quote slideshow */
 .mani blockquote.qsl{opacity:0;transition:opacity .25s ease;min-height:2.6em}
 .mani blockquote.qsl.on{opacity:1}
+
+/* Home wheel: punchy stat line per area; hidden on the advisory picker */
+.wp .wstat{font:italic 400 17.5px/1.55 var(--font-serif);color:#D5DEE7;margin:0 0 24px;padding-left:16px;border-left:2px solid #CDB27A}
+.dx .wstat{display:none}
