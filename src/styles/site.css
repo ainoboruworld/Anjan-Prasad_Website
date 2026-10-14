@@ -2739,8 +2739,8 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* Logos show their colour versions at rest on every device; hover only
    lifts and brightens. A slight brightness lift keeps the darker marks
    readable on navy. */
-.mq .lx .lt,.fac .lx .lt,.vc2 .lx .lt{opacity:0!important}
-.mq .lx .lc2,.fac .lx .lc2,.vc2 .lx .lc2{opacity:.94!important;filter:brightness(1.18) saturate(1.05)}
+.mq .lx .lt,.fac .lx .lt{opacity:0!important}
+.mq .lx .lc2,.fac .lx .lc2{opacity:.94!important;filter:brightness(1.18) saturate(1.05)}
 .mq .lx:hover .lc2,.fac .lx:hover .lc2{opacity:1!important;filter:brightness(1.3) saturate(1.05)}
 .trust4 .lx .lt{opacity:0!important}
 .trust4 .lx .lc2{opacity:.94!important;filter:brightness(1.18) saturate(1.05)}
@@ -2761,8 +2761,9 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 #wheel-h .whx{justify-content:center;text-align:center;margin-bottom:34px}
 @media(max-width:900px){#wheel-h .whx{align-items:center}}
 
-/* Venture logos sit on a soft off-white chip so their true brand colours
-   (Lushful's deep green, Filing Buddy's navy) stay readable on the navy card. */
-.vc2 .vlg{background:rgba(244,241,235,.97);border-radius:12px;padding:14px 22px;box-shadow:inset 0 0 0 1px rgba(11,26,46,.06)}
-.vc2 .vlg .lx .lt{opacity:0!important}
-.vc2 .vlg .lx .lc2{opacity:1!important;filter:none}
+/* Venture logos: the light tinted mark at rest (their colour versions are
+   dark-on-light and vanish on navy), the real colours on hover. */
+.vc2 .lx .lt{opacity:1!important}
+.vc2 .lx .lc2{opacity:0!important;filter:none}
+.vc2 .lx:hover .lt{opacity:0!important}
+.vc2 .lx:hover .lc2{opacity:1!important}
