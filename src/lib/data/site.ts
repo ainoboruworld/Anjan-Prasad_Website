@@ -85,11 +85,8 @@ export const VIDEOS = [
 
 /** "Off the clock" photo strip. Placeholders until Anjan's own photos arrive. */
 export const LIFE_PHOTOS = [
-  { src: "/images/life-1.jpg", tag: "Weekday", caption: "Early mornings, before the calls begin", rotate: "-2.5deg" },
-  { src: "/images/life-2.jpg", tag: "At the desk", caption: "Coffee and a notebook", rotate: "1.8deg" },
-  { src: "/images/life-3.jpg", tag: "Weekend", caption: "Time by the water", rotate: "-1.2deg" },
-  { src: "/images/life-4.jpg", tag: "Getaways", caption: "Somewhere quiet to think", rotate: "2.4deg" },
-  { src: "/images/life-5.jpg", tag: "Evenings", caption: "Winding down", rotate: "-1.8deg" },
+  { src: "/images/life-2.jpg", tag: "At the desk", caption: "Coffee and a notebook", rotate: "-1.8deg" },
+  { src: "/images/life-4.jpg", tag: "Getaways", caption: "Somewhere quiet to think", rotate: "2.2deg" },
 ] as const;
 
 export const TESTIMONIALS = [
