@@ -55,7 +55,7 @@ export default function AboutPage() {
         <div className="wrap">
           <div className="abz-ph">
             <Image src="/images/portrait-anjan-2.jpg" alt="Anjan Prasad" width={900} height={1125} priority sizes="(max-width: 900px) 100vw, 420px" />
-            <span className="abz-tag">Founder · Noboru World</span>
+            <span className="abz-tag">Serial entrepreneur</span>
           </div>
           <div className="abz-tx">
             <span className="lab">About me</span>
