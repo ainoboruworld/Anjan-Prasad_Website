@@ -10,17 +10,45 @@ export const metadata: Metadata = {
   alternates: { canonical: "/mentorship" },
 };
 
-const WHO = [
-  { n: "01", h: "You're early", p: "An idea taking shape, or a young startup finding its footing and its first customers." },
-  { n: "02", h: "You're all in", p: "This is not a side project. You're building something you intend to run for years." },
-  { n: "03", h: "You want a partner", p: "Not a course or a cheering squad. Someone who has built businesses, at your table." },
+const DIFF = [
+  {
+    n: "01",
+    h: "Advisory solves a decision",
+    p: "You bring a specific problem, we work it through, and you leave with a clear next step. It can be one session or a few.",
+  },
+  {
+    n: "02",
+    h: "Mentorship builds a founder",
+    p: "No single problem to solve. We work on you and the business together, over months and years, through whatever comes.",
+  },
+  {
+    n: "03",
+    h: "Sometimes, with equity",
+    p: "For a few startups I believe in deeply, I take part of my commitment in equity. Skin in the game, both ways.",
+  },
 ];
 
-const STEPS = [
-  { n: "01", h: "You apply", p: "A short form about you, the business and where you want to take it." },
-  { n: "02", h: "I read it myself", p: "Every application. I take on very few mentees, so I reply honestly either way." },
-  { n: "03", h: "We meet", p: "A real conversation about the business, the numbers and the founder behind them." },
-  { n: "04", h: "We commit", p: "If it's a fit, we agree how we work: cadence, scope, and sometimes equity." },
+const YEAR = [
+  {
+    n: "01",
+    h: "A monthly deep dive",
+    p: "One long working session a month: the numbers, the team, the one thing that matters most right now.",
+  },
+  {
+    n: "02",
+    h: "A message away",
+    p: "Between sessions you don't wait for a slot. A vendor quote, a hire, a pricing call: send it, I answer.",
+  },
+  {
+    n: "03",
+    h: "Quarterly honesty",
+    p: "Every quarter we stop and compare the business to where we said it would be. No stories, just the numbers.",
+  },
+  {
+    n: "04",
+    h: "Doors, not just advice",
+    p: "My network becomes yours: agencies, vendors, lawyers, operators and the people I'd call for my own companies.",
+  },
 ];
 
 export default function MentorshipPage() {
@@ -33,34 +61,56 @@ export default function MentorshipPage() {
             A seat at your table, <em>for the whole journey.</em>
           </h1>
           <p>
-            Advisory solves a decision. Mentorship is longer than that: I work with a small number of early-stage
-            founders over months and years, sometimes with equity, always with skin in the game.
+            I mentor a small number of early-stage founders the way I wish someone had mentored me: long-term, hands-on
+            and honest, sometimes with equity, always with skin in the game.
           </p>
           <Cta href="#apply">Apply for mentorship</Cta>
         </div>
       </header>
 
+      <section className="sec ways">
+        <div className="wrap wy2">
+          <div>
+            <span className="lab">Not another program</span>
+            <h2>
+              This is the <em>long game.</em>
+            </h2>
+          </div>
+          <div className="tx">
+            <p className="big">
+              Advisory answers a question. Mentorship walks the road. I take very few mentees at a time, because this
+              only works when I know your business almost as well as <b>you</b> do.
+            </p>
+            <p>
+              It&rsquo;s for founders near the start: an idea taking shape, or a young startup finding its first
+              customers. You don&rsquo;t need a polished deck. You need to be all in, and honest about where you are.
+            </p>
+            <p className="sm">Running an established business with one decision in front of you? Advisory is the faster door.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="sec">
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">Who it&rsquo;s for</span>
+              <span className="lab">How it differs</span>
               <h2>
-                Founders near <em>the start.</em>
+                Advisory solves. <em>Mentorship builds.</em>
               </h2>
             </div>
           </div>
           <div className="c3 plain">
-            {WHO.map((w) => (
-              <div key={w.n}>
-                <span className="lab">{w.n}</span>
-                <h3>{w.h}</h3>
-                <p>{w.p}</p>
+            {DIFF.map((d) => (
+              <div key={d.n}>
+                <span className="lab">{d.n}</span>
+                <h3>{d.h}</h3>
+                <p>{d.p}</p>
               </div>
             ))}
           </div>
           <div className="secta">
-            <p>Further along, with one decision in front of you?</p>
+            <p>Need the faster door instead?</p>
             <Cta href="/business-advisory#capply">Book a consultation</Cta>
           </div>
         </div>
@@ -70,14 +120,14 @@ export default function MentorshipPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">How it works</span>
+              <span className="lab">The rhythm</span>
               <h2>
-                Few seats, <em>taken seriously.</em>
+                What a year together <em>looks like.</em>
               </h2>
             </div>
           </div>
           <ol className="st4">
-            {STEPS.map((s) => (
+            {YEAR.map((s) => (
               <li key={s.n}>
                 <b>{s.n}</b>
                 <h3>{s.h}</h3>
@@ -93,9 +143,12 @@ export default function MentorshipPage() {
           <div className="al">
             <span className="lab">Application</span>
             <h2>
-              Tell me about <em>your business.</em>
+              Tell me your <em>story.</em>
             </h2>
-            <p>There&rsquo;s no fee to apply and no sales call. I read every form and reply personally.</p>
+            <p>
+              Not a pitch. Just where you are, what you&rsquo;re building and why it matters to you. I take on very few
+              mentees, so I reply honestly either way.
+            </p>
             <Signature />
           </div>
           <ConsultationForm kind="mentorship" />

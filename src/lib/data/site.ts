@@ -26,7 +26,7 @@ export const NAV: NavItem[] = [
     label: "Programs",
     href: "/business-advisory",
     children: [
-      { label: "Advisory & Consulting", href: "/business-advisory" },
+      { label: "Business Advisory", href: "/business-advisory" },
       { label: "Mentorship", href: "/mentorship" },
     ],
   },
