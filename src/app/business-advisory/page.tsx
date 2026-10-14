@@ -4,7 +4,7 @@ import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
 
 export const metadata: Metadata = {
-  title: "Advisory & Consulting",
+  title: "Business Advisory",
   description:
     "Clear decisions for founders who are building for the long run. Business advisory and one-to-one consulting with Anjan Prasad, from a single session to an ongoing seat at your table.",
   alternates: { canonical: "/business-advisory" },
@@ -34,7 +34,7 @@ export default async function BusinessAdvisoryPage({
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Programs · Advisory &amp; Consulting</span>
+          <span className="lab">Programs · Business Advisory</span>
           <h1>
             Clear decisions for founders <em>who are building for the long run.</em>
           </h1>

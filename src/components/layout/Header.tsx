@@ -105,7 +105,7 @@ export function Header() {
           ×
         </button>
         <small>Programs</small>
-        <Link href="/business-advisory">Advisory &amp; Consulting</Link>
+        <Link href="/business-advisory">Business Advisory</Link>
         <Link href="/mentorship">Mentorship</Link>
         <small>More</small>
         <Link href="/knowledge-hub">Knowledge Hub</Link>
