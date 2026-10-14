@@ -109,7 +109,7 @@ export function Header() {
         <Link href="/mentorship">Mentorship</Link>
         <small>More</small>
         <Link href="/knowledge-hub">Knowledge Hub</Link>
-        <Link href="/speaking">Speaking</Link>
+        <Link href="/speaking">Speaker</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
         <div className="mcta">

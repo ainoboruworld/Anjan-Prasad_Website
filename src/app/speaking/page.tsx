@@ -4,7 +4,7 @@ import { Signature } from "@/components/ui/Signature";
 import { SpeakingForm } from "@/components/forms/SpeakingForm";
 
 export const metadata: Metadata = {
-  title: "Speaking",
+  title: "Speaker",
   description:
     "Invite Anjan Prasad to your podcast, business school or event. Fifteen plus years of building and advising profitable businesses, told plainly, with real numbers.",
   alternates: { canonical: "/speaking" },
@@ -52,7 +52,7 @@ export default function SpeakingPage() {
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Speaking</span>
+          <span className="lab">Speaker</span>
           <h1>
             Ask him anything. <em>He has run the numbers.</em>
           </h1>
