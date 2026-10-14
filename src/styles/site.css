@@ -2822,4 +2822,7 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .csb ul li::marker{color:#CDB27A}
 
 /* Case study photos: natural size, centred, premium frame */
-.art #aalt img,.art #abody img{max-width:min(100%,420px);margin:26px auto 12px;display:block;border:1px solid var(--line);box-shadow:0 10px 30px rgba(11,26,46,.08)}
+.art #aalt img,.art #abody img{max-width:min(100%,520px);margin:28px auto 12px;display:block;border:1px solid var(--line);box-shadow:0 10px 30px rgba(11,26,46,.08)}
+.art .imgrow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0 12px}
+.art .imgrow img{width:100%;max-width:none;margin:0;height:100%;object-fit:cover;border-radius:var(--r-md,16px)}
+@media(max-width:700px){.art .imgrow{grid-template-columns:1fr}}

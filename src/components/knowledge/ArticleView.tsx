@@ -40,6 +40,15 @@ function Blocks({ blocks }: { blocks: NonNullable<Article["body"]> }) {
           case "img":
             // eslint-disable-next-line @next/next/no-img-element
             return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
+          case "imgs":
+            return (
+              <div className="imgrow" key={i}>
+                {b.images?.map((im) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={im.src} src={im.src} alt={im.alt} loading="lazy" />
+                ))}
+              </div>
+            );
           case "chart":
             if (!b.chart) return null;
             return b.chart.kind === "bars" ? <CaseBarChart key={i} c={b.chart} /> : <CaseLineChart key={i} c={b.chart} />;

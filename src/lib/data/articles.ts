@@ -63,7 +63,7 @@ export interface CaseBarChartData {
 export type CaseChartData = CaseLineChartData | CaseBarChartData;
 
 export interface ArticleBlock {
-  type: "lead" | "p" | "h2" | "quote" | "img" | "chart" | "ul";
+  type: "lead" | "p" | "h2" | "quote" | "img" | "imgs" | "chart" | "ul";
   text?: string;
   /** For quotes: bold lead-in. */
   strong?: string;
@@ -73,6 +73,8 @@ export interface ArticleBlock {
   chart?: CaseChartData;
   /** For list blocks. */
   items?: string[];
+  /** For image-pair blocks: shown side by side at crisp size. */
+  images?: { src: string; alt: string }[];
 }
 
 export interface Article {
@@ -282,9 +284,11 @@ export const ARTICLES: Article[] = [
         text: "Urban Kisaan is a Y Combinator W20 agritech startup with real science: pesticide-free greens grown with a fraction of the water, harvested minutes from the customer. But the product was ahead of the story. The model mixed B2B supply, retail kiosks and home delivery, the brand had 700 Instagram followers, and nearly all demand was paid for, click by click.",
       },
       {
-        type: "img",
-        src: "/images/uk-farm.jpg",
-        alt: "Inside an Urban Kisaan vertical hydroponic farm",
+        type: "imgs",
+        images: [
+          { src: "/images/uk-farm.jpg", alt: "Inside an Urban Kisaan vertical hydroponic farm" },
+          { src: "/images/uk-store.jpg", alt: "An Urban Kisaan retail store" },
+        ],
       },
       { type: "h2", text: "What we did" },
       {
@@ -323,11 +327,6 @@ export const ARTICLES: Article[] = [
           startLabel: "Month 1",
           endLabel: "Month 12",
         },
-      },
-      {
-        type: "img",
-        src: "/images/uk-store.jpg",
-        alt: "An Urban Kisaan retail store",
       },
       {
         type: "p",
