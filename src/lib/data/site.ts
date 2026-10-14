@@ -68,6 +68,7 @@ export const JOURNEY = [
 export const VIDEOS = [
   {
     href: "https://youtu.be/U3otsv7eLKA?si=HD6D_Vxyt1GgfKap",
+    thumb: "https://i.ytimg.com/vi/U3otsv7eLKA/maxresdefault.jpg",
     title: "From Accenture to Serial Entrepreneur",
     text: "Anjan Prasad shares his entrepreneurial journey, lessons from building businesses, and transitioning from corporate leadership to entrepreneurship.",
     aboutText:
@@ -75,6 +76,7 @@ export const VIDEOS = [
   },
   {
     href: "https://youtu.be/ghVIlCZ7NMQ?si=wCAIR45JzpvLxSDY",
+    thumb: "https://i.ytimg.com/vi/ghVIlCZ7NMQ/maxresdefault.jpg",
     title: "₹5/kg vs ₹150/kg: Farm to Consumer Business Model",
     text: "Learn how direct-to-consumer business models create value, improve profitability, and transform traditional industries.",
     aboutText: "How direct-to-consumer models create value and improve profitability.",

@@ -2747,3 +2747,11 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* The hero photo sits inside the arch as a framed arched portrait: same
    footprint as the arch, clipped to its curve, soft fade at the base. */
 .hero .fig{left:8%;right:8%;transform:none;width:84%;height:86%;object-fit:cover;object-position:center top;border-radius:999px 999px 0 0}
+
+/* Video cards with real YouTube thumbnails: thumb beside the text in the
+   compact card, play badge centred on the thumb. */
+.vc.vcth .vmedia{position:relative;display:block;border-radius:var(--r-sm);overflow:hidden}
+.vc.vcth .vth{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--mist)}
+.vc.vcth .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;width:48px;height:48px;background:rgba(11,26,46,.5);backdrop-filter:blur(2px)}
+.vc.vcth:hover .pl{background:rgba(11,26,46,.7)}
+@media(max-width:900px){.vc.vcth .vmedia{max-width:420px}}

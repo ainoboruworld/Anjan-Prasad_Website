@@ -6,8 +6,12 @@ export function VideoPair({ variant = "home" }: { variant?: "home" | "about" }) 
   return (
     <div className="v2 rv on">
       {VIDEOS.map((v) => (
-        <a className="vc" href={v.href} target="_blank" rel="noopener" key={v.href}>
-          <div className="pl" />
+        <a className="vc vcth" href={v.href} target="_blank" rel="noopener" key={v.href}>
+          <span className="vmedia">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="vth" src={v.thumb} alt="" loading="lazy" />
+            <span className="pl" />
+          </span>
           <div className="tx">
             <small>YouTube</small>
             <h3>{v.title}</h3>
