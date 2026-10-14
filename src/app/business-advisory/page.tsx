@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
-import { Signature } from "@/components/ui/Signature";
-import { AdvisoryForm } from "@/components/forms/AdvisoryForm";
+import { Diagnosis } from "@/components/consultation/Diagnosis";
 
 export const metadata: Metadata = {
-  title: "Business Advisory",
+  title: "Advisory & Consulting",
   description:
-    "Clear decisions for founders who are building for the long run. Anjan Prasad works with a small number of founders at a time as a business advisor, consultant and mentor.",
+    "Clear decisions for founders who are building for the long run. Business advisory and one-to-one consulting with Anjan Prasad, from a single session to an ongoing seat at your table.",
   alternates: { canonical: "/business-advisory" },
 };
 
@@ -17,26 +17,33 @@ const WHO = [
 ];
 
 const STEPS = [
-  { n: "01", h: "You apply", p: "A short form about your business and the decision in front of you." },
-  { n: "02", h: "I read it myself", p: "Every application. I reply within five working days." },
-  { n: "03", h: "We talk", p: "A focused conversation to understand the business and the real problem." },
-  { n: "04", h: "We agree a plan", p: "If it's a fit, we agree how we'll work together and what success looks like." },
+  { n: "01", h: "You request a session", p: "A short form about your business and the decision in front of you." },
+  { n: "02", h: "I read it myself", p: "Every request. I reply within five working days." },
+  { n: "03", h: "We talk", p: "A focused one-to-one session to understand the business and the real problem." },
+  { n: "04", h: "We decide what's next", p: "One session is often enough. If you want me at the table longer, we agree how." },
 ];
 
-export default function BusinessAdvisoryPage() {
+export default async function BusinessAdvisoryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ w?: string }>;
+}) {
+  const { w } = await searchParams;
+
   return (
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Programs · Business Advisory</span>
+          <span className="lab">Programs · Advisory &amp; Consulting</span>
           <h1>
             Clear decisions for founders <em>who are building for the long run.</em>
           </h1>
           <p>
-            I work with a small number of founders at a time. Tell me where your business is, and if I can help,
-            we&rsquo;ll decide together what to do next, and what to stop doing.
+            One place for both: a focused one-to-one consultation when a single decision is in front of you, and ongoing
+            advisory when you want me at the table as you build. It starts the same way, with you telling me where the
+            business is.
           </p>
-          <Cta href="#apply">Apply for advisory</Cta>
+          <Cta href="#capply">Book a consultation</Cta>
         </div>
       </header>
 
@@ -51,16 +58,22 @@ export default function BusinessAdvisoryPage() {
             </div>
           </div>
           <div className="c3 plain">
-            {WHO.map((w) => (
-              <div key={w.n}>
-                <span className="lab">{w.n}</span>
-                <h3>{w.h}</h3>
-                <p>{w.p}</p>
+            {WHO.map((w2) => (
+              <div key={w2.n}>
+                <span className="lab">{w2.n}</span>
+                <h3>{w2.h}</h3>
+                <p>{w2.p}</p>
               </div>
             ))}
           </div>
+          <div className="secta">
+            <p>Sound familiar? Start with one session.</p>
+            <Cta href="#capply">Book a consultation</Cta>
+          </div>
         </div>
       </section>
+
+      <Diagnosis initialKey={w} />
 
       <section className="sec ways">
         <div className="wrap wy2">
@@ -78,9 +91,11 @@ export default function BusinessAdvisoryPage() {
             <p>
               Sometimes that means acting as a business coach, a growth consultant or a GTM strategist. Sometimes it
               means shaping business strategy, or stepping in as a marketing consultant or fractional CMO for a while.
-              And for a few early startups I believe in, it means mentorship with equity.
             </p>
-            <p className="sm">Whatever shape it takes, it starts the same way: with you telling me where the business is.</p>
+            <p className="sm">
+              And for a few early startups I believe in, it goes deeper: a long-term seat at the table.{" "}
+              <Link href="/mentorship">That is the mentorship program</Link>.
+            </p>
           </div>
         </div>
       </section>
@@ -104,20 +119,10 @@ export default function BusinessAdvisoryPage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="sec apply" id="apply">
-        <div className="wrap">
-          <div className="al">
-            <span className="lab">Application</span>
-            <h2>
-              Tell me about <em>your business.</em>
-            </h2>
-            <p>There&rsquo;s no fee to apply and no sales call. I read every form and reply personally.</p>
-            <Signature />
+          <div className="secta">
+            <p>Building something early and want a longer runway together?</p>
+            <Cta href="/mentorship">Explore mentorship</Cta>
           </div>
-          <AdvisoryForm />
         </div>
       </section>
     </main>

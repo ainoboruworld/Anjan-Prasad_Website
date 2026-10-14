@@ -18,7 +18,10 @@ export function Header() {
   const setOpen = (next: boolean) => setOpenedAt(next ? pathname : null);
 
   // Programs dropdown: hover on desktop, click as well; closes on outside click.
-  const [ddOpen, setDdOpen] = useState(false);
+  // Keyed like the sheet: navigating closes the dropdown without an effect.
+  const [ddOpenedAt, setDdOpenedAt] = useState<string | null>(null);
+  const ddOpen = ddOpenedAt === pathname;
+  const setDdOpen = (next: boolean) => setDdOpenedAt(next ? pathname : null);
   const ddRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!ddOpen) return;
@@ -28,7 +31,6 @@ export function Header() {
     window.addEventListener("pointerdown", onDown);
     return () => window.removeEventListener("pointerdown", onDown);
   }, [ddOpen]);
-  useEffect(() => setDdOpen(false), [pathname]);
 
   // Lock body scroll while the sheet is open.
   useEffect(() => {
@@ -60,7 +62,7 @@ export function Header() {
                     className="ddbtn"
                     aria-haspopup="menu"
                     aria-expanded={ddOpen}
-                    onClick={() => setDdOpen((o) => !o)}
+                    onClick={() => setDdOpen(!ddOpen)}
                   >
                     {item.label}
                     <svg viewBox="0 0 10 6" aria-hidden>
@@ -103,14 +105,14 @@ export function Header() {
           ×
         </button>
         <small>Programs</small>
-        <Link href="/business-advisory">Business Advisory</Link>
-        <Link href="/consultation">Consultation</Link>
+        <Link href="/business-advisory">Advisory &amp; Consulting</Link>
+        <Link href="/mentorship">Mentorship</Link>
         <small>More</small>
         <Link href="/knowledge-hub">Knowledge Hub</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
         <div className="mcta">
-          <Link href="/consultation#capply" className="cta">
+          <Link href="/business-advisory#capply" className="cta">
             Book a consultation <span>→</span>
           </Link>
         </div>

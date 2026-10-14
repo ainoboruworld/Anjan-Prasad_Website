@@ -16,6 +16,7 @@ import type { LeadRequest, NewsletterValues } from "./validation/schemas";
 const KIND_LABEL: Record<LeadRequest["kind"], string> = {
   advisory: "advisory application",
   consultation: "consultation request",
+  mentorship: "mentorship application",
   contact: "contact message",
 };
 
@@ -23,6 +24,7 @@ function flatten(input: LeadRequest): Record<string, string | undefined> {
   const v = input.values as Record<string, string | undefined>;
   switch (input.kind) {
     case "advisory":
+    case "mentorship":
       return {
         Name: v.name,
         Email: v.email,

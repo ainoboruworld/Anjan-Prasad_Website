@@ -11,7 +11,7 @@ function EndCta() {
       <p>
         <em>If this is where your business is, tell me about it.</em>
       </p>
-      <Cta href="/consultation#capply">Book a consultation</Cta>
+      <Cta href="/business-advisory#capply">Book a consultation</Cta>
     </div>
   );
 }

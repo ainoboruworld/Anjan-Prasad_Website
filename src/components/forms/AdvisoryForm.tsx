@@ -6,8 +6,8 @@ import { advisorySchema, HEARD_FROM, STAGES, type AdvisoryValues } from "@/lib/v
 import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
 
-/** Business advisory application → /api/leads (kind: "advisory"). */
-export function AdvisoryForm() {
+/** Advisory or mentorship application → /api/leads (kind prop decides). */
+export function AdvisoryForm({ kind = "advisory" }: { kind?: "advisory" | "mentorship" }) {
   const { register, handleSubmit, formState } = useForm<AdvisoryValues>({
     resolver: zodResolver(advisorySchema),
     defaultValues: { stage: "Idea stage", heardFrom: "LinkedIn" },
@@ -20,7 +20,7 @@ export function AdvisoryForm() {
     <form
       className={`fm${done ? " done" : ""}`}
       noValidate
-      onSubmit={handleSubmit((values) => mutation.mutate({ kind: "advisory", values }))}
+      onSubmit={handleSubmit((values) => mutation.mutate({ kind, values }))}
     >
       <div className="row2">
         <TextField label="Your name" required autoComplete="name" registration={register("name")} error={e.name?.message} />

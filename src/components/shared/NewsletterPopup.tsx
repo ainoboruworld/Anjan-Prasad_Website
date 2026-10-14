@@ -41,7 +41,7 @@ export function NewsletterPopup() {
   });
   const mutation = useNewsletterSubscribe();
 
-  const excluded = pathname.startsWith("/consultation") || pathname.startsWith("/contact");
+  const excluded = pathname.startsWith("/business-advisory") || pathname.startsWith("/mentorship") || pathname.startsWith("/contact");
   const isHome = pathname === "/";
   const isArticle = /^\/knowledge-hub\/.+/.test(pathname);
 

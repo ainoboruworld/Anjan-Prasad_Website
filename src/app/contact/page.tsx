@@ -44,6 +44,12 @@ export default function ContactPage() {
                 <span>Within five working days</span>
               </li>
             </ul>
+            <div className="secta">
+              <p>Here about your business? Skip the inbox.</p>
+              <a className="cta" href="/business-advisory#capply">
+                Book a consultation <span>→</span>
+              </a>
+            </div>
           </div>
           <ContactForm />
         </div>

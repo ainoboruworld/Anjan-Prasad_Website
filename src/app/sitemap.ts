@@ -4,7 +4,7 @@ import { getArticles } from "@/lib/sanity";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = env.siteUrl;
-  const pages = ["", "/business-advisory", "/consultation", "/knowledge-hub", "/about", "/contact", "/privacy", "/terms"];
+  const pages = ["", "/business-advisory", "/mentorship", "/knowledge-hub", "/about", "/contact", "/privacy", "/terms"];
   const articles = await getArticles();
   return [
     ...pages.map((p) => ({ url: `${base}${p}`, lastModified: new Date(), changeFrequency: "weekly" as const })),

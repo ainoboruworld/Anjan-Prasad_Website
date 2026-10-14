@@ -44,6 +44,10 @@ export const advisorySchema = z.object({
 });
 export type AdvisoryValues = z.infer<typeof advisorySchema>;
 
+/* ── Mentorship application (same shape as advisory) ────────────────────── */
+export const mentorshipSchema = advisorySchema;
+export type MentorshipValues = z.infer<typeof mentorshipSchema>;
+
 /* ── Consultation request ───────────────────────────────────────────────── */
 export const consultationSchema = z.object({
   name: nameField,
@@ -72,12 +76,13 @@ export const newsletterSchema = z.object({
 export type NewsletterValues = z.infer<typeof newsletterSchema>;
 
 /* ── API envelope ───────────────────────────────────────────────────────── */
-export const LEAD_KINDS = ["advisory", "consultation", "contact"] as const;
+export const LEAD_KINDS = ["advisory", "consultation", "mentorship", "contact"] as const;
 export type LeadKind = (typeof LEAD_KINDS)[number];
 
 export const leadRequestSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("advisory"), values: advisorySchema, sourcePage: z.string().optional() }),
   z.object({ kind: z.literal("consultation"), values: consultationSchema, sourcePage: z.string().optional() }),
+  z.object({ kind: z.literal("mentorship"), values: mentorshipSchema, sourcePage: z.string().optional() }),
   z.object({ kind: z.literal("contact"), values: contactSchema, sourcePage: z.string().optional() }),
 ]);
 export type LeadRequest = z.infer<typeof leadRequestSchema>;
