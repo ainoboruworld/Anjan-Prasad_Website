@@ -76,7 +76,7 @@ export function Wheel() {
             ))}
           </div>
 
-          <WheelPanes active={active} cta={(key) => <Cta href={`/consultation?w=${key}`}>See how I solve this</Cta>} />
+          <WheelPanes active={active} cta={(key) => <Cta href={`/business-advisory?w=${key}`}>See how I solve this</Cta>} />
         </div>
       </div>
     </section>

@@ -28,7 +28,7 @@ export function Hero() {
           Now I sit beside founders who are serious about building something that lasts.
         </p>
         <div className="more">
-          <Cta href="/consultation#capply">Book a consultation</Cta>
+          <Cta href="/business-advisory#capply">Book a consultation</Cta>
         </div>
       </div>
     </header>

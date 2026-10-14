@@ -31,12 +31,19 @@ export function adminNotification(kind: string, fields: Record<string, string | 
   return shell(`New ${kind}`, `<table style="border-collapse:collapse">${rows(fields)}</table>`);
 }
 
-export function autoReply(name: string, kind: "advisory" | "consultation" | "contact"): string {
+export function autoReply(
+  name: string,
+  kind: "advisory" | "consultation" | "mentorship" | "speaking" | "contact"
+): string {
   const first = name.split(" ")[0] || "there";
   const lines: Record<typeof kind, string> = {
     advisory: "Thank you for applying. I read every application myself and reply within five working days.",
     consultation:
       "Thank you for the request. I'll read what you've shared and come back with a time that works.",
+    mentorship:
+      "Thank you for applying. I take on very few mentees and read every application myself, so I reply honestly either way.",
+    speaking:
+      "Thank you for the invitation. I'll read about the session and come back to you within five working days.",
     contact: "Thank you for writing. I'll reply soon.",
   };
   return shell(

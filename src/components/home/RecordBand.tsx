@@ -108,7 +108,7 @@ export function RecordBand() {
           <p>
             Numbers like these start with one conversation. <em>Yours can too.</em>
           </p>
-          <a className="cta" href="/consultation#capply">
+          <a className="cta" href="/business-advisory#capply">
             Book a consultation <span>→</span>
           </a>
         </div>

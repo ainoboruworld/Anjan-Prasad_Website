@@ -26,11 +26,12 @@ export const NAV: NavItem[] = [
     label: "Programs",
     href: "/business-advisory",
     children: [
-      { label: "Business Advisory", href: "/business-advisory" },
-      { label: "Consultation", href: "/consultation" },
+      { label: "Advisory & Consulting", href: "/business-advisory" },
+      { label: "Mentorship", href: "/mentorship" },
     ],
   },
   { label: "Knowledge Hub", href: "/knowledge-hub" },
+  { label: "Speaking", href: "/speaking" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

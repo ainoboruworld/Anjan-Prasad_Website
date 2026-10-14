@@ -12,8 +12,10 @@ const nextConfig: NextConfig = {
     // Legacy IA (old AP website) → the current IA.
     return [
       { source: "/advisory", destination: "/business-advisory", permanent: true },
-      { source: "/consulting", destination: "/consultation", permanent: true },
-      { source: "/consult", destination: "/consultation", permanent: true },
+      { source: "/consulting", destination: "/business-advisory", permanent: true },
+      { source: "/consult", destination: "/business-advisory", permanent: true },
+      { source: "/consultation", destination: "/business-advisory", permanent: true },
+      { source: "/mentoring", destination: "/mentorship", permanent: true },
       { source: "/knowledge", destination: "/knowledge-hub", permanent: true },
       { source: "/knowledge-hub/blogs", destination: "/knowledge-hub", permanent: true },
       { source: "/knowledge-hub/blogs/:slug", destination: "/knowledge-hub/:slug", permanent: true },

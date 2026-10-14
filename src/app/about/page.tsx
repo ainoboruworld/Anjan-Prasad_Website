@@ -4,6 +4,7 @@ import { Journey } from "@/components/shared/Journey";
 import { LifeStrip } from "@/components/shared/LifeStrip";
 import { VideoPair } from "@/components/shared/VideoPair";
 import { CloseCta } from "@/components/shared/CloseCta";
+import { Cta } from "@/components/ui/Cta";
 
 export const metadata: Metadata = {
   title: "About",
@@ -140,6 +141,12 @@ export default function AboutPage() {
             <p className="sgn">Anjan</p>
           </div>
         </div>
+        <div className="wrap">
+          <div className="secta">
+            <p>If part of this story sounds like yours, let&rsquo;s talk about yours.</p>
+            <Cta href="/business-advisory#capply">Book a consultation</Cta>
+          </div>
+        </div>
       </section>
 
       <section className="proof">
@@ -213,6 +220,10 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          <div className="secta">
+            <p>Building something early? A few founders get a longer runway with me.</p>
+            <Cta href="/mentorship">Explore mentorship</Cta>
+          </div>
         </div>
       </section>
 
@@ -225,7 +236,7 @@ export default function AboutPage() {
             If you&rsquo;re facing a decision, <em>I&rsquo;d like to hear about it.</em>
           </>
         }
-        primary={{ href: "/consultation#capply", label: "Book a consultation" }}
+        primary={{ href: "/business-advisory#capply", label: "Book a consultation" }}
       />
     </main>
   );

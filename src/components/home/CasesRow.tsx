@@ -63,6 +63,12 @@ export function CasesRow() {
         <Link href="/knowledge-hub?cat=Case%20Studies" className="ul ccall">
           All case studies in the Knowledge Hub
         </Link>
+        <div className="secta">
+          <p>Want results like these in your business?</p>
+          <Link href="/business-advisory#capply" className="cta">
+            Book a consultation <span>→</span>
+          </Link>
+        </div>
       </div>
     </section>
   );

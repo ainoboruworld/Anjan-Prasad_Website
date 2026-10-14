@@ -44,8 +44,8 @@ export default async function HomePage() {
           </>
         }
         text="Bring a proven operating playbook into your business, or get clarity on your next decision."
-        primary={{ href: "/business-advisory", label: "Business Advisory" }}
-        secondary={{ href: "/consultation", label: "Consultation" }}
+        primary={{ href: "/business-advisory#capply", label: "Book a consultation" }}
+        secondary={{ href: "/mentorship", label: "Mentorship" }}
       />
     </main>
   );
