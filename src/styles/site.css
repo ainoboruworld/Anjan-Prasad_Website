@@ -2770,3 +2770,12 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
    the gold rule and Anjan's sign-off, instead of a plain text block. */
 .dxh p.dxq{font:italic 400 17px/1.65 var(--font-serif);color:var(--harb);max-width:400px;padding-left:18px;border-left:2px solid #CDB27A}
 .dxh p.dxq span{display:block;font:500 11px var(--font-sans);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#CDB27A;margin-top:8px}
+
+/* Centered section CTA (About story close) */
+.secta.secta-c{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;margin-top:56px}
+.secta.secta-c p{max-width:620px}
+@media(max-width:900px){.secta.secta-c{align-items:center}}
+
+/* "How I work" quote slideshow */
+.mani blockquote.qsl{opacity:0;transition:opacity .25s ease;min-height:2.6em}
+.mani blockquote.qsl.on{opacity:1}

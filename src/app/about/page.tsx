@@ -5,6 +5,7 @@ import { LifeStrip } from "@/components/shared/LifeStrip";
 import { VideoPair } from "@/components/shared/VideoPair";
 import { CloseCta } from "@/components/shared/CloseCta";
 import { Cta } from "@/components/ui/Cta";
+import { QuoteSlideshow } from "@/components/about/QuoteSlideshow";
 
 export const metadata: Metadata = {
   title: "About",
@@ -35,10 +36,26 @@ const PROOF = [
 ];
 
 const BELIEFS = [
-  { n: "01", h: "Profit before scale.", p: "Growth multiplies what you have. Make sure what you have works first." },
-  { n: "02", h: "Say no more often.", p: "The fastest way to grow is usually to stop doing something." },
-  { n: "03", h: "Systems over heroics.", p: "A business that needs you at 11pm isn't a business yet." },
-  { n: "04", h: "Experience over theory.", p: "I only advise on what I've run, broken and fixed myself." },
+  {
+    n: "01",
+    h: "Profit is the plan.",
+    p: "I spent years spending other people's crores. Spending my own taught me: growth multiplies whatever you have, including losses.",
+  },
+  {
+    n: "02",
+    h: "Say no more often.",
+    p: "Every business I've run grew fastest after I stopped doing something. The second product, the fourth channel, the client who drains the team.",
+  },
+  {
+    n: "03",
+    h: "Systems over heroics.",
+    p: "If the business needs me at 11pm, I haven't built a business yet. I build so the week runs without me, then I work on what's next.",
+  },
+  {
+    n: "04",
+    h: "Skin in the game.",
+    p: "I only advise on what I've run, broken and fixed with my own money. Advice is cheap when the adviser has nothing to lose.",
+  },
 ];
 
 const EXPECT = [
@@ -55,7 +72,7 @@ export default function AboutPage() {
         <div className="wrap">
           <div className="abz-ph">
             <Image src="/images/portrait-anjan-2.jpg" alt="Anjan Prasad" width={900} height={1125} priority sizes="(max-width: 900px) 100vw, 420px" />
-            <span className="abz-tag">Founder · Noboru World</span>
+            <span className="abz-tag">Serial entrepreneur</span>
           </div>
           <div className="abz-tx">
             <span className="lab">About me</span>
@@ -90,9 +107,7 @@ export default function AboutPage() {
       <section className="mani">
         <div className="wrap">
           <span className="lab">How I work</span>
-          <blockquote>
-            &ldquo;I don&rsquo;t advise from a textbook. <em>I advise from the other side of the table.</em>&rdquo;
-          </blockquote>
+          <QuoteSlideshow />
           <div className="sg">Anjan</div>
         </div>
       </section>
@@ -142,7 +157,7 @@ export default function AboutPage() {
           </div>
         </div>
         <div className="wrap">
-          <div className="secta">
+          <div className="secta secta-c">
             <p>If part of this story sounds like yours, let&rsquo;s talk about yours.</p>
             <Cta href="/business-advisory#capply">Book a consultation</Cta>
           </div>
@@ -188,7 +203,6 @@ export default function AboutPage() {
                 Things I believe, <em>because I paid for them.</em>
               </h2>
             </div>
-            <span className="ph-flag">Draft beliefs: confirm with Anjan</span>
           </div>
           <div className="bl">
             {BELIEFS.map((b) => (

@@ -85,12 +85,14 @@ export default async function BusinessAdvisoryPage({
           </div>
           <div className="tx">
             <p className="big">
-              Some founders call me their <b>business consultant</b>. Others call me their <b>business advisor</b>, or
-              their <b>business mentor</b>. Honestly, the title matters less than the conversation.
+              <b>Business consultant</b>, <b>business advisor</b>, <b>business mentor</b>: founders have called me all
+              three. The title never changes what happens in the room. You bring the decision that&rsquo;s costing you
+              sleep, and we settle it.
             </p>
             <p>
-              Sometimes that means acting as a business coach, a growth consultant or a GTM strategist. Sometimes it
-              means shaping business strategy, or stepping in as a marketing consultant or fractional CMO for a while.
+              One month that looks like a growth consultant fixing a leaking funnel. Another, it&rsquo;s a fractional
+              CMO building your marketing engine, or a GTM strategist taking a product to its first hundred customers.
+              The label follows the problem, never the other way around.
             </p>
             <p className="sm">
               And for a few early startups I believe in, it goes deeper: a long-term seat at the table.{" "}
