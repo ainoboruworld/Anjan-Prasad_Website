@@ -65,7 +65,7 @@ export function RecordBand() {
             </h2>
           </div>
           <p>
-            Sixteen years across global agencies, enterprise growth teams and my own ventures. These are the numbers
+            Seventeen plus years across global agencies, enterprise growth teams and my own ventures. These are the numbers
             I&rsquo;m proudest of.
           </p>
         </div>

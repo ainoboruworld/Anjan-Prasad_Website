@@ -29,9 +29,21 @@ const WHO = [
 ];
 
 const PROOF = [
-  { n: "15+ years", h: "Operating and advising", p: "From Accenture and global agencies to the founder's chair. I've sat on both sides of the table." },
-  { n: "3 businesses", h: "Running today", p: "A tech company, a food brand and a compliance business, each built from zero. My advice is tested on my own money first." },
-  { n: "₹1,200 Cr", h: "In budgets managed", p: "For some of India's biggest brands. I know what good execution costs, and what you should never pay for." },
+  {
+    n: "17+ years",
+    h: "Across agencies and brands",
+    p: "I kept seeing the same gaps repeat: fragmented teams, disconnected channels and growth trapped in silos. It's why I advise on the whole business, not one department.",
+  },
+  {
+    n: "3 businesses",
+    h: "Running today",
+    p: "A tech company, a food brand and a compliance business, each built from zero. My advice is tested on my own money first.",
+  },
+  {
+    n: "₹1,200 Cr+",
+    h: "In media and performance marketing",
+    p: "Managed for some of India's biggest brands. I know what good execution costs, and what you should never pay for.",
+  },
 ];
 
 const STEPS = [
@@ -61,7 +73,7 @@ export default async function BusinessAdvisoryPage({
             Clear decisions for founders <em>who are building for the long run.</em>
           </h1>
           <p>
-            I run three businesses today and spent fifteen plus years inside global agencies before that. Founders bring
+            I run three businesses today and spent seventeen plus years inside global agencies before that. Founders bring
             me the decision in front of them: one focused consultation when that&rsquo;s all it takes, ongoing advisory
             when you want me at the table as you build. Either way it starts with you telling me where the business is.
           </p>

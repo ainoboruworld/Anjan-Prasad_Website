@@ -15,7 +15,7 @@ export function AboutIntro() {
             I don&rsquo;t study businesses. <em>I run them.</em>
           </h2>
           <p className="b">
-            I run three businesses today, after fifteen plus years inside global agencies managing over &#8377;1,200 Cr
+            I run three businesses today, after seventeen plus years inside global agencies managing over &#8377;1,200 Cr
             in budgets for some of India&rsquo;s biggest brands. I&rsquo;ve had the salary and left it to start from
             zero, worried about payroll and fixed things at midnight. That&rsquo;s what makes my advice different: I
             advise businesses the way I run my own, on systems, margins and honest execution.

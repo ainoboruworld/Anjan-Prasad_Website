@@ -26,7 +26,7 @@ export function TrustWall() {
       <div className="glow" aria-hidden="true" />
       <div className="wrap">
         <div className="hd">
-          <span className="lab">Trusted over sixteen years</span>
+          <span className="lab">Trusted over seventeen years</span>
           <h2>
             The brands built, <em>advised, and led.</em>
           </h2>
