@@ -76,7 +76,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-10-05",
     readTime: "6 min read",
     excerpt: "Four fundamentals that decide whether a business lasts, long before the logo matters.",
-    image: "/images/life-4.jpg",
+    image: "/images/life-5.jpg",
     kicker: "Business foundations",
     bannerTitle: "Would anyone pay for this, again and again?",
     body: [
@@ -124,7 +124,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-10-12",
     readTime: "7 min read",
     excerpt: "A simple test that saves months of building the wrong thing.",
-    image: "/images/life-2.jpg",
+    image: "/images/life-1.jpg",
     kicker: "Startup",
   },
   {
@@ -146,7 +146,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-10-26",
     readTime: "8 min read",
     excerpt: "What's shifting in Indian spending, and what it means for the brands you build.",
-    image: "/images/life-4.jpg",
+    image: "/images/life-5.jpg",
     kicker: "Society",
   },
   {
@@ -157,7 +157,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-11-02",
     readTime: "7 min read",
     excerpt: "The quiet reasons customers stay loyal, learned from running a food brand.",
-    image: "/images/life-2.jpg",
+    image: "/images/life-1.jpg",
     kicker: "Marketing",
   },
   {
@@ -179,7 +179,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-11-16",
     readTime: "5 min read",
     excerpt: "The one-page plan I use instead of a forty-page document nobody reads.",
-    image: "/images/life-4.jpg",
+    image: "/images/life-5.jpg",
     kicker: "Business",
   },
   {
@@ -190,7 +190,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-11-23",
     readTime: "7 min read",
     excerpt: "Build the smallest thing that answers the biggest question.",
-    image: "/images/life-2.jpg",
+    image: "/images/life-1.jpg",
     kicker: "Startup",
   },
   {
@@ -212,7 +212,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2026-03-08",
     readTime: "5 min read",
     excerpt: "Why the calmest founders make the clearest decisions, and how I protect my first hour.",
-    image: "/images/life-2.jpg",
+    image: "/images/life-1.jpg",
     kicker: "Spirituality",
   },
   {
@@ -249,7 +249,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-08-01",
     readTime: "7 min read",
     excerpt: "20× organic traffic, 68K to 1.5M, 1.5M+ policies sold via organic.",
-    image: "/images/life-4.jpg",
+    image: "/images/life-5.jpg",
     kicker: "Case Studies",
     caseStudy: {
       sector: "InsurTech",
@@ -279,7 +279,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-07-01",
     readTime: "7 min read",
     excerpt: "9× revenue growth in 12 months, +300% daily leads.",
-    image: "/images/life-2.jpg",
+    image: "/images/life-1.jpg",
     kicker: "Case Studies",
     caseStudy: {
       sector: "Healthcare",
@@ -330,7 +330,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-05-01",
     readTime: "7 min read",
     excerpt: "₹20L+ monthly revenue, +446% monthly orders.",
-    image: "/images/life-2.jpg",
+    image: "/images/life-1.jpg",
     kicker: "Case Studies",
     caseStudy: {
       sector: "D2C",
@@ -357,7 +357,7 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-04-01",
     readTime: "7 min read",
     excerpt: "667× search clicks, 142× impressions.",
-    image: "/images/life-4.jpg",
+    image: "/images/life-5.jpg",
     kicker: "Case Studies",
     caseStudy: {
       sector: "Enterprise",

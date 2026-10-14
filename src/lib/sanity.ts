@@ -76,7 +76,7 @@ function toArticle(p: RawPost): CmsArticle {
     publishedAt: p.publishedAt ?? new Date().toISOString(),
     readTime: p.readTime ? `${p.readTime} min read` : "5 min read",
     excerpt: p.excerpt ?? "",
-    image: p.imageUrl ?? "/images/life-4.jpg",
+    image: p.imageUrl ?? "/images/life-3.jpg",
     kicker: p.kicker ?? (p.caseStudy ? "Case Studies" : category),
     bannerTitle: p.bannerTitle,
     sources: p.sources,
