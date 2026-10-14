@@ -24,13 +24,11 @@ export function WheelPanes({
             {a.note}
             <span>Anjan</span>
           </p>
-          <ul>
-            {a.symptoms.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ul>
+          <p className="wwrong">
+            <b>What most advice gets wrong.</b> {a.wrong}
+          </p>
           <p className="whelp">
-            <b>How I help.</b> {a.help}
+            <b>How I work on it.</b> {a.help}
           </p>
           {cta(a.key, a.name)}
         </div>

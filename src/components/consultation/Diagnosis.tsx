@@ -36,15 +36,16 @@ export function Diagnosis({ initialKey }: { initialKey?: string }) {
         <div className="wrap">
           <div className="dxh">
             <div>
-              <span className="lab">The 360° diagnosis</span>
+              <span className="lab">360° business consulting</span>
               <h2>
-                Where is your business <em>hurting right now?</em>
+                I don&rsquo;t advise from the outside. <em>I&rsquo;m still in it.</em>
               </h2>
             </div>
             <p>
-              Pick the one that sounds most like you. I&rsquo;ll show you what I usually find underneath it, and how
-              I&rsquo;d approach it. If it&rsquo;s more than one, that&rsquo;s normal. Most businesses I work with tick
-              three or four.
+              I run three businesses right now: a technology and growth company, a food brand built with farmers, and a
+              compliance business. Before that, I spent years inside global agencies, spending budgets for some of the
+              biggest brands in the country. I&rsquo;ve been the person selling the solution, and the person paying for
+              it. Here&rsquo;s what I believe about each part of a business, and why.
             </p>
           </div>
 
