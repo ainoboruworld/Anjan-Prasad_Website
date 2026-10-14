@@ -2761,9 +2761,7 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 #wheel-h .whx{justify-content:center;text-align:center;margin-bottom:34px}
 @media(max-width:900px){#wheel-h .whx{align-items:center}}
 
-/* Venture logos: the light tinted mark at rest (their colour versions are
-   dark-on-light and vanish on navy), the real colours on hover. */
-.vc2 .lx .lt{opacity:1!important}
-.vc2 .lx .lc2{opacity:0!important;filter:none}
-.vc2 .lx:hover .lt{opacity:0!important}
-.vc2 .lx:hover .lc2{opacity:1!important}
+/* Venture logos: real brand colours at rest, adapted for the navy wall
+   (dark pixels lifted in brightness, hues untouched). */
+.vc2 .lx .lt{opacity:0!important}
+.vc2 .lx .lc2{opacity:1!important;filter:none}
