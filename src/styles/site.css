@@ -2760,3 +2760,9 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* Home 360 section: just the label and headline, centred. Calm and clean. */
 #wheel-h .whx{justify-content:center;text-align:center;margin-bottom:34px}
 @media(max-width:900px){#wheel-h .whx{align-items:center}}
+
+/* Venture logos sit on a soft off-white chip so their true brand colours
+   (Lushful's deep green, Filing Buddy's navy) stay readable on the navy card. */
+.vc2 .vlg{background:rgba(244,241,235,.97);border-radius:12px;padding:14px 22px;box-shadow:inset 0 0 0 1px rgba(11,26,46,.06)}
+.vc2 .vlg .lx .lt{opacity:0!important}
+.vc2 .vlg .lx .lc2{opacity:1!important;filter:none}
