@@ -39,7 +39,7 @@ export interface CaseStudyDetails {
 }
 
 export interface ArticleBlock {
-  type: "lead" | "p" | "h2" | "quote" | "img" | "chart";
+  type: "lead" | "p" | "h2" | "quote" | "img" | "chart" | "ul";
   text?: string;
   /** For quotes: bold lead-in. */
   strong?: string;
@@ -47,6 +47,8 @@ export interface ArticleBlock {
   alt?: string;
   /** For chart blocks: which case chart to render. */
   chart?: "followers" | "traffic";
+  /** For list blocks. */
+  items?: string[];
 }
 
 export interface Article {
@@ -244,60 +246,65 @@ export const ARTICLES: Article[] = [
         ["3.7", "ROAS on Google and Meta"],
       ],
       tags: ["Business model and GTM", "Brand and social", "Performance and SEO", "Funding readiness"],
-      quote: [
-        "Before the world noticed Urban Kisaan, we helped shape the story.",
-        "Anjan Prasad",
-      ],
     },
     body: [
       {
         type: "lead",
-        text: "Urban Kisaan grows fresh produce in vertical hydroponic farms across Indian cities. When we started working together, the product was ahead of the story: a Y Combinator W20 company that most of its own market had never heard of.",
+        text: "Urban Kisaan grows fresh produce in vertical hydroponic farms across Indian cities. In twelve months of working together, the company went from 700 Instagram followers and paid-only demand to 47,000 followers, 42 times the organic traffic and $2M ARR.",
       },
-      { type: "h2", text: "Where it started" },
+      { type: "h2", text: "The challenge" },
       {
         type: "p",
-        text: "The team had the science and the farms: pesticide-free greens, grown with a fraction of the water, harvested minutes from the customer. What they didn't have was a business that investors and customers could read at a glance. The model mixed B2B supply, retail kiosks and home delivery. The brand had 700 Instagram followers. Nearly all demand was paid for, click by click.",
+        text: "Urban Kisaan is a Y Combinator W20 agritech startup with real science: pesticide-free greens grown with a fraction of the water, harvested minutes from the customer. But the product was ahead of the story. The model mixed B2B supply, retail kiosks and home delivery, the brand had 700 Instagram followers, and nearly all demand was paid for, click by click.",
+      },
+      { type: "h2", text: "What we did" },
+      {
+        type: "p",
+        text: "We started at the business model, not the marketing: how Urban Kisaan makes money, which channels deserved focus and what the pitch had to prove. Then we built demand in layers.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Business model and GTM consulting: sharpened the revenue model, channel focus and the one-line pitch.",
+          "Brand and social: content built around the story only Urban Kisaan could tell, urban farming shown from inside the farm.",
+          "SEO and content: owned the questions people already ask about hydroponics, clean greens and urban farming.",
+          "Performance marketing: Google and Meta campaigns added last, once there was a story for them to land on.",
+        ],
       },
       {
         type: "p",
-        text: "So we began at the model, not the marketing: how Urban Kisaan makes money, which of those channels deserved focus, what the unit economics had to prove, and what the pitch had to say in one line. Only then did we build outward.",
-      },
-      {
-        type: "img",
-        src: "/images/case-uk-story.jpg",
-        alt: "A gold growth curve rising across a navy canvas",
-      },
-      { type: "h2", text: "Building demand that compounds" },
-      {
-        type: "p",
-        text: "The first lever was organic. We rebuilt the brand's digital presence around the story only Urban Kisaan could tell: urban farming, shown from inside the farm. Content went out consistently, tuned to what people actually watched and shared, not what the category usually posts. In twelve months the Instagram following grew from 700 to 47,000, a 67 times jump, without buying followers.",
+        text: "Social came first. In twelve months the Instagram following grew from 700 to 47,000, a 67 times jump, without buying followers.",
       },
       { type: "chart", chart: "followers" },
       {
         type: "p",
-        text: "SEO ran on the same principle: own the questions people were already asking about hydroponics, clean greens and urban farming. Content and search compounded quarter on quarter until organic traffic reached 42 times its starting level. That is demand the company no longer pays for every month.",
+        text: "Search compounded next. Content answered real questions quarter after quarter, and organic traffic reached 42 times its starting level, demand the company no longer pays for every month.",
       },
       { type: "chart", chart: "traffic" },
-      { type: "h2", text: "Making the paid rupee work" },
+      { type: "h2", text: "The results" },
       {
-        type: "p",
-        text: "Performance marketing came last, on purpose. With the story and the organic base in place, Google and Meta campaigns had something to land on, and they held a 3.7 ROAS. Contribution margin improved 18% while revenue scaled to $2M ARR, so the growth was profitable growth, not bought turnover.",
+        type: "ul",
+        items: [
+          "Revenue scaled to $2M ARR with contribution margin up 18%.",
+          "Instagram grew from 700 to 47,000 followers in 12 months (67x).",
+          "Organic traffic grew 42x from its starting level.",
+          "Google and Meta campaigns held a 3.7 ROAS.",
+          "The brand supported funding readiness and a pivot, and Discovery Channel featured Urban Kisaan in Planet Healers.",
+        ],
       },
-      { type: "h2", text: "Why it mattered" },
+      { type: "h2", text: "Key takeaways" },
       {
-        type: "p",
-        text: "Growth that compounds changed the company's options. The brand supported funding readiness and a pivot when the business needed one, and the story carried beyond the market: Discovery Channel featured Urban Kisaan in Planet Healers.",
-      },
-      {
-        type: "img",
-        src: "/images/case-uk-impact.jpg",
-        alt: "Gold arcs radiating outward on a navy canvas",
+        type: "ul",
+        items: [
+          "Fix the business model before spending on marketing; the pitch and unit economics decide what growth is worth buying.",
+          "Organic demand compounds; paid demand stops the day you stop paying. Build the first before scaling the second.",
+          "A strong story, built on real numbers, earns attention while you still need it.",
+        ],
       },
       {
         type: "quote",
-        strong: "The lesson:",
-        text: "a strong product earns attention slowly. A strong story, built on real numbers, earns it while you still need it.",
+        strong: "Anjan:",
+        text: "Before the world noticed Urban Kisaan, we helped shape the story.",
       },
     ],
   },
