@@ -12,7 +12,7 @@ export function AboutIntro() {
         <div className="rv on">
           <span className="lab">Serial entrepreneur &middot; Business advisor</span>
           <h2>
-            I&rsquo;ve sat where <em>you&rsquo;re sitting.</em>
+            I don&rsquo;t study businesses. <em>I run them.</em>
           </h2>
           <p className="b">
             I run three businesses today, after fifteen plus years inside global agencies managing over &#8377;1,200 Cr
