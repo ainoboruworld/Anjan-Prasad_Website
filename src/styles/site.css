@@ -2812,3 +2812,21 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 
 /* Single chart between paragraphs */
 .csb .ukc{margin:30px 0}
+
+/* Case study format: premium metric tiles, numbered headings, outlined tags */
+.csb .csmx div{background:var(--navy);border-radius:var(--r-sm,14px);padding:22px 20px}
+.csb .csmx b{color:#F4F1EB}
+.csb .csmx b{font:400 38px/1 var(--font-serif)}
+.csb .csmx div b{background:linear-gradient(120deg,#CDB27A,#E8D9B0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.csb .csmx small{color:#A9BDD1;display:block;margin-top:8px;letter-spacing:.02em}
+.csb .tags{margin:4px 0 8px}
+.csb .tags span{background:transparent;border:1px solid var(--line);color:var(--harb);font-weight:500;letter-spacing:.03em}
+#aalt{counter-reset:cs}
+#aalt .csb h2{counter-increment:cs;display:flex;align-items:baseline;gap:14px;margin:46px 0 16px;font-size:clamp(24px,2.4vw,30px)}
+#aalt .csb h2:before{content:counter(cs,decimal-leading-zero);font:500 12px var(--font-sans);letter-spacing:.16em;color:#CDB27A}
+#aalt .csb h2:after{content:"";flex:1;height:1px;background:var(--line);align-self:center}
+#aalt .csb>p.lead{font-size:clamp(19px,1.9vw,23px);line-height:1.55}
+.art #aalt img{width:100%;border-radius:var(--r-md,16px);margin:34px 0 10px;display:block}
+.csb blockquote{background:var(--navy);border-left:none;border-radius:var(--r-sm,14px);padding:30px 34px;color:#F4F1EB;font-size:clamp(19px,1.8vw,23px)}
+.csb blockquote b{color:#CDB27A;font-style:normal}
+.csb cite{color:#A9BDD1}

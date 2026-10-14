@@ -263,6 +263,11 @@ export const ARTICLES: Article[] = [
         type: "p",
         text: "So we began at the model, not the marketing: how Urban Kisaan makes money, which of those channels deserved focus, what the unit economics had to prove, and what the pitch had to say in one line. Only then did we build outward.",
       },
+      {
+        type: "img",
+        src: "/images/case-uk-story.jpg",
+        alt: "A gold growth curve rising across a navy canvas",
+      },
       { type: "h2", text: "Building demand that compounds" },
       {
         type: "p",
@@ -283,6 +288,11 @@ export const ARTICLES: Article[] = [
       {
         type: "p",
         text: "Growth that compounds changed the company's options. The brand supported funding readiness and a pivot when the business needed one, and the story carried beyond the market: Discovery Channel featured Urban Kisaan in Planet Healers.",
+      },
+      {
+        type: "img",
+        src: "/images/case-uk-impact.jpg",
+        alt: "Gold arcs radiating outward on a navy canvas",
       },
       {
         type: "quote",
