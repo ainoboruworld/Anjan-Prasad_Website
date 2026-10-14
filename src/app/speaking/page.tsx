@@ -6,7 +6,7 @@ import { SpeakingForm } from "@/components/forms/SpeakingForm";
 export const metadata: Metadata = {
   title: "Speaker",
   description:
-    "Invite Anjan Prasad to your podcast, business school or event. Fifteen plus years of building and advising profitable businesses, told plainly, with real numbers.",
+    "Invite Anjan Prasad to your podcast, business school or event. Seventeen plus years of building and advising profitable businesses, told plainly, with real numbers.",
   alternates: { canonical: "/speaking" },
 };
 
@@ -57,7 +57,7 @@ export default function SpeakingPage() {
             Ask him anything. <em>He has run the numbers.</em>
           </h1>
           <p>
-            Anjan runs three businesses today and spent fifteen plus years before that inside global agencies, spending
+            Anjan runs three businesses today and spent seventeen plus years before that inside global agencies, spending
             budgets for some of the biggest brands in the country. On a stage or a mic he does one thing: say plainly
             what building a business is actually like, with the numbers to back it.
           </p>

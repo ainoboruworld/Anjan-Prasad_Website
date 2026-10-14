@@ -62,6 +62,8 @@ export interface Article {
   kicker: string;
   /** Banner title (falls back to excerpt). */
   bannerTitle?: string;
+  /** Card thumbnail when it should differ from the banner image. */
+  cardImage?: string;
   body?: ArticleBlock[];
   sources?: string;
   caseStudy?: CaseStudyDetails;
@@ -223,7 +225,8 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-09-01",
     readTime: "7 min read",
     excerpt: "$2M ARR reached, 42× organic traffic.",
-    image: "/images/life-3.jpg",
+    image: "/images/case-uk-banner.jpg",
+    cardImage: "/images/case-uk-thumb.jpg",
     kicker: "Case Studies",
     caseStudy: {
       sector: "AgriTech",
@@ -239,7 +242,41 @@ export const ARTICLES: Article[] = [
         ["3.7", "ROAS on Google and Meta"],
       ],
       tags: ["Business model and GTM", "Brand and social", "Performance and SEO", "Funding readiness"],
+      quote: [
+        "Before the world noticed Urban Kisaan, we helped shape the story.",
+        "Anjan Prasad",
+      ],
     },
+    body: [
+      {
+        type: "lead",
+        text: "Urban Kisaan grows fresh produce in vertical hydroponic farms across Indian cities. When we started working together, the product was ahead of the story: a Y Combinator W20 company that most of its own market had never heard of.",
+      },
+      { type: "h2", text: "Where it started" },
+      {
+        type: "p",
+        text: "The team had the science and the farms. What they needed was a business that investors and customers could read at a glance: a clear model, a brand people could follow, and demand that didn't depend on paid spend alone.",
+      },
+      { type: "h2", text: "What we worked on" },
+      {
+        type: "p",
+        text: "We began at the model, not the marketing: refining how Urban Kisaan makes money, which channels deserved focus and what the pitch had to prove. Then we built outward, an organic digital presence, content and SEO that compounds, and performance marketing that had to justify itself every month.",
+      },
+      {
+        type: "p",
+        text: "Social went from 700 followers to 47,000 in twelve months. Organic traffic grew 42 times. Google and Meta campaigns held a 3.7 ROAS, and contribution margin improved 18% while revenue scaled to $2M ARR.",
+      },
+      { type: "h2", text: "Why it mattered" },
+      {
+        type: "p",
+        text: "Growth that compounds changed the company's options. The brand supported funding readiness and a pivot, and the story reached beyond the market: Discovery Channel featured Urban Kisaan in Planet Healers.",
+      },
+      {
+        type: "quote",
+        strong: "The lesson:",
+        text: "a strong product earns attention slowly. A strong story, built on real numbers, earns it while you still need it.",
+      },
+    ],
   },
   {
     slug: "case-study-digit-insurance",

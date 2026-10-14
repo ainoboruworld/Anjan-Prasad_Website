@@ -2635,8 +2635,9 @@ footer .ft7 a{padding:6px 0}
 #wheel-h .whg{gap:64px}
 #wheel-h .whx p{max-width:400px;font-size:14.5px}
 @media(max-width:900px){
-/* On touch screens there is no hover, so keep the small labels visible. */
-#wheel-h .wn b{opacity:1;transform:none}
+/* On touch screens, only the active area (slideshow or tapped) shows its name. */
+#wheel-h .wn b{opacity:0;transform:translateY(-4px)}
+#wheel-h .wn.on b{opacity:1;transform:none}
 #wheel-h .wring{max-width:min(88vw,360px)}
 }
 
@@ -2779,3 +2780,16 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* "How I work" quote slideshow */
 .mani blockquote.qsl{opacity:0;transition:opacity .25s ease;min-height:2.6em}
 .mani blockquote.qsl.on{opacity:1}
+
+/* Home wheel: punchy stat line per area; hidden on the advisory picker */
+.wp .wstat{font:italic 400 17.5px/1.55 var(--font-serif);color:#D5DEE7;margin:0 0 24px;padding-left:16px;border-left:2px solid #CDB27A}
+.dx .wstat{display:none}
+
+/* Case study charts (Urban Kisaan) */
+.ukcharts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:34px 0}
+.ukc{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-md,14px);padding:18px 18px 10px}
+.ukc figcaption{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.ukc figcaption b{font:500 15px var(--font-sans);color:var(--navy)}
+.ukc figcaption span{font-size:12.5px;color:var(--slate)}
+.ukc svg{width:100%;height:auto;display:block}
+@media(max-width:900px){.ukcharts{grid-template-columns:1fr}}

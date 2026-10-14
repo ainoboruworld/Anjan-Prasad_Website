@@ -4,6 +4,7 @@ import { ApMark } from "../brand/ApMark";
 import { Cta } from "../ui/Cta";
 import { articleHref, articleMeta, splitTitle, type Article } from "@/lib/data/articles";
 import type { CmsArticle } from "@/lib/sanity";
+import { UkCharts } from "./UkCharts";
 
 function EndCta() {
   return (
@@ -50,6 +51,7 @@ function SeedBody({ a }: { a: Article }) {
 
 function CaseBody({ a }: { a: Article }) {
   const c = a.caseStudy!;
+  const isUk = a.slug === "case-study-urban-kisaan";
   return (
     <div id="aalt">
       <div className="csb">
@@ -67,12 +69,39 @@ function CaseBody({ a }: { a: Article }) {
             <span key={t}>{t}</span>
           ))}
         </div>
+        {isUk && <UkCharts />}
+        {a.body?.length ? (
+          a.body.map((b, i) => {
+            switch (b.type) {
+              case "lead":
+                return (
+                  <p className="lead" key={i}>
+                    {b.text}
+                  </p>
+                );
+              case "h2":
+                return <h2 key={i}>{b.text}</h2>;
+              case "quote":
+                return (
+                  <blockquote key={i}>
+                    {b.strong && <b>{b.strong}</b>} {b.text}
+                  </blockquote>
+                );
+              case "img":
+                // eslint-disable-next-line @next/next/no-img-element
+                return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
+              default:
+                return <p key={i}>{b.text}</p>;
+            }
+          })
+        ) : (
+          <p>Full case study coming soon: the problem, what we tried, what worked and what we would do differently.</p>
+        )}
         {c.quote && (
           <blockquote>
             “{c.quote[0]}”<cite>{c.quote[1]}</cite>
           </blockquote>
         )}
-        <p>Full case study coming soon: the problem, what we tried, what worked and what we would do differently.</p>
       </div>
       <EndCta />
     </div>
@@ -152,7 +181,7 @@ export function ArticleView({ article, related }: { article: CmsArticle; related
             <small id="abk">{article.kicker}</small>
             <b id="abt">{article.bannerTitle ?? article.excerpt}</b>
           </div>
-          {article.image.startsWith("/images/") && <figcaption>Placeholder banner: swap with final artwork</figcaption>}
+          {article.image.startsWith("/images/life-") && <figcaption>Placeholder banner: swap with final artwork</figcaption>}
         </figure>
 
         {body}
@@ -164,7 +193,7 @@ export function ArticleView({ article, related }: { article: CmsArticle; related
               <Link href={articleHref(r.slug)} key={r.slug}>
                 <div className="im">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={r.image} alt="" loading="lazy" />
+                  <img src={r.cardImage ?? r.image} alt="" loading="lazy" />
                 </div>
                 <small>{r.category}</small>
                 <h4>{r.title}</h4>

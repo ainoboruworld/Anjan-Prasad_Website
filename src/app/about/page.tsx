@@ -150,7 +150,7 @@ export default function AboutPage() {
             </p>
             <p>
               I work with them as a mentor, an advisor and sometimes just a sounding board. I don&rsquo;t have a
-              framework to sell you. I have sixteen years of doing this for real, and I&rsquo;m happy to share all of
+              framework to sell you. I have seventeen plus years of doing this for real, and I&rsquo;m happy to share all of
               it.
             </p>
             <p className="sgn">Anjan</p>

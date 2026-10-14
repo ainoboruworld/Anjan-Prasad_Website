@@ -24,8 +24,9 @@ export function Hero() {
           Build a Business That <em>Outlasts You.</em>
         </h1>
         <p>
-          I left a corporate career to build my own companies, and learned the hard way what keeps a business alive.
-          Now I sit beside founders who are serious about building something that lasts.
+          I work with founders on the decisions that shape their businesses, from finding product-market fit to
+          pricing, profitability and scaling. The goal is simple: build a business that grows with purpose and stands
+          on its own.
         </p>
         <div className="more">
           <Cta href="/business-advisory#capply">Book a consultation</Cta>

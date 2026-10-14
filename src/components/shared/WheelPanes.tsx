@@ -20,6 +20,7 @@ export function WheelPanes({
             {a.index} · {a.name}
           </span>
           <h3>{a.headline}</h3>
+          <p className="wstat">{a.stat}</p>
           <p className="wnote">
             {a.note}
             <span>Anjan</span>

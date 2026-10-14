@@ -14,6 +14,8 @@ export interface Area {
   pos: { left: string; top: string };
   /** Stroke-only icon path(s), 24×24 viewBox. */
   icon: string;
+  /** Punchy stat hook shown on the home wheel. */
+  stat: string;
   /** The opinionated one-liner: "My view". */
   headline: string;
   /** The personal story behind the view, signed Anjan. */
@@ -25,6 +27,7 @@ export interface Area {
 export const AREAS: Area[] = [
   {
     key: "tech",
+    stat: "7 out of 10 founders I meet are running on the wrong tech stack, and paying for it every month.",
     index: "01",
     name: "Technology",
     pos: { left: "50.00%", top: "8.00%" },
@@ -34,11 +37,12 @@ export const AREAS: Area[] = [
     points: [
       "“Digitise” is not a goal. A ₹20 lakh app on an unclear process only speeds up the confusion.",
       "First we map how an order, a lead or a rupee actually moves through your business. Then we build, buy or skip.",
-      "I run a tech company, so I know what it should cost and how long it should take. No vendor oversells you again.",
+      "I run a tech company, so I know what things should cost and how long they should take. You'll know when a vendor is overselling you.",
     ],
   },
   {
     key: "mkt",
+    stat: "42% of businesses shut down because nobody really needed what they sold. More ads won’t change that.",
     index: "02",
     name: "Marketing and sales",
     pos: { left: "77.00%", top: "17.83%" },
@@ -53,6 +57,7 @@ export const AREAS: Area[] = [
   },
   {
     key: "fin",
+    stat: "Profitable on paper, short on salary day? That’s how 4 in 10 businesses quietly close.",
     index: "03",
     name: "Finance",
     pos: { left: "91.36%", top: "42.71%" },
@@ -67,6 +72,7 @@ export const AREAS: Area[] = [
   },
   {
     key: "log",
+    stat: "Bestsellers out of stock, slow movers filling the godown. That’s where 18% of businesses start losing.",
     index: "04",
     name: "Logistics and supply chain",
     pos: { left: "86.37%", top: "71.00%" },
@@ -81,6 +87,7 @@ export const AREAS: Area[] = [
   },
   {
     key: "ops",
+    stat: "If every decision waits for you, your team stops thinking. Only 23% of Indian employees truly care about their work.",
     index: "05",
     name: "Operational efficiency",
     pos: { left: "64.36%", top: "89.47%" },
@@ -95,6 +102,7 @@ export const AREAS: Area[] = [
   },
   {
     key: "rev",
+    stat: "Stuck at the same turnover? I took Lushful from zero to ₹2.5 Cr a year, mostly from existing customers.",
     index: "06",
     name: "Revenue growth",
     pos: { left: "35.64%", top: "89.47%" },
@@ -109,6 +117,7 @@ export const AREAS: Area[] = [
   },
   {
     key: "pro",
+    stat: "A 1% price increase can lift profit by 8%. Still giving discounts?",
     index: "07",
     name: "Profit optimisation",
     pos: { left: "13.63%", top: "71.00%" },
@@ -123,6 +132,7 @@ export const AREAS: Area[] = [
   },
   {
     key: "hr",
+    stat: "Half your team could be job hunting right now. Would you even know?",
     index: "08",
     name: "People and culture",
     pos: { left: "8.64%", top: "42.71%" },
@@ -137,12 +147,13 @@ export const AREAS: Area[] = [
   },
   {
     key: "prd",
+    stat: "Long hours, packed calendars, and fewer than 1 in 5 people actually happy at work. Busy isn’t growth.",
     index: "09",
     name: "Productivity",
     pos: { left: "23.00%", top: "17.83%" },
     icon: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>',
     headline: "A team's output is decided in the founder's calendar, not on the employees' desks.",
-    note: "I learned this running multiple businesses at once. When my priorities were unclear, my teams were busy but nothing important moved. When I was clear, the same people delivered twice as much without working longer.",
+    note: "I learned this running multiple businesses at once. When my priorities were unclear, my teams were busy but nothing important moved. When I was clear, the same people delivered far more without working longer.",
     points: [
       "Teams mirror the founder. If the top is unclear, no app fixes the bottom.",
       "We start with your week: three priorities, fewer meetings, clear owners.",
