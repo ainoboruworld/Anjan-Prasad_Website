@@ -38,6 +38,30 @@ export interface CaseStudyDetails {
   quote?: [string, string];
 }
 
+export interface CaseLineChartData {
+  kind: "line";
+  title: string;
+  note: string;
+  points: number[];
+  max: number;
+  ticks: { v: number; label: string }[];
+  startValue: string;
+  endValue: string;
+  startLabel: string;
+  endLabel: string;
+}
+
+export interface CaseBarChartData {
+  kind: "bars";
+  title: string;
+  note: string;
+  bars: { label: string; value: number; gold?: boolean }[];
+  max: number;
+  suffix?: string;
+}
+
+export type CaseChartData = CaseLineChartData | CaseBarChartData;
+
 export interface ArticleBlock {
   type: "lead" | "p" | "h2" | "quote" | "img" | "chart" | "ul";
   text?: string;
@@ -45,8 +69,8 @@ export interface ArticleBlock {
   strong?: string;
   src?: string;
   alt?: string;
-  /** For chart blocks: which case chart to render. */
-  chart?: "followers" | "traffic";
+  /** For chart blocks: the chart definition to render. */
+  chart?: CaseChartData;
   /** For list blocks. */
   items?: string[];
 }
@@ -223,7 +247,7 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: "case-study-urban-kisaan",
-    title: "Supporting the growth behind a $7.5M AgriTech startup",
+    title: "Urban Kisaan: 700 followers to $2M ARR",
     category: "Case Studies",
     date: "AgriTech",
     publishedAt: "2025-09-01",
@@ -257,6 +281,11 @@ export const ARTICLES: Article[] = [
         type: "p",
         text: "Urban Kisaan is a Y Combinator W20 agritech startup with real science: pesticide-free greens grown with a fraction of the water, harvested minutes from the customer. But the product was ahead of the story. The model mixed B2B supply, retail kiosks and home delivery, the brand had 700 Instagram followers, and nearly all demand was paid for, click by click.",
       },
+      {
+        type: "img",
+        src: "/images/uk-farm.jpg",
+        alt: "Inside an Urban Kisaan vertical hydroponic farm",
+      },
       { type: "h2", text: "What we did" },
       {
         type: "p",
@@ -275,12 +304,56 @@ export const ARTICLES: Article[] = [
         type: "p",
         text: "Social came first. In twelve months the Instagram following grew from 700 to 47,000, a 67 times jump, without buying followers.",
       },
-      { type: "chart", chart: "followers" },
+      {
+        type: "chart",
+        chart: {
+          kind: "line",
+          title: "Social following",
+          note: "Instagram, 700 to 47K followers in 12 months",
+          points: [0.7, 1.1, 1.8, 3.0, 4.6, 7.2, 10.5, 15.0, 21.0, 28.5, 37.0, 47.0],
+          max: 50,
+          ticks: [
+            { v: 0, label: "0" },
+            { v: 15, label: "15K" },
+            { v: 30, label: "30K" },
+            { v: 45, label: "45K" },
+          ],
+          startValue: "700",
+          endValue: "47K",
+          startLabel: "Month 1",
+          endLabel: "Month 12",
+        },
+      },
+      {
+        type: "img",
+        src: "/images/uk-store.jpg",
+        alt: "An Urban Kisaan retail store",
+      },
       {
         type: "p",
         text: "Search compounded next. Content answered real questions quarter after quarter, and organic traffic reached 42 times its starting level, demand the company no longer pays for every month.",
       },
-      { type: "chart", chart: "traffic" },
+      {
+        type: "chart",
+        chart: {
+          kind: "bars",
+          title: "Organic traffic",
+          note: "Indexed to the starting quarter, 1\u00d7 to 42\u00d7",
+          bars: [
+            { label: "Q1", value: 1 },
+            { label: "Q2", value: 6 },
+            { label: "Q3", value: 18 },
+            { label: "Q4", value: 42, gold: true },
+          ],
+          max: 45,
+          suffix: "\u00d7",
+        },
+      },
+      {
+        type: "img",
+        src: "/images/uk-discovery.jpg",
+        alt: "Urban Kisaan featured in Discovery Channel's Planet Healers",
+      },
       { type: "h2", text: "The results" },
       {
         type: "ul",

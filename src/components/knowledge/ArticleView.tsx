@@ -4,7 +4,7 @@ import { ApMark } from "../brand/ApMark";
 import { Cta } from "../ui/Cta";
 import { articleHref, articleMeta, splitTitle, type Article } from "@/lib/data/articles";
 import type { CmsArticle } from "@/lib/sanity";
-import { FollowersChart, TrafficChart } from "./UkCharts";
+import { CaseBarChart, CaseLineChart } from "./CaseCharts";
 
 function EndCta() {
   return (
@@ -89,7 +89,8 @@ function CaseBody({ a }: { a: Article }) {
                 // eslint-disable-next-line @next/next/no-img-element
                 return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
               case "chart":
-                return b.chart === "traffic" ? <TrafficChart key={i} /> : <FollowersChart key={i} />;
+                if (!b.chart) return null;
+                return b.chart.kind === "bars" ? <CaseBarChart key={i} c={b.chart} /> : <CaseLineChart key={i} c={b.chart} />;
               case "ul":
                 return (
                   <ul key={i}>
