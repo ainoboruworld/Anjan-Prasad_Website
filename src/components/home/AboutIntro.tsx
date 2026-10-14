@@ -10,7 +10,7 @@ export function AboutIntro() {
           <Image src="/images/portrait-anjan.jpg" alt="Portrait of Anjan Prasad" width={900} height={1125} sizes="(max-width: 900px) 100vw, 480px" />
         </div>
         <div className="rv on">
-          <span className="lab">Serial entrepreneur &middot; Business advisor</span>
+          <span className="lab">Serial entrepreneur. Three times from zero, and counting.</span>
           <h2>
             I don&rsquo;t study businesses. <em>I run them.</em>
           </h2>
