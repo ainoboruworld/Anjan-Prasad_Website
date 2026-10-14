@@ -41,12 +41,6 @@ export function Diagnosis({ initialKey }: { initialKey?: string }) {
                 I don&rsquo;t advise from the outside. <em>I&rsquo;m still in it.</em>
               </h2>
             </div>
-            <p className="dxq">
-              I run three businesses today, and spent years inside global agencies before that. I&rsquo;ve been the
-              person selling the solution, and the person paying for it. Here&rsquo;s what I believe about each part of
-              a business, and why.
-              <span>Anjan</span>
-            </p>
           </div>
 
           <div className="dxg">
