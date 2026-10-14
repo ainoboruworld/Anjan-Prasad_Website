@@ -2149,7 +2149,7 @@ to{opacity:1;transform:none}
 
 .cct{display:flex;align-items:center;justify-content:space-between;gap:10px;height:34px}
 .ccl{max-height:28px;width:auto}
-.ccw{font:600 15px var(--font-sans);color:var(--navy)}
+.cct span.ccw{font:400 20px var(--font-serif);letter-spacing:.01em;text-transform:none;color:var(--navy)}
 
 .cct span{font:500 10.5px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
 
