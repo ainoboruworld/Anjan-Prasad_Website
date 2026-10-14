@@ -2820,3 +2820,6 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .csb ul{margin:0 0 22px;padding-left:22px}
 .csb ul li{margin:8px 0;line-height:1.6;color:var(--harb)}
 .csb ul li::marker{color:#CDB27A}
+
+/* Case study photos: natural size, centred, premium frame */
+.art #aalt img{max-width:min(100%,420px);margin:26px auto 12px;display:block;border:1px solid var(--line);box-shadow:0 10px 30px rgba(11,26,46,.08)}
