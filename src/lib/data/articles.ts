@@ -39,12 +39,14 @@ export interface CaseStudyDetails {
 }
 
 export interface ArticleBlock {
-  type: "lead" | "p" | "h2" | "quote" | "img";
+  type: "lead" | "p" | "h2" | "quote" | "img" | "chart";
   text?: string;
   /** For quotes: bold lead-in. */
   strong?: string;
   src?: string;
   alt?: string;
+  /** For chart blocks: which case chart to render. */
+  chart?: "followers" | "traffic";
 }
 
 export interface Article {
@@ -255,21 +257,32 @@ export const ARTICLES: Article[] = [
       { type: "h2", text: "Where it started" },
       {
         type: "p",
-        text: "The team had the science and the farms. What they needed was a business that investors and customers could read at a glance: a clear model, a brand people could follow, and demand that didn't depend on paid spend alone.",
-      },
-      { type: "h2", text: "What we worked on" },
-      {
-        type: "p",
-        text: "We began at the model, not the marketing: refining how Urban Kisaan makes money, which channels deserved focus and what the pitch had to prove. Then we built outward, an organic digital presence, content and SEO that compounds, and performance marketing that had to justify itself every month.",
+        text: "The team had the science and the farms: pesticide-free greens, grown with a fraction of the water, harvested minutes from the customer. What they didn't have was a business that investors and customers could read at a glance. The model mixed B2B supply, retail kiosks and home delivery. The brand had 700 Instagram followers. Nearly all demand was paid for, click by click.",
       },
       {
         type: "p",
-        text: "Social went from 700 followers to 47,000 in twelve months. Organic traffic grew 42 times. Google and Meta campaigns held a 3.7 ROAS, and contribution margin improved 18% while revenue scaled to $2M ARR.",
+        text: "So we began at the model, not the marketing: how Urban Kisaan makes money, which of those channels deserved focus, what the unit economics had to prove, and what the pitch had to say in one line. Only then did we build outward.",
+      },
+      { type: "h2", text: "Building demand that compounds" },
+      {
+        type: "p",
+        text: "The first lever was organic. We rebuilt the brand's digital presence around the story only Urban Kisaan could tell: urban farming, shown from inside the farm. Content went out consistently, tuned to what people actually watched and shared, not what the category usually posts. In twelve months the Instagram following grew from 700 to 47,000, a 67 times jump, without buying followers.",
+      },
+      { type: "chart", chart: "followers" },
+      {
+        type: "p",
+        text: "SEO ran on the same principle: own the questions people were already asking about hydroponics, clean greens and urban farming. Content and search compounded quarter on quarter until organic traffic reached 42 times its starting level. That is demand the company no longer pays for every month.",
+      },
+      { type: "chart", chart: "traffic" },
+      { type: "h2", text: "Making the paid rupee work" },
+      {
+        type: "p",
+        text: "Performance marketing came last, on purpose. With the story and the organic base in place, Google and Meta campaigns had something to land on, and they held a 3.7 ROAS. Contribution margin improved 18% while revenue scaled to $2M ARR, so the growth was profitable growth, not bought turnover.",
       },
       { type: "h2", text: "Why it mattered" },
       {
         type: "p",
-        text: "Growth that compounds changed the company's options. The brand supported funding readiness and a pivot, and the story reached beyond the market: Discovery Channel featured Urban Kisaan in Planet Healers.",
+        text: "Growth that compounds changed the company's options. The brand supported funding readiness and a pivot when the business needed one, and the story carried beyond the market: Discovery Channel featured Urban Kisaan in Planet Healers.",
       },
       {
         type: "quote",

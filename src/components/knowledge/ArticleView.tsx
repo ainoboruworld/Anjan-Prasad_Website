@@ -4,7 +4,7 @@ import { ApMark } from "../brand/ApMark";
 import { Cta } from "../ui/Cta";
 import { articleHref, articleMeta, splitTitle, type Article } from "@/lib/data/articles";
 import type { CmsArticle } from "@/lib/sanity";
-import { UkCharts } from "./UkCharts";
+import { FollowersChart, TrafficChart } from "./UkCharts";
 
 function EndCta() {
   return (
@@ -51,7 +51,6 @@ function SeedBody({ a }: { a: Article }) {
 
 function CaseBody({ a }: { a: Article }) {
   const c = a.caseStudy!;
-  const isUk = a.slug === "case-study-urban-kisaan";
   return (
     <div id="aalt">
       <div className="csb">
@@ -69,7 +68,6 @@ function CaseBody({ a }: { a: Article }) {
             <span key={t}>{t}</span>
           ))}
         </div>
-        {isUk && <UkCharts />}
         {a.body?.length ? (
           a.body.map((b, i) => {
             switch (b.type) {
@@ -90,6 +88,8 @@ function CaseBody({ a }: { a: Article }) {
               case "img":
                 // eslint-disable-next-line @next/next/no-img-element
                 return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
+              case "chart":
+                return b.chart === "traffic" ? <TrafficChart key={i} /> : <FollowersChart key={i} />;
               default:
                 return <p key={i}>{b.text}</p>;
             }
