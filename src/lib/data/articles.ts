@@ -410,6 +410,65 @@ export const ARTICLES: Article[] = [
         "Bhavuk Khandelwal, VP Marketing, Digit",
       ],
     },
+    body: [
+      {
+        type: "lead",
+        text: "Digit set out to sell insurance online against India's biggest insurers, starting with a brand-new website and no search authority. Organic traffic grew 20 times, from 68K to 1.5M, and over 1.5 million policies were sold through organic alone.",
+      },
+      { type: "h2", text: "The challenge" },
+      {
+        type: "p",
+        text: "Insurance is one of the most competitive categories in Indian search, dominated by incumbents with decades of authority. Digit had a better product and a simpler story, but no ranking, no topical authority and no time to buy its way in forever.",
+      },
+      { type: "h2", text: "What we did" },
+      {
+        type: "ul",
+        items: [
+          "SEO-first strategy: win the questions people actually ask about insurance, before they know which insurer to pick.",
+          "An Insurance Simplified content engine: 800+ high-authority pages that explain policies in plain language.",
+          "Topical authority: clusters built subject by subject, so each new page ranked faster than the last.",
+        ],
+      },
+      {
+        type: "chart",
+        chart: {
+          kind: "line",
+          title: "Organic traffic",
+          note: "Monthly organic visits, 68K to 1.5M",
+          points: [0.07, 0.1, 0.16, 0.24, 0.35, 0.48, 0.63, 0.8, 0.98, 1.15, 1.33, 1.5],
+          max: 1.6,
+          ticks: [
+            { v: 0, label: "0" },
+            { v: 0.5, label: "0.5M" },
+            { v: 1, label: "1M" },
+            { v: 1.5, label: "1.5M" },
+          ],
+          startValue: "68K",
+          endValue: "1.5M",
+          startLabel: "Start",
+          endLabel: "At scale",
+        },
+      },
+      { type: "h2", text: "The results" },
+      {
+        type: "ul",
+        items: [
+          "Organic traffic grew 20x, from 68K to 1.5M visits.",
+          "1.5M+ policies sold through organic channels.",
+          "800+ high-authority pages ranking across the category.",
+          "Zero dependency on paid ads for top-of-funnel demand.",
+        ],
+      },
+      { type: "h2", text: "Key takeaways" },
+      {
+        type: "ul",
+        items: [
+          "In a category where trust decides, education outranks advertising.",
+          "Topical authority compounds: each cluster makes the next one rank faster.",
+          "Organic demand is an asset on the balance sheet; paid demand is an expense.",
+        ],
+      },
+    ],
   },
   {
     slug: "case-study-assure-clinic",
@@ -436,6 +495,61 @@ export const ARTICLES: Article[] = [
       tags: ["Performance marketing", "PPC", "Social campaigns"],
       quote: ["Noboru helped us attract more patients, reduce ad costs and grow our clinic.", "Dr. Priyanka, Assure Clinic"],
     },
+    body: [
+      {
+        type: "lead",
+        text: "Assure Clinic, a dermatology and hair-transplant brand, needed patient demand to keep pace with its expansion. In twelve months revenue grew 9 times, daily leads rose 300% and cost per customer fell 55%.",
+      },
+      { type: "h2", text: "The challenge" },
+      {
+        type: "p",
+        text: "Healthcare marketing punishes waste: every wrong click is expensive, and trust decides who a patient calls. Assure was expanding into new cities and needed inquiries to grow faster than ad spend.",
+      },
+      { type: "h2", text: "What we did" },
+      {
+        type: "ul",
+        items: [
+          "A performance engine across Google and Meta, tuned city by city.",
+          "PPC built around high-intent treatment searches, not generic awareness.",
+          "Social campaigns with real doctors and real outcomes, because proof converts in healthcare.",
+        ],
+      },
+      {
+        type: "chart",
+        chart: {
+          kind: "bars",
+          title: "Revenue growth",
+          note: "Indexed by quarter over 12 months, 1\u00d7 to 9\u00d7",
+          bars: [
+            { label: "Q1", value: 1 },
+            { label: "Q2", value: 3 },
+            { label: "Q3", value: 6 },
+            { label: "Q4", value: 9, gold: true },
+          ],
+          max: 10,
+          suffix: "\u00d7",
+        },
+      },
+      { type: "h2", text: "The results" },
+      {
+        type: "ul",
+        items: [
+          "Revenue grew 9x in twelve months.",
+          "Daily leads rose 300% while cost per customer fell 55%.",
+          "Campaigns held a 3.4 ROAS on Google and Meta.",
+          "The growth supported expansion to 13 outlets and a \u20b915 Cr raise.",
+        ],
+      },
+      { type: "h2", text: "Key takeaways" },
+      {
+        type: "ul",
+        items: [
+          "In healthcare, intent beats reach: a hundred right clicks outperform a million wrong ones.",
+          "Falling acquisition cost is what lets growth fund itself.",
+          "Proof sells: real doctors and real outcomes convert better than any creative.",
+        ],
+      },
+    ],
   },
   {
     slug: "case-study-ev-launch",
@@ -461,6 +575,58 @@ export const ARTICLES: Article[] = [
       ],
       tags: ["Brand identity", "Booking platform", "Launch campaigns", "CRO"],
     },
+    body: [
+      {
+        type: "lead",
+        text: "A new electric mobility brand had to earn trust in a category most Indians had never bought into, and convert it fast. The launch took 5,000 bookings in 4 days at a 9\u00d7 return on ad spend.",
+      },
+      { type: "h2", text: "The challenge" },
+      {
+        type: "p",
+        text: "No brand, no bookings platform, no existing demand, and a launch date. Everything from identity to checkout had to be built, then filled, in one run-up.",
+      },
+      { type: "h2", text: "What we did" },
+      {
+        type: "ul",
+        items: [
+          "Brand identity built for a first-time category: simple claims, visible proof.",
+          "A booking platform designed around one job, taking a deposit in minutes.",
+          "Launch campaigns sequenced from awareness to booking, with CRO on every step.",
+        ],
+      },
+      {
+        type: "chart",
+        chart: {
+          kind: "bars",
+          title: "Cost per lead",
+          note: "Indexed to pre-launch benchmark, down 62%",
+          bars: [
+            { label: "Benchmark", value: 100 },
+            { label: "At launch", value: 38, gold: true },
+          ],
+          max: 110,
+        },
+      },
+      { type: "h2", text: "The results" },
+      {
+        type: "ul",
+        items: [
+          "5,000 bookings in the first 4 days.",
+          "9\u00d7 return on ad spend, with cost per lead down 62%.",
+          "18M+ impressions and brand search up 65%.",
+          "The company went on to attract a $50M strategic investment.",
+        ],
+      },
+      { type: "h2", text: "Key takeaways" },
+      {
+        type: "ul",
+        items: [
+          "A launch is a system: brand, platform and campaigns fail separately, win together.",
+          "In a new category, reducing friction converts better than raising volume.",
+          "Early proof of demand is what investors actually buy.",
+        ],
+      },
+    ],
   },
   {
     slug: "case-study-lushful",
@@ -488,6 +654,64 @@ export const ARTICLES: Article[] = [
       tags: ["Brand and packaging", "Web and apps", "SEO and ads", "CRM and ops"],
       quote: ["They became an extension of the internal team.", "Neelabh Singh, Co-founder, Lushful"],
     },
+    body: [
+      {
+        type: "lead",
+        text: "Lushful is a D2C food brand built from zero: brand, website, apps, growth and operations, one journey end to end. It reached \u20b92.5 Cr ARR with \u20b920L+ monthly revenue and 57% customer retention.",
+      },
+      { type: "h2", text: "The challenge" },
+      {
+        type: "p",
+        text: "D2C food is a margin game played against giants. A new brand has to win trust on the first order and make money on the repeat, or the economics never work.",
+      },
+      { type: "h2", text: "What we did" },
+      {
+        type: "ul",
+        items: [
+          "Brand and packaging that earn the first order on the shelf and the screen.",
+          "A website and apps built for reorders, not just first purchases.",
+          "Growth across search, social, email and WhatsApp, each channel paying its way.",
+          "CRM and operations underneath, because retention is an operations problem too.",
+        ],
+      },
+      {
+        type: "chart",
+        chart: {
+          kind: "line",
+          title: "Annual recurring revenue",
+          note: "From zero to \u20b92.5 Cr ARR",
+          points: [0, 0.1, 0.25, 0.45, 0.7, 0.95, 1.2, 1.5, 1.8, 2.05, 2.3, 2.5],
+          max: 2.75,
+          ticks: [
+            { v: 0, label: "0" },
+            { v: 1, label: "\u20b91 Cr" },
+            { v: 2, label: "\u20b92 Cr" },
+          ],
+          startValue: "0",
+          endValue: "\u20b92.5 Cr",
+          startLabel: "Launch",
+          endLabel: "At scale",
+        },
+      },
+      { type: "h2", text: "The results" },
+      {
+        type: "ul",
+        items: [
+          "\u20b920L+ monthly revenue, \u20b92.5 Cr ARR.",
+          "Monthly orders up 446% and average order value up 87%.",
+          "57% customer retention, rare in D2C food.",
+        ],
+      },
+      { type: "h2", text: "Key takeaways" },
+      {
+        type: "ul",
+        items: [
+          "In D2C the first order is marketing; the second order is the business.",
+          "Retention is built in operations and CRM, not in ads.",
+          "Owning the full stack, brand to delivery, is what protects the margin.",
+        ],
+      },
+    ],
   },
   {
     slug: "case-study-fortune-500-conglomerate",
@@ -513,6 +737,57 @@ export const ARTICLES: Article[] = [
       ],
       tags: ["Information architecture", "UX revamp", "Technical SEO"],
     },
+    body: [
+      {
+        type: "lead",
+        text: "A Fortune 500 conglomerate's digital estate had grown into hundreds of competing pages and thousands of technical issues. After restructuring, search clicks grew 667 times and 221 URLs rank #1.",
+      },
+      { type: "h2", text: "The challenge" },
+      {
+        type: "p",
+        text: "At enterprise scale the problem is rarely content, it is structure: pages competing with each other, journeys that dead-end and technical debt that keeps search engines from trusting the site.",
+      },
+      { type: "h2", text: "What we did" },
+      {
+        type: "ul",
+        items: [
+          "Information architecture: 500+ URLs restructured so every page has one job.",
+          "UX revamp of the key journeys people actually take.",
+          "Technical SEO at scale, clearing 96.6% of the issues holding rankings back.",
+        ],
+      },
+      {
+        type: "chart",
+        chart: {
+          kind: "bars",
+          title: "Technical issues",
+          note: "Indexed to the audit baseline, down 96.6%",
+          bars: [
+            { label: "At audit", value: 100 },
+            { label: "After cleanup", value: 3, gold: true },
+          ],
+          max: 110,
+        },
+      },
+      { type: "h2", text: "The results" },
+      {
+        type: "ul",
+        items: [
+          "Search clicks grew 667x and impressions 142x.",
+          "221 URLs now rank #1 for their queries.",
+          "Technical issues down 96.6% from the audit baseline.",
+        ],
+      },
+      { type: "h2", text: "Key takeaways" },
+      {
+        type: "ul",
+        items: [
+          "At enterprise scale, structure beats content volume.",
+          "Pages that compete with each other rank worse than fewer pages with one job each.",
+          "Technical debt is invisible until you clear it; then everything built on top starts working.",
+        ],
+      },
+    ],
   },
 ];
 

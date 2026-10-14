@@ -2816,10 +2816,10 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* Case study: simple blog format */
 .csb .tags span{background:transparent;border:1px solid var(--line);color:var(--harb);font-weight:500;letter-spacing:.03em}
 #aalt .csb h2{margin:42px 0 14px}
-.art #aalt img{width:100%;border-radius:var(--r-md,16px);margin:30px 0 10px;display:block}
+.art #aalt img,.art #abody img{width:100%;border-radius:var(--r-md,16px);margin:30px 0 10px;display:block}
 .csb ul{margin:0 0 22px;padding-left:22px}
 .csb ul li{margin:8px 0;line-height:1.6;color:var(--harb)}
 .csb ul li::marker{color:#CDB27A}
 
 /* Case study photos: natural size, centred, premium frame */
-.art #aalt img{max-width:min(100%,420px);margin:26px auto 12px;display:block;border:1px solid var(--line);box-shadow:0 10px 30px rgba(11,26,46,.08)}
+.art #aalt img,.art #abody img{max-width:min(100%,420px);margin:26px auto 12px;display:block;border:1px solid var(--line);box-shadow:0 10px 30px rgba(11,26,46,.08)}

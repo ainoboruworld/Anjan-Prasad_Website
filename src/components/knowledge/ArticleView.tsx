@@ -17,10 +17,11 @@ function EndCta() {
   );
 }
 
-function SeedBody({ a }: { a: Article }) {
+/** One block renderer for every article: blogs and case studies share it. */
+function Blocks({ blocks }: { blocks: NonNullable<Article["body"]> }) {
   return (
-    <div id="abody">
-      {a.body!.map((b, i) => {
+    <>
+      {blocks.map((b, i) => {
         switch (b.type) {
           case "lead":
             return (
@@ -39,10 +40,29 @@ function SeedBody({ a }: { a: Article }) {
           case "img":
             // eslint-disable-next-line @next/next/no-img-element
             return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
+          case "chart":
+            if (!b.chart) return null;
+            return b.chart.kind === "bars" ? <CaseBarChart key={i} c={b.chart} /> : <CaseLineChart key={i} c={b.chart} />;
+          case "ul":
+            return (
+              <ul key={i}>
+                {b.items?.map((it) => (
+                  <li key={it}>{it}</li>
+                ))}
+              </ul>
+            );
           default:
             return <p key={i}>{b.text}</p>;
         }
       })}
+    </>
+  );
+}
+
+function SeedBody({ a }: { a: Article }) {
+  return (
+    <div id="abody">
+      <Blocks blocks={a.body!} />
       <EndCta />
       {a.sources && <p className="srcs">{a.sources}</p>}
     </div>
@@ -69,40 +89,7 @@ function CaseBody({ a }: { a: Article }) {
           ))}
         </div>
         {a.body?.length ? (
-          a.body.map((b, i) => {
-            switch (b.type) {
-              case "lead":
-                return (
-                  <p className="lead" key={i}>
-                    {b.text}
-                  </p>
-                );
-              case "h2":
-                return <h2 key={i}>{b.text}</h2>;
-              case "quote":
-                return (
-                  <blockquote key={i}>
-                    {b.strong && <b>{b.strong}</b>} {b.text}
-                  </blockquote>
-                );
-              case "img":
-                // eslint-disable-next-line @next/next/no-img-element
-                return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
-              case "chart":
-                if (!b.chart) return null;
-                return b.chart.kind === "bars" ? <CaseBarChart key={i} c={b.chart} /> : <CaseLineChart key={i} c={b.chart} />;
-              case "ul":
-                return (
-                  <ul key={i}>
-                    {b.items?.map((it) => (
-                      <li key={it}>{it}</li>
-                    ))}
-                  </ul>
-                );
-              default:
-                return <p key={i}>{b.text}</p>;
-            }
-          })
+          <Blocks blocks={a.body} />
         ) : (
           <p>Full case study coming soon: the problem, what we tried, what worked and what we would do differently.</p>
         )}
