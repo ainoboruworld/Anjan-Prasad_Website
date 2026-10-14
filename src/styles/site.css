@@ -2765,3 +2765,8 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
    (dark pixels lifted in brightness, hues untouched). */
 .vc2 .lx .lt{opacity:0!important}
 .vc2 .lx .lc2{opacity:1!important;filter:none}
+
+/* Advisory 360 intro: the operator's note set as a quiet serif aside with
+   the gold rule and Anjan's sign-off, instead of a plain text block. */
+.dxh p.dxq{font:italic 400 17px/1.65 var(--font-serif);color:var(--harb);max-width:400px;padding-left:18px;border-left:2px solid #CDB27A}
+.dxh p.dxq span{display:block;font:500 11px var(--font-sans);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#CDB27A;margin-top:8px}

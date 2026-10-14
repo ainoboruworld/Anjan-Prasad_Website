@@ -24,12 +24,11 @@ export function WheelPanes({
             {a.note}
             <span>Anjan</span>
           </p>
-          <p className="wwrong">
-            <b>What most advice gets wrong.</b> {a.wrong}
-          </p>
-          <p className="whelp">
-            <b>How I work on it.</b> {a.help}
-          </p>
+          <ul>
+            {a.points.map((pt) => (
+              <li key={pt}>{pt}</li>
+            ))}
+          </ul>
           {cta(a.key, a.name)}
         </div>
       ))}
