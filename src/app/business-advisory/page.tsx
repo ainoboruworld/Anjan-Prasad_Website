@@ -11,16 +11,38 @@ export const metadata: Metadata = {
 };
 
 const WHO = [
-  { n: "01", h: "Growth has stalled", p: "You're working harder than ever and the numbers aren't moving." },
-  { n: "02", h: "A big launch is coming", p: "A new product, city or channel, and you want to get it right the first time." },
-  { n: "03", h: "Profit isn't keeping up", p: "Revenue is growing but the margin, or the cash, isn't." },
+  {
+    n: "01",
+    h: "Growth has stalled",
+    p: "You're working harder than ever and the numbers aren't moving. I've hit that ceiling in my own companies, more than once.",
+  },
+  {
+    n: "02",
+    h: "A big bet is coming",
+    p: "A new product, city or channel, and real money going in. One prepared conversation before you commit is the cheapest insurance there is.",
+  },
+  {
+    n: "03",
+    h: "Profit isn't keeping up",
+    p: "Revenue grows, but the margin or the cash doesn't. I've lived that month, worrying about salaries while the P&L looked fine.",
+  },
+];
+
+const PROOF = [
+  { n: "15+ years", h: "Operating and advising", p: "From Accenture and global agencies to the founder's chair. I've sat on both sides of the table." },
+  { n: "3 businesses", h: "Running today", p: "A tech company, a food brand and a compliance business, each built from zero. My advice is tested on my own money first." },
+  { n: "₹1,200 Cr", h: "In budgets managed", p: "For some of India's biggest brands. I know what good execution costs, and what you should never pay for." },
 ];
 
 const STEPS = [
-  { n: "01", h: "You request a session", p: "A short form about your business and the decision in front of you." },
-  { n: "02", h: "I read it myself", p: "Every request. I reply within five working days." },
-  { n: "03", h: "We talk", p: "A focused one-to-one session to understand the business and the real problem." },
-  { n: "04", h: "We decide what's next", p: "One session is often enough. If you want me at the table longer, we agree how." },
+  { n: "01", h: "You request a session", p: "A short form about your business and the decision in front of you. Ten minutes, no deck needed." },
+  { n: "02", h: "I read it myself", p: "Every request, no team in between. I reply within five working days." },
+  {
+    n: "03",
+    h: "We talk",
+    p: "A focused one-to-one session on the real problem. If I'm not the right person for it, I'll tell you that on the call.",
+  },
+  { n: "04", h: "You leave with a next step", p: "A written, specific one. One session is often enough; if you want me at the table longer, we agree how." },
 ];
 
 export default async function BusinessAdvisoryPage({
@@ -39,9 +61,9 @@ export default async function BusinessAdvisoryPage({
             Clear decisions for founders <em>who are building for the long run.</em>
           </h1>
           <p>
-            One place for both: a focused one-to-one consultation when a single decision is in front of you, and ongoing
-            advisory when you want me at the table as you build. It starts the same way, with you telling me where the
-            business is.
+            I run three businesses today and spent fifteen plus years inside global agencies before that. Founders bring
+            me the decision in front of them: one focused consultation when that&rsquo;s all it takes, ongoing advisory
+            when you want me at the table as you build. Either way it starts with you telling me where the business is.
           </p>
           <Cta href="#capply">Book a consultation</Cta>
         </div>
@@ -69,6 +91,28 @@ export default async function BusinessAdvisoryPage({
           <div className="secta">
             <p>Sound familiar? Start with one session.</p>
             <Cta href="#capply">Book a consultation</Cta>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="sh">
+            <div>
+              <span className="lab">Why founders listen</span>
+              <h2>
+                Advice that&rsquo;s been <em>paid for already.</em>
+              </h2>
+            </div>
+          </div>
+          <div className="c3 plain">
+            {PROOF.map((pr) => (
+              <div key={pr.n}>
+                <span className="lab">{pr.n}</span>
+                <h3>{pr.h}</h3>
+                <p>{pr.p}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
