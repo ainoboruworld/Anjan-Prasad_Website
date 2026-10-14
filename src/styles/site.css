@@ -2783,3 +2783,12 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* Home wheel: punchy stat line per area; hidden on the advisory picker */
 .wp .wstat{font:italic 400 17.5px/1.55 var(--font-serif);color:#D5DEE7;margin:0 0 24px;padding-left:16px;border-left:2px solid #CDB27A}
 .dx .wstat{display:none}
+
+/* Case study charts (Urban Kisaan) */
+.ukcharts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:34px 0}
+.ukc{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-md,14px);padding:18px 18px 10px}
+.ukc figcaption{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.ukc figcaption b{font:500 15px var(--font-sans);color:var(--navy)}
+.ukc figcaption span{font-size:12.5px;color:var(--slate)}
+.ukc svg{width:100%;height:auto;display:block}
+@media(max-width:900px){.ukcharts{grid-template-columns:1fr}}
