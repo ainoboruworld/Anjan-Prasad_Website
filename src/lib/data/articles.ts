@@ -62,6 +62,8 @@ export interface Article {
   kicker: string;
   /** Banner title (falls back to excerpt). */
   bannerTitle?: string;
+  /** Card thumbnail when it should differ from the banner image. */
+  cardImage?: string;
   body?: ArticleBlock[];
   sources?: string;
   caseStudy?: CaseStudyDetails;
@@ -223,7 +225,8 @@ export const ARTICLES: Article[] = [
     publishedAt: "2025-09-01",
     readTime: "7 min read",
     excerpt: "$2M ARR reached, 42× organic traffic.",
-    image: "/images/life-3.jpg",
+    image: "/images/case-uk-banner.jpg",
+    cardImage: "/images/case-uk-thumb.jpg",
     kicker: "Case Studies",
     caseStudy: {
       sector: "AgriTech",

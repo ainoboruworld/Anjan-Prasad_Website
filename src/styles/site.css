@@ -2635,8 +2635,9 @@ footer .ft7 a{padding:6px 0}
 #wheel-h .whg{gap:64px}
 #wheel-h .whx p{max-width:400px;font-size:14.5px}
 @media(max-width:900px){
-/* On touch screens there is no hover, so keep the small labels visible. */
-#wheel-h .wn b{opacity:1;transform:none}
+/* On touch screens, only the active area (slideshow or tapped) shows its name. */
+#wheel-h .wn b{opacity:0;transform:translateY(-4px)}
+#wheel-h .wn.on b{opacity:1;transform:none}
 #wheel-h .wring{max-width:min(88vw,360px)}
 }
 

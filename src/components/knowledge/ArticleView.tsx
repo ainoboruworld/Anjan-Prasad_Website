@@ -181,7 +181,7 @@ export function ArticleView({ article, related }: { article: CmsArticle; related
             <small id="abk">{article.kicker}</small>
             <b id="abt">{article.bannerTitle ?? article.excerpt}</b>
           </div>
-          {article.image.startsWith("/images/") && <figcaption>Placeholder banner: swap with final artwork</figcaption>}
+          {article.image.startsWith("/images/life-") && <figcaption>Placeholder banner: swap with final artwork</figcaption>}
         </figure>
 
         {body}
@@ -193,7 +193,7 @@ export function ArticleView({ article, related }: { article: CmsArticle; related
               <Link href={articleHref(r.slug)} key={r.slug}>
                 <div className="im">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={r.image} alt="" loading="lazy" />
+                  <img src={r.cardImage ?? r.image} alt="" loading="lazy" />
                 </div>
                 <small>{r.category}</small>
                 <h4>{r.title}</h4>

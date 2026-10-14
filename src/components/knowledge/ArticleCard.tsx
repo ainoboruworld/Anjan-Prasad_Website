@@ -7,7 +7,7 @@ export function ArticleCard({ article, teaser = false }: { article: Article; tea
     <Link href={articleHref(article.slug)} className="ac" data-cat={article.category}>
       <div className="im">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={article.image} alt="" loading="lazy" />
+        <img src={article.cardImage ?? article.image} alt="" loading="lazy" />
       </div>
       <div className="b">
         <span className="c">{articleMeta(article)}</span>
