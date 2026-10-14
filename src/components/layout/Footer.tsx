@@ -38,6 +38,7 @@ export function Footer() {
           <h5>Programs &amp; Services</h5>
           <Link href="/business-advisory">Advisory &amp; Consulting</Link>
           <Link href="/mentorship">Mentorship</Link>
+          <Link href="/speaking">Speaking</Link>
           <Link href="/about">About</Link>
         </div>
 
