@@ -80,7 +80,7 @@ export function Diagnosis({ initialKey }: { initialKey?: string }) {
                     book(name);
                   }}
                 >
-                  Book a consultation on {name.toLowerCase()} <span>→</span>
+                  Book a consultation <span>→</span>
                 </a>
               )}
             />
