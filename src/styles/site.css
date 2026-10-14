@@ -2756,3 +2756,7 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .vc.vcth .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;width:48px;height:48px;background:rgba(11,26,46,.5);backdrop-filter:blur(2px)}
 .vc.vcth:hover .pl{background:rgba(11,26,46,.7)}
 @media(max-width:900px){.vc.vcth .vmedia{max-width:420px}}
+
+/* Home 360 section: just the label and headline, centred. Calm and clean. */
+#wheel-h .whx{justify-content:center;text-align:center;margin-bottom:34px}
+@media(max-width:900px){#wheel-h .whx{align-items:center}}

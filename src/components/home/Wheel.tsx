@@ -35,11 +35,6 @@ export function Wheel() {
               One advisor who sees <em>the whole business.</em>
             </h2>
           </div>
-          <p>
-            Most consultants play like a striker: brilliant in one position. But a business is a whole team, and it
-            wins or loses together. I&rsquo;ve run every part of one myself, so I look at all nine areas at once. Hover
-            over an area to see if it sounds like your business.
-          </p>
         </div>
 
         <div className="whg" onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
