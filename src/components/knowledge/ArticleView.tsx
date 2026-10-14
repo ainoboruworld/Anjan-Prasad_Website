@@ -90,6 +90,14 @@ function CaseBody({ a }: { a: Article }) {
                 return <img key={i} src={b.src} alt={b.alt ?? ""} loading="lazy" />;
               case "chart":
                 return b.chart === "traffic" ? <TrafficChart key={i} /> : <FollowersChart key={i} />;
+              case "ul":
+                return (
+                  <ul key={i}>
+                    {b.items?.map((it) => (
+                      <li key={it}>{it}</li>
+                    ))}
+                  </ul>
+                );
               default:
                 return <p key={i}>{b.text}</p>;
             }
