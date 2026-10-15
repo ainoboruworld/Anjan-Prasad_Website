@@ -35,9 +35,9 @@ export default async function HomePage() {
   return (
     <main className="pg on" data-p="home" id="main">
       <Hero sec={sec["home-hero"]} />
-      <TrustWall />
-      <CasesRow />
-      <RecordBand />
+      <TrustWall sec={sec["home-trust"]} />
+      <CasesRow sec={sec["home-cases"]} />
+      <RecordBand sec={sec["home-record"]} />
       <AboutIntro sec={sec["home-about"]} />
       <Journey
         cta={{
@@ -46,11 +46,11 @@ export default async function HomePage() {
           label: "My story",
         }}
       />
-      <LifeStrip />
-      <Wheel />
+      <LifeStrip sec={sec["home-life"]} />
+      <Wheel sec={sec["home-wheel"]} />
       <FeaturedMedia />
       <Testimonials items={testimonials} />
-      <KnowledgeTeaser articles={articles} />
+      <KnowledgeTeaser articles={articles} sec={sec["home-knowledge"]} />
       <CloseCta
         label={close?.label ?? "Your next step"}
         title={

@@ -1,4 +1,7 @@
 import { LogoTile } from "../ui/LogoTile";
+import { SecHead } from "../shared/SecHead";
+import type { PageSection } from "@/lib/sections";
+
 import { CAREER, COMPANIES_ADVISED, FACULTY, VENTURES, type BrandLogo } from "@/lib/data/brands";
 
 function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boolean }) {
@@ -20,16 +23,13 @@ function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boo
 }
 
 /** "The brands built, advised, and led." — ventures, marquees, faculty. */
-export function TrustWall() {
+export function TrustWall({ sec }: { sec?: PageSection }) {
   return (
     <section className="trust4 in" id="tw">
       <div className="glow" aria-hidden="true" />
       <div className="wrap">
         <div className="hd">
-          <span className="lab">Trusted over seventeen years</span>
-          <h2>
-            The brands built, <em>advised, and led.</em>
-          </h2>
+          <SecHead sec={sec} label="Trusted over seventeen years" plain="The brands built, " em="advised, and led." />
         </div>
 
         <div className="ven">

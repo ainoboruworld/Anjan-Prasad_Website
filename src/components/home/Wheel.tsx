@@ -1,5 +1,7 @@
 "use client";
 
+import { SecHead } from "../shared/SecHead";
+import type { PageSection } from "@/lib/sections";
 import { useEffect, useState } from "react";
 import { Cta } from "../ui/Cta";
 import { AreaIcon, WheelPanes } from "../shared/WheelPanes";
@@ -9,7 +11,7 @@ import { AREAS, type AreaKey } from "@/lib/data/areas";
  * "One advisor who sees the whole business." — the 360° ring. Auto-advances
  * every two seconds until the visitor hovers or picks an area.
  */
-export function Wheel() {
+export function Wheel({ sec }: { sec?: PageSection }) {
   const [active, setActive] = useState<AreaKey>("tech");
   const [hold, setHold] = useState(false);
 
@@ -30,10 +32,7 @@ export function Wheel() {
       <div className="wrap">
         <div className="whx">
           <div>
-            <span className="lab">360° business consulting</span>
-            <h2>
-              One advisor who sees <em>the whole business.</em>
-            </h2>
+            <SecHead sec={sec} label="360° business consulting" plain="One advisor who sees " em="the whole business." />
           </div>
         </div>
 

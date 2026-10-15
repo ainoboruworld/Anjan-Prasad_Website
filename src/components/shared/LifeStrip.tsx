@@ -1,11 +1,13 @@
 "use client";
 
+import { SecHead } from "./SecHead";
+import type { PageSection } from "@/lib/sections";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Signature } from "../ui/Signature";
 import { LIFE_PHOTOS } from "@/lib/data/site";
 
 /** "Life beyond the boardroom." — draggable polaroid strip. */
-export function LifeStrip({ variant = "home" }: { variant?: "home" | "about" }) {
+export function LifeStrip({ variant = "home", sec }: { variant?: "home" | "about"; sec?: PageSection }) {
   const wrap = useRef<HTMLDivElement>(null);
   const strip = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
@@ -69,10 +71,7 @@ export function LifeStrip({ variant = "home" }: { variant?: "home" | "about" }) 
     <section className="life2">
       <div className="wrap" ref={wrap}>
         <div className="note rv on">
-          <span className="lab">Off the clock</span>
-          <h2>
-            Life beyond <em>the boardroom.</em>
-          </h2>
+          <SecHead sec={sec} label="Off the clock" plain="Life beyond " em="the boardroom." />
           <p>
             Most of my best decisions weren&rsquo;t made in meetings. They came on quiet mornings, long drives and
             slow weekends.

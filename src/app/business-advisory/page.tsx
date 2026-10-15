@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SecHead } from "@/components/shared/SecHead";
 import { getSections, secHeading } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
@@ -89,14 +90,11 @@ export default async function BusinessAdvisoryPage({
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">Who it&rsquo;s for</span>
-              <h2>
-                Founders at <em>a turning point.</em>
-              </h2>
+              <SecHead sec={sec["advisory-who"]} label="Who it's for" plain="Founders at " em="a turning point." />
             </div>
           </div>
           <div className="c3 plain">
-            {WHO.map((w2) => (
+            {(sec["advisory-who"]?.items?.length ? sec["advisory-who"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : WHO).map((w2) => (
               <div key={w2.n}>
                 <span className="lab">{w2.n}</span>
                 <h3>{w2.h}</h3>
@@ -115,14 +113,11 @@ export default async function BusinessAdvisoryPage({
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">Why founders listen</span>
-              <h2>
-                Advice that&rsquo;s been <em>paid for already.</em>
-              </h2>
+              <SecHead sec={sec["advisory-proof"]} label="Why founders listen" plain="Advice that's been " em="paid for already." />
             </div>
           </div>
           <div className="c3 plain">
-            {PROOF.map((pr) => (
+            {(sec["advisory-proof"]?.items?.length ? sec["advisory-proof"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: x.value ?? String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : PROOF).map((pr) => (
               <div key={pr.n}>
                 <span className="lab">{pr.n}</span>
                 <h3>{pr.h}</h3>
@@ -138,10 +133,7 @@ export default async function BusinessAdvisoryPage({
       <section className="sec ways">
         <div className="wrap wy2">
           <div>
-            <span className="lab">How I help</span>
-            <h2>
-              Whatever you <em>call it.</em>
-            </h2>
+            <SecHead sec={sec["advisory-help"]} label="How I help" plain="Whatever you " em="call it." />
           </div>
           <div className="tx">
             <p className="big">
@@ -166,10 +158,7 @@ export default async function BusinessAdvisoryPage({
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">How it works</span>
-              <h2>
-                Simple, and <em>personal.</em>
-              </h2>
+              <SecHead sec={sec["advisory-steps"]} label="How it works" plain="Simple, and " em="personal." />
             </div>
           </div>
           <ol className="st4">

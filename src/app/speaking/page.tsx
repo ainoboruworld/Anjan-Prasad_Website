@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SecHead } from "@/components/shared/SecHead";
 import { getSections, secHeading } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
@@ -74,10 +75,7 @@ export default async function SpeakingPage() {
       <section className="sec ways">
         <div className="wrap wy2">
           <div>
-            <span className="lab">Why hosts invite him</span>
-            <h2>
-              Stories are cheap. <em>Numbers aren&rsquo;t.</em>
-            </h2>
+            <SecHead sec={sec["speaking-why"]} label="Why hosts invite him" plain="Stories are cheap. " em="Numbers aren't." />
           </div>
           <div className="tx">
             <p className="big">
@@ -98,14 +96,11 @@ export default async function SpeakingPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">What he talks about</span>
-              <h2>
-                Three conversations <em>worth having.</em>
-              </h2>
+              <SecHead sec={sec["speaking-talks"]} label="What he talks about" plain="Three conversations " em="worth having." />
             </div>
           </div>
           <div className="c3 plain">
-            {TALKS.map((t) => (
+            {(sec["speaking-talks"]?.items?.length ? sec["speaking-talks"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : TALKS).map((t) => (
               <div key={t.n}>
                 <span className="lab">{t.n}</span>
                 <h3>{t.h}</h3>
@@ -124,10 +119,7 @@ export default async function SpeakingPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">Where this lands</span>
-              <h2>
-                Rooms he&rsquo;s <em>at home in.</em>
-              </h2>
+              <SecHead sec={sec["speaking-rooms"]} label="Where this lands" plain="Rooms he's " em="at home in." />
             </div>
           </div>
           <ol className="st4">
