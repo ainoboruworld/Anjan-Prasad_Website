@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SecHead } from "@/components/shared/SecHead";
 import { getSections, secHeading } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
@@ -78,10 +79,7 @@ export default async function MentorshipPage() {
       <section className="sec ways">
         <div className="wrap wy2">
           <div>
-            <span className="lab">Not another program</span>
-            <h2>
-              This is the <em>long game.</em>
-            </h2>
+            <SecHead sec={sec["mentorship-long-game"]} label="Not another program" plain="This is the " em="long game." />
           </div>
           <div className="tx">
             <p className="big">
@@ -101,14 +99,11 @@ export default async function MentorshipPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">How it differs</span>
-              <h2>
-                Advisory solves. <em>Mentorship builds.</em>
-              </h2>
+              <SecHead sec={sec["mentorship-differs"]} label="How it differs" plain="Advisory solves. " em="Mentorship builds." />
             </div>
           </div>
           <div className="c3 plain">
-            {DIFF.map((d) => (
+            {(sec["mentorship-differs"]?.items?.length ? sec["mentorship-differs"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : DIFF).map((d) => (
               <div key={d.n}>
                 <span className="lab">{d.n}</span>
                 <h3>{d.h}</h3>
@@ -127,10 +122,7 @@ export default async function MentorshipPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">The rhythm</span>
-              <h2>
-                What a year together <em>looks like.</em>
-              </h2>
+              <SecHead sec={sec["mentorship-rhythm"]} label="The rhythm" plain="What a year together " em="looks like." />
             </div>
           </div>
           <ol className="st4">

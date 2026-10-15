@@ -1,5 +1,7 @@
 "use client";
 
+import { SecHead } from "../shared/SecHead";
+import type { PageSection } from "@/lib/sections";
 import { useEffect, useRef, useState } from "react";
 
 /** Counts up from 0 once the band scrolls into view. */
@@ -34,7 +36,7 @@ const STATS: { to?: number; text?: string; logo?: string; plus?: boolean; label:
 ];
 
 /** "A record measured in outcomes." */
-export function RecordBand() {
+export function RecordBand({ sec }: { sec?: PageSection }) {
   const ref = useRef<HTMLDivElement>(null);
   const [go, setGo] = useState(false);
 
@@ -59,14 +61,11 @@ export function RecordBand() {
       <div className="wrap">
         <div className="rtop rv on">
           <div>
-            <span className="lab">Trust &amp; Experience</span>
-            <h2>
-              A record measured <em>in outcomes.</em>
-            </h2>
+            <SecHead sec={sec} label="Trust & Experience" plain="A record measured " em="in outcomes." />
           </div>
           <p>
-            Seventeen plus years across global agencies, enterprise growth teams and my own ventures. These are the numbers
-            I&rsquo;m proudest of.
+            {sec?.body ??
+              "Seventeen plus years across global agencies, enterprise growth teams and my own ventures. These are the numbers I'm proudest of."}
           </p>
         </div>
 

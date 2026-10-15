@@ -6,6 +6,7 @@ import { VideoPair } from "@/components/shared/VideoPair";
 import { CloseCta } from "@/components/shared/CloseCta";
 import { Cta } from "@/components/ui/Cta";
 import { QuoteSlideshow } from "@/components/about/QuoteSlideshow";
+import { SecHead } from "@/components/shared/SecHead";
 import { getQuotes, getSections, splitEm } from "@/lib/sanity";
 
 export const revalidate = 300;
@@ -129,7 +130,7 @@ export default async function AboutPage() {
 
       <section className="mani">
         <div className="wrap">
-          <span className="lab">How I work</span>
+          <span className="lab">{sec["about-work"]?.label ?? "How I work"}</span>
           <QuoteSlideshow quotes={quotes} />
           <div className="sg">Anjan</div>
         </div>
@@ -138,10 +139,7 @@ export default async function AboutPage() {
       <section className="story">
         <div className="wrap">
           <div className="stl">
-            <span className="lab">My story</span>
-            <h2>
-              The long version, <em>over a cup of coffee.</em>
-            </h2>
+            <SecHead sec={sec["about-story"]} label="My story" plain="The long version, " em="over a cup of coffee." />
             <span className="ph-flag">Story draft: confirm details with Anjan</span>
           </div>
           <div className="sr">
@@ -221,10 +219,7 @@ export default async function AboutPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">What I believe</span>
-              <h2>
-                Things I believe, <em>because I paid for them.</em>
-              </h2>
+              <SecHead sec={sec["about-beliefs"]} label="What I believe" plain="Things I believe, " em="because I paid for them." />
             </div>
           </div>
           <div className="bl">

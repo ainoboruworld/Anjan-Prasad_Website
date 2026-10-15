@@ -1,11 +1,14 @@
 "use client";
 
+
+import { SecHead } from "../shared/SecHead";
+import type { PageSection } from "@/lib/sections";
 import { useRef } from "react";
 import Link from "next/link";
 import { CASE_STUDIES, articleHref } from "@/lib/data/articles";
 
 /** "Work that moved the numbers." — horizontally scrolling case cards. */
-export function CasesRow() {
+export function CasesRow({ sec }: { sec?: PageSection }) {
   const row = useRef<HTMLDivElement>(null);
   const by = (dir: 1 | -1) => {
     const el = row.current;
@@ -17,10 +20,7 @@ export function CasesRow() {
       <div className="wrap">
         <div className="csx">
           <div>
-            <span className="lab">Case studies</span>
-            <h2>
-              Work that moved <em>the numbers.</em>
-            </h2>
+            <SecHead sec={sec} label="Case studies" plain="Work that moved " em="the numbers." />
           </div>
           <div className="cvctl">
             <button type="button" className="ccp" aria-label="Previous" onClick={() => by(-1)}>
