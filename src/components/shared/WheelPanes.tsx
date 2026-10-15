@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { AREAS, type AreaKey } from "@/lib/data/areas";
+import { AREAS, type Area, type AreaKey } from "@/lib/data/areas";
 
 /**
  * The nine diagnosis panes. Shared by the home wheel and the consultation
@@ -8,13 +8,15 @@ import { AREAS, type AreaKey } from "@/lib/data/areas";
 export function WheelPanes({
   active,
   cta,
+  areas = AREAS,
 }: {
   active: AreaKey;
   cta: (areaKey: AreaKey, areaName: string) => ReactNode;
+  areas?: Area[];
 }) {
   return (
     <div className="wpanes">
-      {AREAS.map((a) => (
+      {areas.map((a) => (
         <div className={`wp${a.key === active ? " on" : ""}`} data-k={a.key} key={a.key}>
           <span className="lab">
             {a.index} · {a.name}

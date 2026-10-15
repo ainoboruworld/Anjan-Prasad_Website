@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
-import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
+import { getSections, secHeading, pageMetadata, getAreas } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
@@ -67,7 +67,7 @@ export default async function BusinessAdvisoryPage({
   searchParams: Promise<{ w?: string }>;
 }) {
   const { w } = await searchParams;
-  const sec = await getSections();
+  const [sec, areas] = await Promise.all([getSections(), getAreas()]);
   const hero = sec["advisory-hero"];
   const h1 = secHeading(hero, { plain: "Clear decisions for founders ", em: "who are building for the long run." });
 
@@ -130,7 +130,7 @@ export default async function BusinessAdvisoryPage({
         </div>
       </section>
 
-      <Diagnosis initialKey={w} />
+      <Diagnosis initialKey={w} areas={areas} />
 
       <section className="sec ways">
         <div className="wrap wy2">

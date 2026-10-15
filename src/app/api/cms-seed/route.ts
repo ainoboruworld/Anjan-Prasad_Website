@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import { env, serverEnv } from "@/lib/env";
 import { ARTICLES, type ArticleBlock } from "@/lib/data/articles";
-import { TESTIMONIALS } from "@/lib/data/site";
+import { TESTIMONIALS, JOURNEY } from "@/lib/data/site";
+import { AREAS } from "@/lib/data/areas";
+import { VENTURES, COMPANIES_ADVISED, CAREER, FACULTY, logoSrc } from "@/lib/data/brands";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -110,6 +112,12 @@ const SECTIONS: SeedSection[] = [
       { title: "Companies advised", value: "Fortune 500" },
       { title: "Institutions and universities", value: "3+" },
     ],
+  },
+  {
+    key: "home-journey",
+    page: "Home",
+    sectionTitle: "My journey",
+    items: JOURNEY.map((j) => ({ title: j.title, value: j.when, text: j.text })),
   },
   { key: "home-life", page: "Home", sectionTitle: "Off the clock", label: "Off the clock", heading: "Life beyond *the boardroom.*" },
   { key: "home-wheel", page: "Home", sectionTitle: "360 holistic", label: "360° business consulting", heading: "One advisor who sees *the whole business.*" },
@@ -459,6 +467,55 @@ export async function GET(req: Request) {
         : {}),
       body,
     });
+  }
+
+  // The nine 360° areas.
+  for (const a of AREAS) {
+    await createIfMissing({
+      _id: `area-${a.key}`,
+      _type: "wheelArea",
+      key: a.key,
+      name: a.name,
+      stat: a.stat,
+      headline: a.headline,
+      note: a.note,
+      points: [...a.points],
+    });
+  }
+
+  // Trust-wall brand logos, muted + colour versions uploaded as assets.
+  const LOGO_GROUPS: { group: string; logos: { slug: string; name: string; role?: string }[] }[] = [
+    { group: "ventures", logos: VENTURES },
+    { group: "advised", logos: COMPANIES_ADVISED },
+    { group: "career", logos: CAREER },
+    { group: "faculty", logos: FACULTY },
+  ];
+  for (const g of LOGO_GROUPS) {
+    for (let i = 0; i < g.logos.length; i++) {
+      const l = g.logos[i];
+      const id = `logo-${l.slug}`;
+      const existing = await client.getDocument(id).catch(() => null);
+      if (existing) {
+        skipped.push(id);
+        continue;
+      }
+      const base = await uploadImage(logoSrc(l.slug));
+      if (!base) {
+        failed.push(`${id}: logo image missing`);
+        continue;
+      }
+      const colour = await uploadImage(logoSrc(l.slug, true));
+      await createIfMissing({
+        _id: id,
+        _type: "brandLogo",
+        name: l.name,
+        group: g.group,
+        role: (l as { role?: string }).role,
+        order: i + 1,
+        logo: { _type: "image", asset: { _type: "reference", _ref: base } },
+        ...(colour ? { colourLogo: { _type: "image", asset: { _type: "reference", _ref: colour } } } : {}),
+      });
+    }
   }
 
   return NextResponse.json({ ok: failed.length === 0, created, skipped, failed });

@@ -5,13 +5,13 @@ import type { PageSection } from "@/lib/sections";
 import { useEffect, useState } from "react";
 import { Cta } from "../ui/Cta";
 import { AreaIcon, WheelPanes } from "../shared/WheelPanes";
-import { AREAS, type AreaKey } from "@/lib/data/areas";
+import { AREAS, type Area, type AreaKey } from "@/lib/data/areas";
 
 /**
  * "One advisor who sees the whole business." — the 360° ring. Auto-advances
  * every two seconds until the visitor hovers or picks an area.
  */
-export function Wheel({ sec }: { sec?: PageSection }) {
+export function Wheel({ sec, areas = AREAS }: { sec?: PageSection; areas?: Area[] }) {
   const [active, setActive] = useState<AreaKey>("tech");
   const [hold, setHold] = useState(false);
 
@@ -47,7 +47,7 @@ export function Wheel({ sec }: { sec?: PageSection }) {
                 consultant
               </small>
             </div>
-            {AREAS.map((a) => (
+            {areas.map((a) => (
               <button
                 type="button"
                 key={a.key}
@@ -70,7 +70,7 @@ export function Wheel({ sec }: { sec?: PageSection }) {
             ))}
           </div>
 
-          <WheelPanes active={active} cta={(key) => <Cta href={`/business-advisory?w=${key}`}>See how I solve this</Cta>} />
+          <WheelPanes areas={areas} active={active} cta={(key) => <Cta href={`/business-advisory?w=${key}`}>See how I solve this</Cta>} />
         </div>
       </div>
     </section>

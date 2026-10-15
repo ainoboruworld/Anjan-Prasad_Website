@@ -13,6 +13,7 @@ import { createClient, type SanityClient } from "@sanity/client";
 import type { PortableTextBlock } from "@portabletext/types";
 import { env, flags, serverEnv } from "./env";
 import { ARTICLES, type Article, type ArticleCategory } from "./data/articles";
+import { AREAS as AREAS_BASE } from "./data/areas";
 
 export const REVALIDATE_SECONDS = 300;
 
@@ -271,4 +272,65 @@ export async function pageMetadata(
     description,
     openGraph: { title, description, ...(seo.ogImageUrl ? { images: [seo.ogImageUrl] } : {}) },
   };
+}
+
+export interface CmsLogo {
+  name: string;
+  role?: string;
+  url: string;
+  colourUrl?: string;
+}
+
+export type LogoGroups = Partial<Record<"ventures" | "advised" | "career" | "faculty", CmsLogo[]>>;
+
+/** Brand logos by trust-wall group; {} when none are published. */
+export async function getBrandLogos(): Promise<LogoGroups> {
+  const sanity = getSanityClient();
+  if (!sanity) return {};
+  try {
+    const raw = await sanity.fetch<{ name?: string; group?: string; role?: string; url?: string; colourUrl?: string }[]>(
+      `*[_type == "brandLogo" && defined(logo)] | order(coalesce(order, 9999) asc){name, group, role, "url": logo.asset->url, "colourUrl": colourLogo.asset->url}`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    const groups: LogoGroups = {};
+    for (const l of raw) {
+      if (!l.name || !l.url || !l.group) continue;
+      const g = l.group as keyof LogoGroups;
+      (groups[g] ??= []).push({ name: l.name, role: l.role, url: l.url, colourUrl: l.colourUrl });
+    }
+    return groups;
+  } catch (err) {
+    console.warn("[sanity] logos fetch failed:", (err as Error).message);
+    return {};
+  }
+}
+
+/** The nine 360° areas, CMS text merged over the built-in copy by key. */
+export async function getAreas(): Promise<typeof AREAS_BASE> {
+  const sanity = getSanityClient();
+  if (!sanity) return AREAS_BASE;
+  try {
+    const raw = await sanity.fetch<{ key?: string; name?: string; stat?: string; headline?: string; note?: string; points?: string[] }[]>(
+      `*[_type == "wheelArea" && defined(key)]{key, name, stat, headline, note, points}`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    const byKey = new Map(raw.map((a) => [a.key, a]));
+    return AREAS_BASE.map((a) => {
+      const o = byKey.get(a.key);
+      if (!o) return a;
+      return {
+        ...a,
+        name: o.name ?? a.name,
+        stat: o.stat ?? a.stat,
+        headline: o.headline ?? a.headline,
+        note: o.note ?? a.note,
+        points: o.points?.length === 3 ? (o.points as [string, string, string]) : a.points,
+      };
+    });
+  } catch (err) {
+    console.warn("[sanity] areas fetch failed:", (err as Error).message);
+    return AREAS_BASE;
+  }
 }
