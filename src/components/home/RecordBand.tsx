@@ -86,7 +86,18 @@ export function RecordBand({ sec }: { sec?: PageSection }) {
           </div>
 
           <div className="rstats">
-            {STATS.map((s) => (
+            {(sec?.items?.length
+              ? sec.items
+                  .filter((x) => x.title && x.value)
+                  .map((x): (typeof STATS)[number] => {
+                    const num = parseInt(x.value!.replace(/[^0-9]/g, ""), 10);
+                    const isNum = Number.isFinite(num) && /^[0-9]/.test(x.value!.trim());
+                    return isNum
+                      ? { to: num, plus: x.value!.includes("+"), label: x.title! }
+                      : { text: x.value!, label: x.title! };
+                  })
+              : STATS
+            ).map((s) => (
               <div key={s.label}>
                 <b>
                   {s.logo ? (

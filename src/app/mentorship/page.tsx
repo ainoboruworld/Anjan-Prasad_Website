@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
-import { getSections, secHeading } from "@/lib/sanity";
+import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";
 
-export const metadata: Metadata = {
-  title: "Mentorship",
-  description:
-    "Long-term mentorship for a small number of early-stage founders. Anjan Prasad takes a seat at your table for the journey, sometimes with equity, always with skin in the game.",
-  alternates: { canonical: "/mentorship" },
-};
 
 const DIFF = [
   {
@@ -52,6 +46,14 @@ const YEAR = [
     p: "My network becomes yours: agencies, vendors, lawyers, operators and the people I'd call for my own companies.",
   },
 ];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const m = await pageMetadata('Mentorship', {
+    title: 'Mentorship',
+    description: 'Long-term mentorship for a small number of early-stage founders. Anjan Prasad takes a seat at your table for the journey, sometimes with equity, always with skin in the game.',
+  });
+  return { ...m, alternates: { canonical: '/mentorship' } };
+}
 
 export const revalidate = 300;
 
@@ -126,7 +128,7 @@ export default async function MentorshipPage() {
             </div>
           </div>
           <ol className="st4">
-            {YEAR.map((s) => (
+            {(sec["mentorship-rhythm"]?.items?.length ? sec["mentorship-rhythm"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : YEAR).map((s) => (
               <li key={s.n}>
                 <b>{s.n}</b>
                 <h3>{s.h}</h3>

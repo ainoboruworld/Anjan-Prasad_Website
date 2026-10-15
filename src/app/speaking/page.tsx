@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
-import { getSections, secHeading } from "@/lib/sanity";
+import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
 import { SpeakingForm } from "@/components/forms/SpeakingForm";
 
-export const metadata: Metadata = {
-  title: "Speaker",
-  description:
-    "Invite Anjan Prasad to your podcast, business school or event. Seventeen plus years of building and advising profitable businesses, told plainly, with real numbers.",
-  alternates: { canonical: "/speaking" },
-};
 
 const TALKS = [
   {
@@ -48,6 +42,14 @@ const ROOMS = [
     p: "Keynotes and fireside chats on strategy, profitability and operating discipline, sized to the room and the hour.",
   },
 ];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const m = await pageMetadata('Speaker', {
+    title: 'Speaker',
+    description: 'Invite Anjan Prasad to your podcast, business school or event. Seventeen plus years of building and advising profitable businesses, told plainly, with real numbers.',
+  });
+  return { ...m, alternates: { canonical: '/speaking' } };
+}
 
 export const revalidate = 300;
 
@@ -123,7 +125,7 @@ export default async function SpeakingPage() {
             </div>
           </div>
           <ol className="st4">
-            {ROOMS.map((w, i) => (
+            {(sec["speaking-rooms"]?.items?.length ? sec["speaking-rooms"].items!.filter((x) => x.title && x.text).map((x) => ({ h: x.title!, p: x.text! })) : ROOMS).map((w, i) => (
               <li key={w.h}>
                 <b>{String(i + 1).padStart(2, "0")}</b>
                 <h3>{w.h}</h3>

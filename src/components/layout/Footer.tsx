@@ -2,8 +2,13 @@ import Link from "next/link";
 import { ApMark } from "../brand/ApMark";
 import { NewsletterForm } from "../forms/NewsletterForm";
 import { SITE } from "@/lib/data/site";
+import { getSiteSeo } from "@/lib/sanity";
 
-export function Footer() {
+export async function Footer() {
+  const site = await getSiteSeo();
+  const email = site.email ?? SITE.email;
+  const linkedin = site.linkedin ?? SITE.linkedin;
+  const instagram = site.instagram ?? SITE.instagram;
   return (
     <footer id="newsletter">
       <div className="fwm" aria-hidden="true">
@@ -13,10 +18,10 @@ export function Footer() {
       <div className="wrap nl7">
         <div>
           <h5>Newsletter</h5>
-          <h4>One operator&rsquo;s letter. Every week.</h4>
+          <h4>{site.newsletterHeading ?? "One operator\u2019s letter. Every week."}</h4>
           <p>
-            Playbooks, margins, and field notes on building profitable businesses in India. No motivation, only
-            method.
+            {site.newsletterText ??
+              "Playbooks, margins, and field notes on building profitable businesses in India. No motivation, only method."}
           </p>
         </div>
         <NewsletterForm />
@@ -28,8 +33,8 @@ export function Footer() {
             <ApMark tone="dark" />
           </Link>
           <p>
-            I work with founders as a business mentor and advisor, helping them build businesses that are profitable,
-            scalable and built to last.
+            {site.footerAbout ??
+              "I work with founders as a business mentor and advisor, helping them build businesses that are profitable, scalable and built to last."}
           </p>
           <span className="motto">0 → 1 → Scale</span>
         </div>
@@ -53,14 +58,14 @@ export function Footer() {
 
         <div>
           <h5>Connect</h5>
-          <a href={SITE.linkedin} target="_blank" rel="noopener">
+          <a href={linkedin} target="_blank" rel="noopener">
             LinkedIn
           </a>
-          <a href={SITE.instagram} target="_blank" rel="noopener">
+          <a href={instagram} target="_blank" rel="noopener">
             Instagram
           </a>
           <span style={{ opacity: 0.6 }}>YouTube (coming soon)</span>
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a href={`mailto:${email}`}>{email}</a>
         </div>
       </div>
 

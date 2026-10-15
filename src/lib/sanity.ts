@@ -175,7 +175,7 @@ export async function getSections(): Promise<Sections> {
   if (!sanity) return {};
   try {
     const raw = await sanity.fetch<PageSection[]>(
-      `*[_type == "pageSection" && defined(key)]{key, label, heading, body, items}`,
+      `*[_type == "pageSection" && defined(key)]{key, label, heading, body, items, "imageUrl": image.asset->url, "imageAlt": image.alt}`,
       {},
       { next: { revalidate: REVALIDATE_SECONDS } }
     );
@@ -186,3 +186,70 @@ export async function getSections(): Promise<Sections> {
   }
 }
 
+
+export interface SiteSeo {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImageUrl?: string;
+  email?: string;
+  linkedin?: string;
+  instagram?: string;
+  footerAbout?: string;
+  newsletterHeading?: string;
+  newsletterText?: string;
+}
+
+/** Site settings & default SEO; {} when the CMS is off. */
+export async function getSiteSeo(): Promise<SiteSeo> {
+  const sanity = getSanityClient();
+  if (!sanity) return {};
+  try {
+    const d = await sanity.fetch<SiteSeo | null>(
+      `*[_type == "siteSeo"][0]{metaTitle, metaDescription, "ogImageUrl": ogImage.asset->url, email, linkedin, instagram, footerAbout, newsletterHeading, newsletterText}`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return d ?? {};
+  } catch (err) {
+    console.warn("[sanity] site seo fetch failed:", (err as Error).message);
+    return {};
+  }
+}
+
+export interface PageSeo {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImageUrl?: string;
+}
+
+/** A page's SEO document (by the page name used in the Studio); {} when unset. */
+export async function getPageSeo(page: string): Promise<PageSeo> {
+  const sanity = getSanityClient();
+  if (!sanity) return {};
+  try {
+    const d = await sanity.fetch<PageSeo | null>(
+      `*[_type == "pageSeo" && page == $page][0]{metaTitle, metaDescription, "ogImageUrl": ogImage.asset->url}`,
+      { page },
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return d ?? {};
+  } catch (err) {
+    console.warn("[sanity] page seo fetch failed:", (err as Error).message);
+    return {};
+  }
+}
+
+/** Next.js metadata for a page, CMS first, built-in fallback second. */
+export async function pageMetadata(
+  page: string,
+  fallback: { title: string; description: string }
+): Promise<{ title: string; description: string; openGraph: { title: string; description: string; images?: string[] } }> {
+  const seo = await getPageSeo(page);
+  const title = seo.metaTitle ?? fallback.title;
+  const description = seo.metaDescription ?? fallback.description;
+  return {
+    title,
+    description,
+    openGraph: { title, description, ...(seo.ogImageUrl ? { images: [seo.ogImageUrl] } : {}) },
+  };
+}
