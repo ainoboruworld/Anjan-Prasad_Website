@@ -4,7 +4,6 @@ import { ApMark } from "../brand/ApMark";
 import { Cta } from "../ui/Cta";
 import { articleHref, articleMeta, splitTitle, type Article } from "@/lib/data/articles";
 import type { CmsArticle } from "@/lib/sanity";
-import { CaseBarChart, CaseLineChart } from "./CaseCharts";
 
 function slugId(text: string): string {
   return text
@@ -84,9 +83,6 @@ function Blocks({ blocks }: { blocks: NonNullable<Article["body"]> }) {
                 ))}
               </div>
             );
-          case "chart":
-            if (!b.chart) return null;
-            return b.chart.kind === "bars" ? <CaseBarChart key={i} c={b.chart} /> : <CaseLineChart key={i} c={b.chart} />;
           case "ul":
             return (
               <ul key={i}>

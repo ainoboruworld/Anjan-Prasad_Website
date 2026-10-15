@@ -38,39 +38,13 @@ export interface CaseStudyDetails {
   quote?: [string, string];
 }
 
-export interface CaseLineChartData {
-  kind: "line";
-  title: string;
-  note: string;
-  points: number[];
-  max: number;
-  ticks: { v: number; label: string }[];
-  startValue: string;
-  endValue: string;
-  startLabel: string;
-  endLabel: string;
-}
-
-export interface CaseBarChartData {
-  kind: "bars";
-  title: string;
-  note: string;
-  bars: { label: string; value: number; gold?: boolean }[];
-  max: number;
-  suffix?: string;
-}
-
-export type CaseChartData = CaseLineChartData | CaseBarChartData;
-
 export interface ArticleBlock {
-  type: "lead" | "p" | "h2" | "quote" | "img" | "imgs" | "chart" | "ul";
+  type: "lead" | "p" | "h2" | "quote" | "img" | "imgs" | "ul";
   text?: string;
   /** For quotes: bold lead-in. */
   strong?: string;
   src?: string;
   alt?: string;
-  /** For chart blocks: the chart definition to render. */
-  chart?: CaseChartData;
   /** For list blocks. */
   items?: string[];
   /** For image-pair blocks: shown side by side at crisp size. */
@@ -309,44 +283,8 @@ export const ARTICLES: Article[] = [
         text: "Social came first. In twelve months the Instagram following grew from 700 to 47,000, a 67 times jump, without buying followers.",
       },
       {
-        type: "chart",
-        chart: {
-          kind: "line",
-          title: "Social following",
-          note: "Instagram, 700 to 47K followers in 12 months",
-          points: [0.7, 1.1, 1.8, 3.0, 4.6, 7.2, 10.5, 15.0, 21.0, 28.5, 37.0, 47.0],
-          max: 50,
-          ticks: [
-            { v: 0, label: "0" },
-            { v: 15, label: "15K" },
-            { v: 30, label: "30K" },
-            { v: 45, label: "45K" },
-          ],
-          startValue: "700",
-          endValue: "47K",
-          startLabel: "Month 1",
-          endLabel: "Month 12",
-        },
-      },
-      {
         type: "p",
         text: "Search compounded next. Content answered real questions quarter after quarter, and organic traffic reached 42 times its starting level, demand the company no longer pays for every month.",
-      },
-      {
-        type: "chart",
-        chart: {
-          kind: "bars",
-          title: "Organic traffic",
-          note: "Indexed to the starting quarter, 1\u00d7 to 42\u00d7",
-          bars: [
-            { label: "Q1", value: 1 },
-            { label: "Q2", value: 6 },
-            { label: "Q3", value: 18 },
-            { label: "Q4", value: 42, gold: true },
-          ],
-          max: 45,
-          suffix: "\u00d7",
-        },
       },
       {
         type: "img",
@@ -428,26 +366,6 @@ export const ARTICLES: Article[] = [
           "Topical authority: clusters built subject by subject, so each new page ranked faster than the last.",
         ],
       },
-      {
-        type: "chart",
-        chart: {
-          kind: "line",
-          title: "Organic traffic",
-          note: "Monthly organic visits, 68K to 1.5M",
-          points: [0.07, 0.1, 0.16, 0.24, 0.35, 0.48, 0.63, 0.8, 0.98, 1.15, 1.33, 1.5],
-          max: 1.6,
-          ticks: [
-            { v: 0, label: "0" },
-            { v: 0.5, label: "0.5M" },
-            { v: 1, label: "1M" },
-            { v: 1.5, label: "1.5M" },
-          ],
-          startValue: "68K",
-          endValue: "1.5M",
-          startLabel: "Start",
-          endLabel: "At scale",
-        },
-      },
       { type: "h2", text: "The results" },
       {
         type: "ul",
@@ -513,22 +431,6 @@ export const ARTICLES: Article[] = [
           "Social campaigns with real doctors and real outcomes, because proof converts in healthcare.",
         ],
       },
-      {
-        type: "chart",
-        chart: {
-          kind: "bars",
-          title: "Revenue growth",
-          note: "Indexed by quarter over 12 months, 1\u00d7 to 9\u00d7",
-          bars: [
-            { label: "Q1", value: 1 },
-            { label: "Q2", value: 3 },
-            { label: "Q3", value: 6 },
-            { label: "Q4", value: 9, gold: true },
-          ],
-          max: 10,
-          suffix: "\u00d7",
-        },
-      },
       { type: "h2", text: "The results" },
       {
         type: "ul",
@@ -592,19 +494,6 @@ export const ARTICLES: Article[] = [
           "A booking platform designed around one job, taking a deposit in minutes.",
           "Launch campaigns sequenced from awareness to booking, with CRO on every step.",
         ],
-      },
-      {
-        type: "chart",
-        chart: {
-          kind: "bars",
-          title: "Cost per lead",
-          note: "Indexed to pre-launch benchmark, down 62%",
-          bars: [
-            { label: "Benchmark", value: 100 },
-            { label: "At launch", value: 38, gold: true },
-          ],
-          max: 110,
-        },
       },
       { type: "h2", text: "The results" },
       {
@@ -673,25 +562,6 @@ export const ARTICLES: Article[] = [
           "CRM and operations underneath, because retention is an operations problem too.",
         ],
       },
-      {
-        type: "chart",
-        chart: {
-          kind: "line",
-          title: "Annual recurring revenue",
-          note: "From zero to \u20b92.5 Cr ARR",
-          points: [0, 0.1, 0.25, 0.45, 0.7, 0.95, 1.2, 1.5, 1.8, 2.05, 2.3, 2.5],
-          max: 2.75,
-          ticks: [
-            { v: 0, label: "0" },
-            { v: 1, label: "\u20b91 Cr" },
-            { v: 2, label: "\u20b92 Cr" },
-          ],
-          startValue: "0",
-          endValue: "\u20b92.5 Cr",
-          startLabel: "Launch",
-          endLabel: "At scale",
-        },
-      },
       { type: "h2", text: "The results" },
       {
         type: "ul",
@@ -754,19 +624,6 @@ export const ARTICLES: Article[] = [
           "UX revamp of the key journeys people actually take.",
           "Technical SEO at scale, clearing 96.6% of the issues holding rankings back.",
         ],
-      },
-      {
-        type: "chart",
-        chart: {
-          kind: "bars",
-          title: "Technical issues",
-          note: "Indexed to the audit baseline, down 96.6%",
-          bars: [
-            { label: "At audit", value: 100 },
-            { label: "After cleanup", value: 3, gold: true },
-          ],
-          max: 110,
-        },
       },
       { type: "h2", text: "The results" },
       {

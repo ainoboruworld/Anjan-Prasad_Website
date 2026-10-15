@@ -54,13 +54,40 @@ interface RawPost {
   bannerTitle?: string;
   body?: PortableTextBlock[];
   sources?: string;
-  caseStudy?: Article["caseStudy"];
+  caseStudy?: {
+    sector?: string;
+    client?: string;
+    logoUrl?: string;
+    summary?: string;
+    metrics?: { value?: string; label?: string }[];
+    tags?: string[];
+    quoteText?: string;
+    quoteBy?: string;
+  };
+}
+
+/** Convert the CMS case-study object into the shape the site renders. */
+function toCaseStudy(c: NonNullable<RawPost["caseStudy"]>, seed?: Article): Article["caseStudy"] {
+  const base = seed?.caseStudy;
+  const metrics = (c.metrics ?? [])
+    .filter((m) => m.value && m.label)
+    .map((m) => [m.value!, m.label!] as [string, string]);
+  return {
+    sector: c.sector ?? base?.sector ?? "",
+    client: c.client ?? base?.client ?? "",
+    logo: c.logoUrl ?? base?.logo,
+    cardMetrics: base?.cardMetrics ?? [metrics[0] ?? ["", ""], metrics[1] ?? ["", ""]],
+    summary: c.summary ?? base?.summary ?? "",
+    metrics: metrics.length ? metrics : base?.metrics ?? [],
+    tags: c.tags?.length ? c.tags : base?.tags ?? [],
+    quote: c.quoteText ? [c.quoteText, c.quoteBy ?? ""] : base?.quote,
+  };
 }
 
 const POST_QUERY = `*[_type == "blogPost" && defined(slug.current) && publishedAt <= now()] | order(publishedAt desc){
   "slug": slug.current, title, "category": category->title, publishedAt, readTime, excerpt,
   "imageUrl": featuredImage.asset->url, "cardImageUrl": cardImage.asset->url, kicker, bannerTitle, body, sources,
-  "caseStudy": select(defined(caseStudy.sector) => caseStudy, null)
+  "caseStudy": select(defined(caseStudy.sector) => caseStudy{sector, client, "logoUrl": logo.asset->url, summary, metrics, tags, quoteText, quoteBy}, null)
 }`;
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -89,7 +116,7 @@ function toArticle(p: RawPost, seed?: Article): CmsArticle {
     kicker: p.kicker ?? (p.caseStudy ? "Case Studies" : category),
     bannerTitle: p.bannerTitle ?? seed?.bannerTitle,
     sources: p.sources,
-    caseStudy: p.caseStudy ?? undefined,
+    caseStudy: p.caseStudy ? toCaseStudy(p.caseStudy, seed) : undefined,
     portableBody: p.body,
   };
 }
