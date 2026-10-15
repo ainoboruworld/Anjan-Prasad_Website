@@ -14,6 +14,7 @@ export default defineConfig({
   title: "Anjan Prasad — Knowledge Hub",
   projectId,
   dataset,
+  basePath: "/studio",
   plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
   schema: { types: schemaTypes },
 });
