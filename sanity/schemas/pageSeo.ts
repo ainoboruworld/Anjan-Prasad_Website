@@ -28,7 +28,7 @@ export const pageSeo = defineType({
     }),
     defineField({
       name: "ogImage",
-      title: "Share image",
+      title: "Share image (1200 × 630)",
       type: "image",
       description: "Shown when the page is shared on LinkedIn/WhatsApp/X. Upload 1200×630 px (JPG, under 300 KB).",
     }),
