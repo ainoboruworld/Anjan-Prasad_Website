@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
+import { SecProse } from "@/components/shared/SecProse";
 import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
@@ -74,67 +75,73 @@ export default async function SpeakingPage() {
         </div>
       </header>
 
+      {!sec["speaking-why"]?.hidden && (
       <section className="sec ways">
-        <div className="wrap wy2">
-          <div>
-            <SecHead sec={sec["speaking-why"]} label="Why hosts invite him" plain="Stories are cheap. " em="Numbers aren't." />
+          <div className="wrap wy2">
+            <div>
+              <SecHead sec={sec["speaking-why"]} label="Why hosts invite him" plain="Stories are cheap. " em="Numbers aren't." />
+            </div>
+            <SecProse body={sec["speaking-why"]?.body}>
+              <p className="big">
+                Most business talks are either theory from people who never operated, or motivation with nothing
+                underneath. Anjan sits in the rare third seat: <b>still operating, and willing to show the working</b>.
+              </p>
+              <p>
+                He has been the agency selling the campaign and the founder paying for it, the consultant recommending the
+                software and the buyer living with it. That both-sides view is what audiences remember, because nobody
+                else in the room has it.
+              </p>
+              <p className="sm">No jargon, no slides for the sake of slides, and questions welcome at any point.</p>
+            </SecProse>
           </div>
-          <div className="tx">
-            <p className="big">
-              Most business talks are either theory from people who never operated, or motivation with nothing
-              underneath. Anjan sits in the rare third seat: <b>still operating, and willing to show the working</b>.
-            </p>
-            <p>
-              He has been the agency selling the campaign and the founder paying for it, the consultant recommending the
-              software and the buyer living with it. That both-sides view is what audiences remember, because nobody
-              else in the room has it.
-            </p>
-            <p className="sm">No jargon, no slides for the sake of slides, and questions welcome at any point.</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
+      {!sec["speaking-talks"]?.hidden && (
       <section className="sec">
-        <div className="wrap">
-          <div className="sh">
-            <div>
-              <SecHead sec={sec["speaking-talks"]} label="What he talks about" plain="Three conversations " em="worth having." />
-            </div>
-          </div>
-          <div className="c3 plain">
-            {(sec["speaking-talks"]?.items?.length ? sec["speaking-talks"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : TALKS).map((t) => (
-              <div key={t.n}>
-                <span className="lab">{t.n}</span>
-                <h3>{t.h}</h3>
-                <p>{t.p}</p>
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["speaking-talks"]} label="What he talks about" plain="Three conversations " em="worth having." />
               </div>
-            ))}
-          </div>
-          <div className="secta">
-            <p>Have a different theme in mind? Pitch it in the invitation.</p>
-            <Cta href="#invite">Invite Anjan to speak</Cta>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec steps">
-        <div className="wrap">
-          <div className="sh">
-            <div>
-              <SecHead sec={sec["speaking-rooms"]} label="Where this lands" plain="Rooms he's " em="at home in." />
+            </div>
+            <div className="c3 plain">
+              {(sec["speaking-talks"]?.items?.length ? sec["speaking-talks"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : TALKS).map((t) => (
+                <div key={t.n}>
+                  <span className="lab">{t.n}</span>
+                  <h3>{t.h}</h3>
+                  <p>{t.p}</p>
+                </div>
+              ))}
+            </div>
+            <div className="secta">
+              <p>Have a different theme in mind? Pitch it in the invitation.</p>
+              <Cta href="#invite">Invite Anjan to speak</Cta>
             </div>
           </div>
-          <ol className="st4">
-            {(sec["speaking-rooms"]?.items?.length ? sec["speaking-rooms"].items!.filter((x) => x.title && x.text).map((x) => ({ h: x.title!, p: x.text! })) : ROOMS).map((w, i) => (
-              <li key={w.h}>
-                <b>{String(i + 1).padStart(2, "0")}</b>
-                <h3>{w.h}</h3>
-                <p>{w.p}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {!sec["speaking-rooms"]?.hidden && (
+      <section className="sec steps">
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["speaking-rooms"]} label="Where this lands" plain="Rooms he's " em="at home in." />
+              </div>
+            </div>
+            <ol className="st4">
+              {(sec["speaking-rooms"]?.items?.length ? sec["speaking-rooms"].items!.filter((x) => x.title && x.text).map((x) => ({ h: x.title!, p: x.text! })) : ROOMS).map((w, i) => (
+                <li key={w.h}>
+                  <b>{String(i + 1).padStart(2, "0")}</b>
+                  <h3>{w.h}</h3>
+                  <p>{w.p}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
 
       <section className="sec apply" id="invite">
         <div className="wrap">

@@ -4,6 +4,7 @@ import { splitEm, type PageSection } from "@/lib/sanity";
 
 /** "I've sat where you're sitting." */
 export function AboutIntro({ sec = {} as PageSection }: { sec?: PageSection }) {
+  if (sec?.hidden) return null;
   const heading = sec.heading ? splitEm(sec.heading) : { plain: "I don’t study businesses. ", em: "I run them." };
   return (
     <section className="sec about2">

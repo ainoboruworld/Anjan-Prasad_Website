@@ -4,6 +4,7 @@ import { splitEm, type PageSection } from "@/lib/sanity";
 
 /** Home hero: the opening statement and Anjan's portrait on the soft-blue arch. */
 export function Hero({ sec = {} as PageSection }: { sec?: PageSection }) {
+  if (sec?.hidden) return null;
   const title = sec.heading ? splitEm(sec.heading) : { plain: "Build a Business That ", em: "Outlasts You." };
   return (
     <header className="hero">

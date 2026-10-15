@@ -36,7 +36,7 @@ export function ContactForm() {
         </span>
       )}
       <div className="ok" role="status">
-        <b>Thank you.</b> I&rsquo;ll reply soon.
+        <b>Thank you.</b>{" "}I&rsquo;ll reply soon.
       </div>
     </form>
   );

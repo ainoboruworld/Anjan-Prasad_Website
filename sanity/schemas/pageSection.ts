@@ -20,6 +20,13 @@ export const pageSection = defineType({
       readOnly: true,
       description: "Connects this document to its section on the website.",
     }),
+    defineField({
+      name: "hidden",
+      title: "Hide this section on the website",
+      type: "boolean",
+      initialValue: false,
+      description: "Turn on to remove this section from the page. Turn off to show it again; nothing is lost.",
+    }),
     defineField({ name: "label", title: "Small label", type: "string" }),
     defineField({
       name: "heading",
@@ -48,6 +55,14 @@ export const pageSection = defineType({
             { name: "title", type: "string", title: "Title / Name" },
             { name: "value", type: "string", title: "Value / Role" },
             { name: "text", type: "text", title: "Text", rows: 3 },
+            {
+              name: "image",
+              type: "image",
+              title: "Photo (where the item has one)",
+              options: { hotspot: true },
+              description: "Off the clock photos: 600×750 px (4:5), JPG, under 150 KB.",
+              fields: [{ name: "alt", type: "string", title: "Alt text" }],
+            },
           ],
           preview: { select: { title: "title", subtitle: "value" } },
         },

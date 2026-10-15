@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
+import { SecProse } from "@/components/shared/SecProse";
 import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
@@ -78,66 +79,72 @@ export default async function MentorshipPage() {
         </div>
       </header>
 
+      {!sec["mentorship-long-game"]?.hidden && (
       <section className="sec ways">
-        <div className="wrap wy2">
-          <div>
-            <SecHead sec={sec["mentorship-long-game"]} label="Not another program" plain="This is the " em="long game." />
+          <div className="wrap wy2">
+            <div>
+              <SecHead sec={sec["mentorship-long-game"]} label="Not another program" plain="This is the " em="long game." />
+            </div>
+            <SecProse body={sec["mentorship-long-game"]?.body}>
+              <p className="big">
+                Advisory answers a question. Mentorship walks the road. I take very few mentees at a time, because this
+                only works when I know your business almost as well as <b>you</b> do.
+              </p>
+              <p>
+                It&rsquo;s for founders near the start: an idea taking shape, or a young startup finding its first
+                customers. You don&rsquo;t need a polished deck. You need to be all in, and honest about where you are.
+              </p>
+              <p className="sm">Running an established business with one decision in front of you? Advisory is the faster door.</p>
+            </SecProse>
           </div>
-          <div className="tx">
-            <p className="big">
-              Advisory answers a question. Mentorship walks the road. I take very few mentees at a time, because this
-              only works when I know your business almost as well as <b>you</b> do.
-            </p>
-            <p>
-              It&rsquo;s for founders near the start: an idea taking shape, or a young startup finding its first
-              customers. You don&rsquo;t need a polished deck. You need to be all in, and honest about where you are.
-            </p>
-            <p className="sm">Running an established business with one decision in front of you? Advisory is the faster door.</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
+      {!sec["mentorship-differs"]?.hidden && (
       <section className="sec">
-        <div className="wrap">
-          <div className="sh">
-            <div>
-              <SecHead sec={sec["mentorship-differs"]} label="How it differs" plain="Advisory solves. " em="Mentorship builds." />
-            </div>
-          </div>
-          <div className="c3 plain">
-            {(sec["mentorship-differs"]?.items?.length ? sec["mentorship-differs"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : DIFF).map((d) => (
-              <div key={d.n}>
-                <span className="lab">{d.n}</span>
-                <h3>{d.h}</h3>
-                <p>{d.p}</p>
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["mentorship-differs"]} label="How it differs" plain="Advisory solves. " em="Mentorship builds." />
               </div>
-            ))}
-          </div>
-          <div className="secta">
-            <p>Need the faster door instead?</p>
-            <Cta href="/business-advisory#capply">Book a consultation</Cta>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec steps">
-        <div className="wrap">
-          <div className="sh">
-            <div>
-              <SecHead sec={sec["mentorship-rhythm"]} label="The rhythm" plain="What a year together " em="looks like." />
+            </div>
+            <div className="c3 plain">
+              {(sec["mentorship-differs"]?.items?.length ? sec["mentorship-differs"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : DIFF).map((d) => (
+                <div key={d.n}>
+                  <span className="lab">{d.n}</span>
+                  <h3>{d.h}</h3>
+                  <p>{d.p}</p>
+                </div>
+              ))}
+            </div>
+            <div className="secta">
+              <p>Need the faster door instead?</p>
+              <Cta href="/business-advisory#capply">Book a consultation</Cta>
             </div>
           </div>
-          <ol className="st4">
-            {(sec["mentorship-rhythm"]?.items?.length ? sec["mentorship-rhythm"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : YEAR).map((s) => (
-              <li key={s.n}>
-                <b>{s.n}</b>
-                <h3>{s.h}</h3>
-                <p>{s.p}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {!sec["mentorship-rhythm"]?.hidden && (
+      <section className="sec steps">
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["mentorship-rhythm"]} label="The rhythm" plain="What a year together " em="looks like." />
+              </div>
+            </div>
+            <ol className="st4">
+              {(sec["mentorship-rhythm"]?.items?.length ? sec["mentorship-rhythm"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : YEAR).map((s) => (
+                <li key={s.n}>
+                  <b>{s.n}</b>
+                  <h3>{s.h}</h3>
+                  <p>{s.p}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
 
       <section className="sec apply" id="apply">
         <div className="wrap">

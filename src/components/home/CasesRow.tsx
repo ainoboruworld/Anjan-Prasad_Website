@@ -35,6 +35,8 @@ export function CasesRow({ sec }: { sec?: PageSection }) {
     return () => clearInterval(t);
   }, [hold]);
 
+  if (sec?.hidden) return null;
+
   return (
     <section className="cases" id="cases">
       <div className="wrap">
@@ -100,7 +102,7 @@ export function CasesRow({ sec }: { sec?: PageSection }) {
           All case studies in the Knowledge Hub
         </Link>
         <div className="secta">
-          <p>Want results like these in your business?</p>
+          <p>{sec?.body ?? "Want results like these in your business?"}</p>
           <Link href="/business-advisory#capply" className="cta">
             Book a consultation <span>→</span>
           </Link>

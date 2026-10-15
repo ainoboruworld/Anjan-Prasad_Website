@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import { env, serverEnv } from "@/lib/env";
 import { ARTICLES, type ArticleBlock } from "@/lib/data/articles";
-import { TESTIMONIALS, JOURNEY } from "@/lib/data/site";
+import { TESTIMONIALS, JOURNEY, LIFE_PHOTOS } from "@/lib/data/site";
 import { AREAS } from "@/lib/data/areas";
 import { VENTURES, COMPANIES_ADVISED, CAREER, FACULTY, logoSrc } from "@/lib/data/brands";
 
@@ -39,7 +39,7 @@ interface SeedSection {
   label?: string;
   heading?: string;
   body?: string;
-  items?: { title?: string; value?: string; text?: string }[];
+  items?: { title?: string; value?: string; text?: string; imagePath?: string }[];
 }
 
 /** Every editable section, pre-filled with the site's current content. */
@@ -95,8 +95,26 @@ const SECTIONS: SeedSection[] = [
       { title: "Skin in the game.", text: "I only advise on what I've run, broken and fixed with my own money. Advice is cheap when the adviser has nothing to lose." },
     ],
   },
-  { key: "home-trust", page: "Home", sectionTitle: "Trust wall", label: "Trusted over seventeen years", heading: "The brands built, *advised, and led.*" },
-  { key: "home-cases", page: "Home", sectionTitle: "Case studies row", label: "Case studies", heading: "Work that moved *the numbers.*" },
+  {
+    key: "home-trust",
+    page: "Home",
+    sectionTitle: "Trust wall",
+    label: "Trusted over seventeen years",
+    heading: "The brands built, *advised, and led.*",
+    items: [
+      { title: "Companies advised", value: "21 brands" },
+      { title: "Where I learned and mentored", value: "Career · Startups" },
+      { title: "Where I taught", value: "Visiting faculty" },
+    ],
+  },
+  {
+    key: "home-cases",
+    page: "Home",
+    sectionTitle: "Case studies row",
+    label: "Case studies",
+    heading: "Work that moved *the numbers.*",
+    body: "Want results like these in your business?",
+  },
   {
     key: "home-record",
     page: "Home",
@@ -119,7 +137,15 @@ const SECTIONS: SeedSection[] = [
     sectionTitle: "My journey",
     items: JOURNEY.map((j) => ({ title: j.title, value: j.when, text: j.text })),
   },
-  { key: "home-life", page: "Home", sectionTitle: "Off the clock", label: "Off the clock", heading: "Life beyond *the boardroom.*" },
+  {
+    key: "home-life",
+    page: "Home",
+    sectionTitle: "Off the clock",
+    label: "Off the clock",
+    heading: "Life beyond *the boardroom.*",
+    body: "Most of my best decisions weren’t made in meetings. They came on quiet mornings, long drives and slow weekends.",
+    items: LIFE_PHOTOS.map((p) => ({ title: p.tag, text: p.caption, imagePath: p.src })),
+  },
   { key: "home-wheel", page: "Home", sectionTitle: "360 holistic", label: "360° business consulting", heading: "One advisor who sees *the whole business.*" },
   {
     key: "home-knowledge",
@@ -129,7 +155,31 @@ const SECTIONS: SeedSection[] = [
     heading: "Playbooks & *field notes.*",
     body: "How profitable businesses are actually built, written to be used, not skimmed.",
   },
-  { key: "about-story", page: "About", sectionTitle: "My story", label: "My story", heading: "The long version, *over a cup of coffee.*" },
+  {
+    key: "about-story",
+    page: "About",
+    sectionTitle: "My story",
+    label: "My story",
+    heading: "The long version, *over a cup of coffee.*",
+    body: [
+      "My first real job was at Accenture. After that I spent years in advertising, at Mindshare and IPG Mediabrands, working on brands you’d find in almost every Indian home. I loved it. I also slowly realised I was helping other people build their businesses, and never building my own.",
+      "At Zeta Global and Fareportal I got closer to the numbers. That’s where I understood something nobody teaches you in a classroom: a business isn’t the idea or the logo. It’s whether people pay you, again and again, at a price that leaves something over.",
+      "So I left. I started Noboru World with more confidence than clarity. I made almost every mistake you can make. I hired too fast, priced too low, said yes to the wrong clients and worried about payroll more nights than I’d like to admit. Slowly, we figured it out. Across the businesses I’ve built and grown since, we’ve generated more than ₹120 crore in revenue, and I remember what every rupee of it cost. Then came Lushful, working directly with farmers, and Filing Buddy, where I’m CEO today.",
+      "“I’m not writing this as someone who got it right the first time. I’m writing it as someone who got it wrong, and kept going.”",
+      "These days I also teach at IIFT and IMT Ghaziabad, and I spend a good part of my week with founders. Some are running a business that has stopped growing. Some haven’t started yet and just want someone to think it through with them.",
+      "I work with them as a mentor, an advisor and sometimes just a sounding board. I don’t have a framework to sell you. I have seventeen plus years of doing this for real, and I’m happy to share all of it.",
+    ].join("\n\n"),
+  },
+  {
+    key: "about-proof",
+    page: "About",
+    sectionTitle: "Built, advised, taught",
+    items: [
+      { value: "Built", title: "Noboru World · Lushful · Filing Buddy", text: "Businesses I founded, co-founded and lead today." },
+      { value: "Advised", title: "Fortune 500 companies and 100+ brands", text: "Including American Express, Sony, Google, PwC, Dabur, Tata Housing and Aditya Birla Capital." },
+      { value: "Taught", title: "IIFT · IMT Ghaziabad · BML Munjal", text: "Visiting faculty, sharing real operating lessons with the next generation of leaders." },
+    ],
+  },
   {
     key: "about-cred",
     page: "About",
@@ -166,7 +216,18 @@ const SECTIONS: SeedSection[] = [
       { title: "In media and performance marketing", value: "₹1,200 Cr+", text: "Managed for some of India's biggest brands. I know what good execution costs, and what you should never pay for." },
     ],
   },
-  { key: "advisory-help", page: "Business Advisory", sectionTitle: "How I help", label: "How I help", heading: "Whatever you *call it.*" },
+  {
+    key: "advisory-help",
+    page: "Business Advisory",
+    sectionTitle: "How I help",
+    label: "How I help",
+    heading: "Whatever you *call it.*",
+    body: [
+      "Business consultant, business advisor, business mentor: founders have called me all three. The title never changes what happens in the room. You bring the decision that’s costing you sleep, and we settle it.",
+      "One month that looks like a growth consultant fixing a leaking funnel. Another, it’s a fractional CMO building your marketing engine, or a GTM strategist taking a product to its first hundred customers. The label follows the problem, never the other way around.",
+      "And for a few early startups I believe in, it goes deeper: a long-term seat at the table. That is the mentorship program.",
+    ].join("\n\n"),
+  },
   {
     key: "advisory-steps",
     page: "Business Advisory",
@@ -180,7 +241,18 @@ const SECTIONS: SeedSection[] = [
       { title: "You leave with a next step", text: "A written, specific one. One session is often enough; if you want me at the table longer, we agree how." },
     ],
   },
-  { key: "mentorship-long-game", page: "Mentorship", sectionTitle: "Not another program", label: "Not another program", heading: "This is the *long game.*" },
+  {
+    key: "mentorship-long-game",
+    page: "Mentorship",
+    sectionTitle: "Not another program",
+    label: "Not another program",
+    heading: "This is the *long game.*",
+    body: [
+      "Advisory answers a question. Mentorship walks the road. I take very few mentees at a time, because this only works when I know your business almost as well as you do.",
+      "It’s for founders near the start: an idea taking shape, or a young startup finding its first customers. You don’t need a polished deck. You need to be all in, and honest about where you are.",
+      "Running an established business with one decision in front of you? Advisory is the faster door.",
+    ].join("\n\n"),
+  },
   {
     key: "mentorship-differs",
     page: "Mentorship",
@@ -206,7 +278,18 @@ const SECTIONS: SeedSection[] = [
       { title: "Doors, not just advice", text: "My network becomes yours: agencies, vendors, lawyers, operators and the people I'd call for my own companies." },
     ],
   },
-  { key: "speaking-why", page: "Speaker", sectionTitle: "Why hosts invite him", label: "Why hosts invite him", heading: "Stories are cheap. *Numbers aren't.*" },
+  {
+    key: "speaking-why",
+    page: "Speaker",
+    sectionTitle: "Why hosts invite him",
+    label: "Why hosts invite him",
+    heading: "Stories are cheap. *Numbers aren't.*",
+    body: [
+      "Most business talks are either theory from people who never operated, or motivation with nothing underneath. Anjan sits in the rare third seat: still operating, and willing to show the working.",
+      "He has been the agency selling the campaign and the founder paying for it, the consultant recommending the software and the buyer living with it. That both-sides view is what audiences remember, because nobody else in the room has it.",
+      "No jargon, no slides for the sake of slides, and questions welcome at any point.",
+    ].join("\n\n"),
+  },
   {
     key: "speaking-talks",
     page: "Speaker",
@@ -351,18 +434,40 @@ export async function GET(req: Request) {
 
   for (const s of SECTIONS) {
     const sectionImage = s.imagePath ? await uploadImage(s.imagePath) : null;
-    await createIfMissing({
-      _id: `sec-${s.key}`,
-      _type: "pageSection",
-      key: s.key,
-      page: s.page,
-      sectionTitle: s.sectionTitle,
+    const items = s.items
+      ? await Promise.all(
+          s.items.map(async ({ imagePath, ...it }) => {
+            const assetId = imagePath ? await uploadImage(imagePath) : null;
+            return {
+              _key: key(),
+              ...it,
+              ...(assetId ? { image: { _type: "image", asset: { _type: "reference", _ref: assetId } } } : {}),
+            };
+          })
+        )
+      : undefined;
+    const fields: Record<string, unknown> = {
       label: s.label,
       heading: s.heading,
       body: s.body,
       ...(sectionImage ? { image: { _type: "image", asset: { _type: "reference", _ref: sectionImage } } } : {}),
-      items: s.items?.map((it) => ({ _key: key(), ...it })),
-    });
+      ...(items ? { items } : {}),
+    };
+    const id = `sec-${s.key}`;
+    const existed = Boolean(await client.getDocument(id).catch(() => null));
+    await createIfMissing({ _id: id, _type: "pageSection", key: s.key, page: s.page, sectionTitle: s.sectionTitle, ...fields });
+    if (existed) {
+      // Fill in fields this seed adds over time without touching anything
+      // already edited in the Studio: set only what the document lacks.
+      try {
+        const missing = Object.fromEntries(Object.entries(fields).filter(([, v]) => v !== undefined));
+        if (Object.keys(missing).length) {
+          await client.patch(id).setIfMissing(missing).commit();
+        }
+      } catch (err) {
+        failed.push(`${id} (patch): ${(err as Error).message}`);
+      }
+    }
   }
 
   // SEO: one document per page plus the site-wide settings.

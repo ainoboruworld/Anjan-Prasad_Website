@@ -31,7 +31,6 @@ export const NAV: NavItem[] = [
     ],
   },
   { label: "Knowledge Hub", href: "/knowledge-hub" },
-  { label: "Speaker", href: "/speaking" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
