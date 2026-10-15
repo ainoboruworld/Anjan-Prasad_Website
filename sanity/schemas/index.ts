@@ -3,6 +3,6 @@ import { category } from "./category";
 import { blockContent } from "./blockContent";
 import { caseStudy } from "./caseStudy";
 import { quote } from "./quote";
-import { siteCopy } from "./siteCopy";
+import { pageSection } from "./pageSection";
 
-export const schemaTypes = [blogPost, category, blockContent, caseStudy, quote, siteCopy];
+export const schemaTypes = [blogPost, category, blockContent, caseStudy, quote, pageSection];

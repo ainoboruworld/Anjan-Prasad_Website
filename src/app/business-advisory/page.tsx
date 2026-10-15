@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSections, secHeading } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
@@ -63,19 +64,22 @@ export default async function BusinessAdvisoryPage({
   searchParams: Promise<{ w?: string }>;
 }) {
   const { w } = await searchParams;
+  const sec = await getSections();
+  const hero = sec["advisory-hero"];
+  const h1 = secHeading(hero, { plain: "Clear decisions for founders ", em: "who are building for the long run." });
 
   return (
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Programs · Business Advisory</span>
+          <span className="lab">{hero?.label ?? "Programs · Business Advisory"}</span>
           <h1>
-            Clear decisions for founders <em>who are building for the long run.</em>
+            {h1.plain}
+            {h1.em && <em>{h1.em}</em>}
           </h1>
           <p>
-            I run three businesses today and spent seventeen plus years inside global agencies before that. Founders bring
-            me the decision in front of them: one focused consultation when that&rsquo;s all it takes, ongoing advisory
-            when you want me at the table as you build. Either way it starts with you telling me where the business is.
+            {hero?.body ??
+              "I run three businesses today and spent seventeen plus years inside global agencies before that. Founders bring me the decision in front of them: one focused consultation when that's all it takes, ongoing advisory when you want me at the table as you build. Either way it starts with you telling me where the business is."}
           </p>
           <Cta href="#capply">Book a consultation</Cta>
         </div>
