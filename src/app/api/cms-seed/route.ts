@@ -9,9 +9,8 @@ export const maxDuration = 300;
 /**
  * One-time CMS seeding: fills Sanity with the website's current content so
  * the Studio starts full, not empty — categories, the five business quotes,
- * the "Site copy" document and every blog post (with its images uploaded as
- * Sanity assets). Case studies stay code-managed for now because their
- * animated charts cannot be expressed in the CMS yet.
+ * the "Site copy" document and every article, blog posts and case studies
+ * alike, with their images uploaded as Sanity assets.
  *
  * Safe to call repeatedly: documents are created only if they do not exist,
  * so edits made in the Studio are never overwritten. Requires
@@ -126,8 +125,8 @@ export async function GET(req: Request) {
 
   await createIfMissing(SITE_COPY);
 
-  // Blog posts (case studies stay code-managed: their charts are not in the CMS).
-  for (const a of ARTICLES.filter((x) => !x.caseStudy && x.body?.length)) {
+  // Every article: blog posts and case studies.
+  for (const a of ARTICLES.filter((x) => x.body?.length)) {
     const id = `blogpost-${a.slug}`;
     const existing = await client.getDocument(id).catch(() => null);
     if (existing) {
@@ -156,20 +155,29 @@ export async function GET(req: Request) {
           if (assetId) body.push({ _type: "image", _key: key(), asset: { _type: "reference", _ref: assetId }, alt: b.alt ?? "" });
           break;
         }
+        case "imgs": {
+          for (const im of b.images ?? []) {
+            const assetId = await uploadImage(im.src);
+            if (assetId) body.push({ _type: "image", _key: key(), asset: { _type: "reference", _ref: assetId }, alt: im.alt ?? "" });
+          }
+          break;
+        }
         default:
-          break; // imgs/chart are case-study blocks; blogs do not use them
+          break;
       }
     }
 
     const bannerAsset = await uploadImage(a.image);
     const cardAsset = a.cardImage ? await uploadImage(a.cardImage) : null;
+    const cs = a.caseStudy;
+    const logoAsset = cs?.logo ? await uploadImage(cs.logo) : null;
 
     await createIfMissing({
       _id: id,
       _type: "blogPost",
       title: a.title,
       slug: { _type: "slug", current: a.slug },
-      category: { _type: "reference", _ref: `category-${a.category.toLowerCase()}` },
+      ...(CATEGORIES.includes(a.category) ? { category: { _type: "reference", _ref: `category-${a.category.toLowerCase()}` } } : {}),
       publishedAt: a.publishedAt,
       readTime: parseInt(a.readTime, 10) || 5,
       excerpt: a.excerpt,
@@ -178,6 +186,20 @@ export async function GET(req: Request) {
       sources: a.sources,
       ...(bannerAsset ? { featuredImage: { _type: "image", asset: { _type: "reference", _ref: bannerAsset } } } : {}),
       ...(cardAsset ? { cardImage: { _type: "image", asset: { _type: "reference", _ref: cardAsset } } } : {}),
+      ...(cs
+        ? {
+            caseStudy: {
+              _type: "caseStudy",
+              sector: cs.sector,
+              client: cs.client,
+              summary: cs.summary,
+              metrics: cs.metrics.map(([value, label]) => ({ _key: key(), value, label })),
+              tags: cs.tags,
+              ...(cs.quote ? { quoteText: cs.quote[0], quoteBy: cs.quote[1] } : {}),
+              ...(logoAsset ? { logo: { _type: "image", asset: { _type: "reference", _ref: logoAsset } } } : {}),
+            },
+          }
+        : {}),
       body,
     });
   }
