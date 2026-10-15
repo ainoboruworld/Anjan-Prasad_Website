@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { JOURNEY } from "@/lib/data/site";
+import type { SectionItem } from "@/lib/sections";
 
 interface JourneyCta {
   href: string;
@@ -8,7 +9,12 @@ interface JourneyCta {
 }
 
 /** "From a corporate desk to building my own." — used on Home and About. */
-export function Journey({ cta }: { cta?: JourneyCta }) {
+export function Journey({ cta, items }: { cta?: JourneyCta; items?: SectionItem[] | null }) {
+  const steps = items?.length
+    ? items
+        .filter((x) => x.title && x.text)
+        .map((x, i, all) => ({ when: x.value ?? "", title: x.title!, text: x.text!, now: i === all.length - 1 }))
+    : JOURNEY;
   return (
     <section className="jr">
       <div className="wrap">
@@ -22,7 +28,7 @@ export function Journey({ cta }: { cta?: JourneyCta }) {
           <p>If you&rsquo;re somewhere on this road right now, I&rsquo;ve probably been there too.</p>
         </div>
         <ol className="jpath rv on">
-          {JOURNEY.map((j) => (
+          {steps.map((j) => (
             <li key={j.title} className={"now" in j && j.now ? "now" : undefined}>
               <span className="dt">{j.when}</span>
               <b>{j.title}</b>

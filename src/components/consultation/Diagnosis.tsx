@@ -3,14 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { AdvisoryForm } from "../forms/AdvisoryForm";
 import { WheelPanes } from "../shared/WheelPanes";
-import { AREAS, findArea, type AreaKey } from "@/lib/data/areas";
+import { AREAS, findArea, type Area, type AreaKey } from "@/lib/data/areas";
 
 /**
  * Consultation page body: the 360° diagnosis picker (list variant) wired to
  * the request form, so "Book a consultation on finance" pre-fills the area.
  * `initialKey` comes from `/consultation?w=fin` (the home wheel's CTAs).
  */
-export function Diagnosis({ initialKey }: { initialKey?: string }) {
+export function Diagnosis({ initialKey , areas = AREAS }: { initialKey?: string ; areas?: Area[] }) {
   const start = findArea(initialKey)?.key ?? "tech";
   const [active, setActive] = useState<AreaKey>(start);
   const [presetArea, setPresetArea] = useState<string | undefined>(
@@ -45,7 +45,7 @@ export function Diagnosis({ initialKey }: { initialKey?: string }) {
 
           <div className="dxg">
             <div className="dxl" role="tablist" aria-label="Areas">
-              {AREAS.map((a) => (
+              {areas.map((a) => (
                 <button
                   type="button"
                   role="tab"

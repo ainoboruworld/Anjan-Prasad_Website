@@ -1,6 +1,7 @@
 import { LogoTile } from "../ui/LogoTile";
 import { SecHead } from "../shared/SecHead";
 import type { PageSection } from "@/lib/sections";
+import type { CmsLogo, LogoGroups } from "@/lib/sanity";
 
 import { CAREER, COMPANIES_ADVISED, FACULTY, VENTURES, type BrandLogo } from "@/lib/data/brands";
 
@@ -22,8 +23,38 @@ function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boo
   );
 }
 
+/** A CMS-managed logo: muted by default, colour version on hover when given. */
+function CmsTile({ logo }: { logo: CmsLogo }) {
+  return (
+    <span className="lx" style={{ height: 44 }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="lt" src={logo.url} alt={logo.name} style={{ height: 44, width: "auto" }} loading="lazy" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="lc2" src={logo.colourUrl ?? logo.url} alt="" aria-hidden style={{ height: 44, width: "auto" }} loading="lazy" />
+    </span>
+  );
+}
+
+function CmsMarquee({ logos, reverse = false }: { logos: CmsLogo[]; reverse?: boolean }) {
+  const row = (hidden: boolean) => (
+    <ul aria-hidden={hidden || undefined}>
+      {logos.map((l) => (
+        <li key={l.name}>
+          <CmsTile logo={l} />
+        </li>
+      ))}
+    </ul>
+  );
+  return (
+    <div className={`mq${reverse ? " rev" : ""}`}>
+      {row(false)}
+      {row(true)}
+    </div>
+  );
+}
+
 /** "The brands built, advised, and led." — ventures, marquees, faculty. */
-export function TrustWall({ sec }: { sec?: PageSection }) {
+export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: LogoGroups }) {
   return (
     <section className="trust4 in" id="tw">
       <div className="glow" aria-hidden="true" />
@@ -33,37 +64,46 @@ export function TrustWall({ sec }: { sec?: PageSection }) {
         </div>
 
         <div className="ven">
-          {VENTURES.map((v, i) => (
-            <div className="vc2" key={v.slug} style={{ ["--d" as string]: `${i * 90}ms` }}>
-              <small>{v.role}</small>
-              <b className="vlg">
-                <LogoTile logo={v} />
-              </b>
-            </div>
-          ))}
+          {logos.ventures?.length
+            ? logos.ventures.map((v, i) => (
+                <div className="vc2" key={v.name} style={{ ["--d" as string]: `${i * 90}ms` }}>
+                  <small>{v.role}</small>
+                  <b className="vlg">
+                    <CmsTile logo={v} />
+                  </b>
+                </div>
+              ))
+            : VENTURES.map((v, i) => (
+                <div className="vc2" key={v.slug} style={{ ["--d" as string]: `${i * 90}ms` }}>
+                  <small>{v.role}</small>
+                  <b className="vlg">
+                    <LogoTile logo={v} />
+                  </b>
+                </div>
+              ))}
         </div>
 
         <div className="mqw">
           <div className="mqh">
             <span className="lab">Companies advised</span>
-            <small>{COMPANIES_ADVISED.length} brands</small>
+            <small>{(logos.advised?.length ?? COMPANIES_ADVISED.length)} brands</small>
           </div>
-          <Marquee logos={COMPANIES_ADVISED} />
+          {logos.advised?.length ? <CmsMarquee logos={logos.advised} /> : <Marquee logos={COMPANIES_ADVISED} />}
 
           <div className="mqh">
             <span className="lab">Where I learned and mentored</span>
             <small>Career · Startups</small>
           </div>
-          <Marquee logos={CAREER} reverse />
+          {logos.career?.length ? <CmsMarquee logos={logos.career} reverse /> : <Marquee logos={CAREER} reverse />}
 
           <div className="mqh">
             <span className="lab">Where I taught</span>
             <small>Visiting faculty</small>
           </div>
           <div className="fac">
-            {FACULTY.map((l) => (
-              <LogoTile key={l.slug} logo={l} />
-            ))}
+            {logos.faculty?.length
+              ? logos.faculty.map((l) => <CmsTile key={l.name} logo={l} />)
+              : FACULTY.map((l) => <LogoTile key={l.slug} logo={l} />)}
           </div>
         </div>
       </div>

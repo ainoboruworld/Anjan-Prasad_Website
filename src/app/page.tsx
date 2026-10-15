@@ -11,7 +11,7 @@ import { Testimonials } from "@/components/home/Testimonials";
 import { KnowledgeTeaser } from "@/components/home/KnowledgeTeaser";
 import { CloseCta } from "@/components/shared/CloseCta";
 import type { Metadata } from "next";
-import { getArticles, getSections, getPageSeo, splitEm } from "@/lib/sanity";
+import { getArticles, getSections, getPageSeo, getBrandLogos, getAreas, splitEm } from "@/lib/sanity";
 
 export const revalidate = 300;
 
@@ -39,7 +39,7 @@ function initials(name: string): string {
 }
 
 export default async function HomePage() {
-  const [all, sec] = await Promise.all([getArticles(), getSections()]);
+  const [all, sec, logos, areas] = await Promise.all([getArticles(), getSections(), getBrandLogos(), getAreas()]);
   const articles = all.filter((a) => !a.caseStudy);
   const close = sec["home-close"];
   const closeTitle = close?.heading ? splitEm(close.heading) : null;
@@ -50,11 +50,12 @@ export default async function HomePage() {
   return (
     <main className="pg on" data-p="home" id="main">
       <Hero sec={sec["home-hero"]} />
-      <TrustWall sec={sec["home-trust"]} />
+      <TrustWall sec={sec["home-trust"]} logos={logos} />
       <CasesRow sec={sec["home-cases"]} />
       <RecordBand sec={sec["home-record"]} />
       <AboutIntro sec={sec["home-about"]} />
       <Journey
+        items={sec["home-journey"]?.items}
         cta={{
           href: "/about",
           text: "If this road sounds familiar, read the long version.",
@@ -62,7 +63,7 @@ export default async function HomePage() {
         }}
       />
       <LifeStrip sec={sec["home-life"]} />
-      <Wheel sec={sec["home-wheel"]} />
+      <Wheel sec={sec["home-wheel"]} areas={areas} />
       <FeaturedMedia />
       <Testimonials items={testimonials} />
       <KnowledgeTeaser articles={articles} sec={sec["home-knowledge"]} />

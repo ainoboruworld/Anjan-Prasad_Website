@@ -16,11 +16,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const a = await getArticle(slug);
   if (!a) return { title: "Not found" };
+  const title = a.metaTitle ?? a.title;
+  const description = a.metaDescription ?? a.excerpt;
   return {
-    title: a.title,
-    description: a.excerpt,
+    title,
+    description,
     alternates: { canonical: `/knowledge-hub/${a.slug}` },
-    openGraph: { title: a.title, description: a.excerpt, type: "article", publishedTime: a.publishedAt, images: [a.image] },
+    openGraph: { title, description, type: "article", publishedTime: a.publishedAt, images: [a.image] },
   };
 }
 

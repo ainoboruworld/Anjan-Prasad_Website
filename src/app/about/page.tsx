@@ -201,7 +201,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <Journey />
+      <Journey items={sec["home-journey"]?.items} />
 
       <section className="hear" id="hear">
         <div className="wrap">
