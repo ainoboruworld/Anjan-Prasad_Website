@@ -7,6 +7,7 @@ import type { PageSection } from "@/lib/sections";
 
 /** "Playbooks & field notes." — the three latest notes. */
 export function KnowledgeTeaser({ articles, sec }: { articles: Article[]; sec?: PageSection }) {
+  if (sec?.hidden) return null;
   return (
     <section className="kb kh">
       <div className="wrap">

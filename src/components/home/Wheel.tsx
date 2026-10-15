@@ -27,6 +27,8 @@ export function Wheel({ sec, areas = AREAS }: { sec?: PageSection; areas?: Area[
     return () => clearInterval(t);
   }, [hold]);
 
+  if (sec?.hidden) return null;
+
   return (
     <section className="wheel" id="wheel-h">
       <div className="wrap">

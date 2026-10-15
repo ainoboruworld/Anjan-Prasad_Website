@@ -54,20 +54,23 @@ export default async function HomePage() {
       <CasesRow sec={sec["home-cases"]} />
       <RecordBand sec={sec["home-record"]} />
       <AboutIntro sec={sec["home-about"]} />
-      <Journey
-        items={sec["home-journey"]?.items}
-        cta={{
-          href: "/about",
-          text: "If this road sounds familiar, read the long version.",
-          label: "My story",
-        }}
-      />
+      {!sec["home-journey"]?.hidden && (
+        <Journey
+          items={sec["home-journey"]?.items}
+          cta={{
+            href: "/about",
+            text: "If this road sounds familiar, read the long version.",
+            label: "My story",
+          }}
+        />
+      )}
       <LifeStrip sec={sec["home-life"]} />
       <Wheel sec={sec["home-wheel"]} areas={areas} />
       <FeaturedMedia />
-      <Testimonials items={testimonials} />
+      {!sec["home-testimonials"]?.hidden && <Testimonials items={testimonials} />}
       <KnowledgeTeaser articles={articles} sec={sec["home-knowledge"]} />
       <CloseCta
+        hidden={sec["home-close"]?.hidden}
         label={close?.label ?? "Your next step"}
         title={
           closeTitle ? (

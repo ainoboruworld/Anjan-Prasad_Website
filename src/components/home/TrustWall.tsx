@@ -55,6 +55,7 @@ function CmsMarquee({ logos, reverse = false }: { logos: CmsLogo[]; reverse?: bo
 
 /** "The brands built, advised, and led." — ventures, marquees, faculty. */
 export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: LogoGroups }) {
+  if (sec?.hidden) return null;
   return (
     <section className="trust4 in" id="tw">
       <div className="glow" aria-hidden="true" />

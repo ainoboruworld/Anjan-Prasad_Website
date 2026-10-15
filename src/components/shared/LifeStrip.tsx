@@ -67,6 +67,8 @@ export function LifeStrip({ variant = "home", sec }: { variant?: "home" | "about
     };
   }, []);
 
+  if (sec?.hidden) return null;
+
   return (
     <section className="life2">
       <div className="wrap" ref={wrap}>

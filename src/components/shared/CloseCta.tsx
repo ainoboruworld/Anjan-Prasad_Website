@@ -3,18 +3,21 @@ import type { ReactNode } from "react";
 
 /** Closing call-to-action band. */
 export function CloseCta({
+  hidden,
   label,
   title,
   text,
   primary,
   secondary,
 }: {
+  hidden?: boolean;
   label: string;
   title: ReactNode;
   text?: string;
   primary: { href: string; label: string };
   secondary?: { href: string; label: string };
 }) {
+  if (hidden) return null;
   return (
     <section className="close">
       <div className="wrap rv on">

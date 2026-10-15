@@ -37,6 +37,7 @@ const STATS: { to?: number; text?: string; logo?: string; plus?: boolean; label:
 
 /** "A record measured in outcomes." */
 export function RecordBand({ sec }: { sec?: PageSection }) {
+  if (sec?.hidden) return null;
   const ref = useRef<HTMLDivElement>(null);
   const [go, setGo] = useState(false);
 

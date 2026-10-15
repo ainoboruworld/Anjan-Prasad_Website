@@ -20,6 +20,13 @@ export const pageSection = defineType({
       readOnly: true,
       description: "Connects this document to its section on the website.",
     }),
+    defineField({
+      name: "hidden",
+      title: "Hide this section on the website",
+      type: "boolean",
+      initialValue: false,
+      description: "Turn on to remove this section from the page. Turn off to show it again; nothing is lost.",
+    }),
     defineField({ name: "label", title: "Small label", type: "string" }),
     defineField({
       name: "heading",

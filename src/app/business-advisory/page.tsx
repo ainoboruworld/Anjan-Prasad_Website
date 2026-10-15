@@ -89,96 +89,104 @@ export default async function BusinessAdvisoryPage({
         </div>
       </header>
 
-      <section className="sec">
-        <div className="wrap">
-          <div className="sh">
-            <div>
-              <SecHead sec={sec["advisory-who"]} label="Who it's for" plain="Founders at " em="a turning point." />
-            </div>
-          </div>
-          <div className="c3 plain">
-            {(sec["advisory-who"]?.items?.length ? sec["advisory-who"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : WHO).map((w2) => (
-              <div key={w2.n}>
-                <span className="lab">{w2.n}</span>
-                <h3>{w2.h}</h3>
-                <p>{w2.p}</p>
+      {!sec["advisory-who"]?.hidden && (
+        <section className="sec">
+            <div className="wrap">
+              <div className="sh">
+                <div>
+                  <SecHead sec={sec["advisory-who"]} label="Who it's for" plain="Founders at " em="a turning point." />
+                </div>
               </div>
-            ))}
-          </div>
-          <div className="secta">
-            <p>Sound familiar? Start with one session.</p>
-            <Cta href="#capply">Book a consultation</Cta>
-          </div>
-        </div>
-      </section>
+              <div className="c3 plain">
+                {(sec["advisory-who"]?.items?.length ? sec["advisory-who"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : WHO).map((w2) => (
+                  <div key={w2.n}>
+                    <span className="lab">{w2.n}</span>
+                    <h3>{w2.h}</h3>
+                    <p>{w2.p}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="secta">
+                <p>Sound familiar? Start with one session.</p>
+                <Cta href="#capply">Book a consultation</Cta>
+              </div>
+            </div>
+        </section>
+      )}
 
-      <section className="sec">
-        <div className="wrap">
-          <div className="sh">
-            <div>
-              <SecHead sec={sec["advisory-proof"]} label="Why founders listen" plain="Advice that's been " em="paid for already." />
+      {!sec["advisory-proof"]?.hidden && (
+        <section className="sec">
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["advisory-proof"]} label="Why founders listen" plain="Advice that's been " em="paid for already." />
+              </div>
+            </div>
+            <div className="c3 plain">
+              {(sec["advisory-proof"]?.items?.length ? sec["advisory-proof"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: x.value ?? String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : PROOF).map((pr) => (
+                <div key={pr.n}>
+                  <span className="lab">{pr.n}</span>
+                  <h3>{pr.h}</h3>
+                  <p>{pr.p}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="c3 plain">
-            {(sec["advisory-proof"]?.items?.length ? sec["advisory-proof"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: x.value ?? String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : PROOF).map((pr) => (
-              <div key={pr.n}>
-                <span className="lab">{pr.n}</span>
-                <h3>{pr.h}</h3>
-                <p>{pr.p}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Diagnosis initialKey={w} areas={areas} />
 
+      {!sec["advisory-help"]?.hidden && (
       <section className="sec ways">
-        <div className="wrap wy2">
-          <div>
-            <SecHead sec={sec["advisory-help"]} label="How I help" plain="Whatever you " em="call it." />
-          </div>
-          <SecProse body={sec["advisory-help"]?.body}>
-            <p className="big">
-              <b>Business consultant</b>, <b>business advisor</b>, <b>business mentor</b>: founders have called me all
-              three. The title never changes what happens in the room. You bring the decision that&rsquo;s costing you
-              sleep, and we settle it.
-            </p>
-            <p>
-              One month that looks like a growth consultant fixing a leaking funnel. Another, it&rsquo;s a fractional
-              CMO building your marketing engine, or a GTM strategist taking a product to its first hundred customers.
-              The label follows the problem, never the other way around.
-            </p>
-            <p className="sm">
-              And for a few early startups I believe in, it goes deeper: a long-term seat at the table.{" "}
-              <Link href="/mentorship">That is the mentorship program</Link>.
-            </p>
-          </SecProse>
-        </div>
-      </section>
-
-      <section className="sec steps">
-        <div className="wrap">
-          <div className="sh">
+          <div className="wrap wy2">
             <div>
-              <SecHead sec={sec["advisory-steps"]} label="How it works" plain="Simple, and " em="personal." />
+              <SecHead sec={sec["advisory-help"]} label="How I help" plain="Whatever you " em="call it." />
+            </div>
+            <SecProse body={sec["advisory-help"]?.body}>
+              <p className="big">
+                <b>Business consultant</b>, <b>business advisor</b>, <b>business mentor</b>: founders have called me all
+                three. The title never changes what happens in the room. You bring the decision that&rsquo;s costing you
+                sleep, and we settle it.
+              </p>
+              <p>
+                One month that looks like a growth consultant fixing a leaking funnel. Another, it&rsquo;s a fractional
+                CMO building your marketing engine, or a GTM strategist taking a product to its first hundred customers.
+                The label follows the problem, never the other way around.
+              </p>
+              <p className="sm">
+                And for a few early startups I believe in, it goes deeper: a long-term seat at the table.{" "}
+                <Link href="/mentorship">That is the mentorship program</Link>.
+              </p>
+            </SecProse>
+          </div>
+        </section>
+      )}
+
+      {!sec["advisory-steps"]?.hidden && (
+      <section className="sec steps">
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["advisory-steps"]} label="How it works" plain="Simple, and " em="personal." />
+              </div>
+            </div>
+            <ol className="st4">
+              {(sec["advisory-steps"]?.items?.length ? sec["advisory-steps"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : STEPS).map((s) => (
+                <li key={s.n}>
+                  <b>{s.n}</b>
+                  <h3>{s.h}</h3>
+                  <p>{s.p}</p>
+                </li>
+              ))}
+            </ol>
+            <div className="secta">
+              <p>Building something early and want a longer runway together?</p>
+              <Cta href="/mentorship">Explore mentorship</Cta>
             </div>
           </div>
-          <ol className="st4">
-            {(sec["advisory-steps"]?.items?.length ? sec["advisory-steps"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : STEPS).map((s) => (
-              <li key={s.n}>
-                <b>{s.n}</b>
-                <h3>{s.h}</h3>
-                <p>{s.p}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="secta">
-            <p>Building something early and want a longer runway together?</p>
-            <Cta href="/mentorship">Explore mentorship</Cta>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 }

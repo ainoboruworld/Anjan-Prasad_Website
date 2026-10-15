@@ -115,6 +115,7 @@ export default async function AboutPage() {
             )}
           </div>
         </div>
+        {!sec["about-cred"]?.hidden && (
         <div className="wrap">
           <div className="abz-cred">
             {(sec["about-cred"]?.items?.length ? sec["about-cred"].items!.filter((x) => x.title && x.value).map((x) => ({ v: x.value!, plus: false, l: x.title! })) : CRED).map((c) => (
@@ -128,98 +129,105 @@ export default async function AboutPage() {
             ))}
           </div>
         </div>
+        )}
       </header>
 
-      <section className="mani">
-        <div className="wrap">
-          <span className="lab">{sec["about-work"]?.label ?? "How I work"}</span>
-          <QuoteSlideshow quotes={quotes} />
-          <div className="sg">Anjan</div>
-        </div>
-      </section>
-
-      <section className="story">
-        <div className="wrap">
-          <div className="stl">
-            <SecHead sec={sec["about-story"]} label="My story" plain="The long version, " em="over a cup of coffee." />
-            <span className="ph-flag">Story draft: confirm details with Anjan</span>
+      {!sec["about-work"]?.hidden && (
+  <section className="mani">
+          <div className="wrap">
+            <span className="lab">{sec["about-work"]?.label ?? "How I work"}</span>
+            <QuoteSlideshow quotes={quotes} />
+            <div className="sg">Anjan</div>
           </div>
-          {sec["about-story"]?.body ? (
+        </section>
+      )}
+
+      {!sec["about-story"]?.hidden && (
+  <section className="story">
+          <div className="wrap">
+            <div className="stl">
+              <SecHead sec={sec["about-story"]} label="My story" plain="The long version, " em="over a cup of coffee." />
+              <span className="ph-flag">Story draft: confirm details with Anjan</span>
+            </div>
+            {sec["about-story"]?.body ? (
+              <div className="sr">
+                {sec["about-story"]
+                  .body!.split(/\n\s*\n/)
+                  .map((p) => p.trim())
+                  .filter(Boolean)
+                  .map((p, i) => (
+                    <p key={i} className={i === 0 ? "drop" : /^[“"]/.test(p) ? "pull" : undefined}>
+                      {p}
+                    </p>
+                  ))}
+                <p className="sgn">Anjan</p>
+              </div>
+            ) : (
             <div className="sr">
-              {sec["about-story"]
-                .body!.split(/\n\s*\n/)
-                .map((p) => p.trim())
-                .filter(Boolean)
-                .map((p, i) => (
-                  <p key={i} className={i === 0 ? "drop" : /^[“"]/.test(p) ? "pull" : undefined}>
-                    {p}
-                  </p>
-                ))}
+              <p className="drop">
+                My first real job was at Accenture. After that I spent years in advertising, at Mindshare and IPG
+                Mediabrands, working on brands you&rsquo;d find in almost every Indian home. I loved it. I also slowly
+                realised I was helping other people build their businesses, and never building my own.
+              </p>
+              <p>
+                At Zeta Global and Fareportal I got closer to the numbers. That&rsquo;s where I understood something
+                nobody teaches you in a classroom: a business isn&rsquo;t the idea or the logo. It&rsquo;s whether people
+                pay you, again and again, at a price that leaves something over.
+              </p>
+              <p>
+                So I left. I started Noboru World with more confidence than clarity. I made almost every mistake you can
+                make. I hired too fast, priced too low, said yes to the wrong clients and worried about payroll more
+                nights than I&rsquo;d like to admit. Slowly, we figured it out. Across the businesses I&rsquo;ve built and
+                grown since, we&rsquo;ve generated more than ₹120 crore in revenue, and I remember what every rupee of it
+                cost. Then came Lushful, working directly with farmers, and Filing Buddy, where I&rsquo;m CEO today.
+              </p>
+              <p className="pull">
+                &ldquo;I&rsquo;m not writing this as someone who got it right the first time. I&rsquo;m writing it as
+                someone who got it wrong, and kept going.&rdquo;
+              </p>
+              <p>
+                These days I also teach at IIFT and IMT Ghaziabad, and I spend a good part of my week with founders. Some
+                are running a business that has stopped growing. Some haven&rsquo;t started yet and just want someone to
+                think it through with them.
+              </p>
+              <p>
+                I work with them as a mentor, an advisor and sometimes just a sounding board. I don&rsquo;t have a
+                framework to sell you. I have seventeen plus years of doing this for real, and I&rsquo;m happy to share all of
+                it.
+              </p>
               <p className="sgn">Anjan</p>
             </div>
-          ) : (
-          <div className="sr">
-            <p className="drop">
-              My first real job was at Accenture. After that I spent years in advertising, at Mindshare and IPG
-              Mediabrands, working on brands you&rsquo;d find in almost every Indian home. I loved it. I also slowly
-              realised I was helping other people build their businesses, and never building my own.
-            </p>
-            <p>
-              At Zeta Global and Fareportal I got closer to the numbers. That&rsquo;s where I understood something
-              nobody teaches you in a classroom: a business isn&rsquo;t the idea or the logo. It&rsquo;s whether people
-              pay you, again and again, at a price that leaves something over.
-            </p>
-            <p>
-              So I left. I started Noboru World with more confidence than clarity. I made almost every mistake you can
-              make. I hired too fast, priced too low, said yes to the wrong clients and worried about payroll more
-              nights than I&rsquo;d like to admit. Slowly, we figured it out. Across the businesses I&rsquo;ve built and
-              grown since, we&rsquo;ve generated more than ₹120 crore in revenue, and I remember what every rupee of it
-              cost. Then came Lushful, working directly with farmers, and Filing Buddy, where I&rsquo;m CEO today.
-            </p>
-            <p className="pull">
-              &ldquo;I&rsquo;m not writing this as someone who got it right the first time. I&rsquo;m writing it as
-              someone who got it wrong, and kept going.&rdquo;
-            </p>
-            <p>
-              These days I also teach at IIFT and IMT Ghaziabad, and I spend a good part of my week with founders. Some
-              are running a business that has stopped growing. Some haven&rsquo;t started yet and just want someone to
-              think it through with them.
-            </p>
-            <p>
-              I work with them as a mentor, an advisor and sometimes just a sounding board. I don&rsquo;t have a
-              framework to sell you. I have seventeen plus years of doing this for real, and I&rsquo;m happy to share all of
-              it.
-            </p>
-            <p className="sgn">Anjan</p>
+            )}
           </div>
-          )}
-        </div>
-        <div className="wrap">
-          <div className="secta secta-c">
-            <p>If part of this story sounds like yours, let&rsquo;s talk about yours.</p>
-            <Cta href="/business-advisory#capply">Book a consultation</Cta>
+          <div className="wrap">
+            <div className="secta secta-c">
+              <p>If part of this story sounds like yours, let&rsquo;s talk about yours.</p>
+              <Cta href="/business-advisory#capply">Book a consultation</Cta>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="proof">
-        <div className="wrap">
-          <div className="pg3">
-            {(sec["about-proof"]?.items?.length
-              ? sec["about-proof"].items!.filter((x) => x.title).map((x) => ({ lab: x.value ?? "", h: x.title!, p: x.text ?? "" }))
-              : PROOF
-            ).map((p) => (
-              <div key={p.lab}>
-                <span className="lab">{p.lab}</span>
-                <h3>{p.h}</h3>
-                <p>{p.p}</p>
-              </div>
-            ))}
+      {!sec["about-proof"]?.hidden && (
+  <section className="proof">
+          <div className="wrap">
+            <div className="pg3">
+              {(sec["about-proof"]?.items?.length
+                ? sec["about-proof"].items!.filter((x) => x.title).map((x) => ({ lab: x.value ?? "", h: x.title!, p: x.text ?? "" }))
+                : PROOF
+              ).map((p) => (
+                <div key={p.lab}>
+                  <span className="lab">{p.lab}</span>
+                  <h3>{p.h}</h3>
+                  <p>{p.p}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <Journey items={sec["home-journey"]?.items} />
+      {!sec["home-journey"]?.hidden && <Journey items={sec["home-journey"]?.items} />}
 
       <section className="hear" id="hear">
         <div className="wrap">
@@ -235,6 +243,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {!sec["about-beliefs"]?.hidden && (
       <section className="bel">
         <div className="wrap">
           <div className="sh">
@@ -256,6 +265,7 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
+      )}
 
       <section className="exp">
         <div className="wrap">
@@ -282,9 +292,10 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <LifeStrip variant="about" />
+      <LifeStrip variant="about" sec={sec["home-life"]} />
 
       <CloseCta
+        hidden={sec["home-close"]?.hidden}
         label="Work with me"
         title={
           <>

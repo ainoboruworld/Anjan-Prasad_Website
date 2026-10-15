@@ -35,6 +35,8 @@ export function CasesRow({ sec }: { sec?: PageSection }) {
     return () => clearInterval(t);
   }, [hold]);
 
+  if (sec?.hidden) return null;
+
   return (
     <section className="cases" id="cases">
       <div className="wrap">

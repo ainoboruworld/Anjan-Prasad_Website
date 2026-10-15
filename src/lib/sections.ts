@@ -14,6 +14,8 @@ export interface SectionItem {
 /** One editable page section (Pinkfly-style): "Home · Hero", "About · Beliefs", … */
 export interface PageSection {
   key: string;
+  /** Set in the Studio to remove the section from the page. */
+  hidden?: boolean;
   label?: string;
   heading?: string;
   body?: string;
