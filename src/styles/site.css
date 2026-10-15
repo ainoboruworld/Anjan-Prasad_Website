@@ -2843,3 +2843,14 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .art #abody ul,.art #abody ol{margin:0 0 22px;padding-left:22px}
 .art #abody ul li,.art #abody ol li{margin:8px 0;line-height:1.6;color:var(--harb,#39506B)}
 .art #abody ul li::marker{color:#CDB27A}
+
+/* Knowledge Hub articles: slightly smaller reading sizes */
+@media(min-width:901px){
+.art p{font-size:17px;line-height:1.7}
+.art .lead,.csb .lead{font-size:21px}
+.art h2{font-size:28px}
+.art h3{font-size:20px}
+.csb ul li,.art #abody ul li,.art #abody ol li{font-size:15.5px}
+.csb blockquote{font-size:19px}
+.art .toc a{font-size:14px}
+}
