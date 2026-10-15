@@ -6,5 +6,6 @@ import { quote } from "./quote";
 import { pageSection } from "./pageSection";
 import { pageSeo } from "./pageSeo";
 import { siteSeo } from "./siteSeo";
+import { articleSection } from "./articleSection";
 
-export const schemaTypes = [blogPost, category, blockContent, caseStudy, quote, pageSection, pageSeo, siteSeo];
+export const schemaTypes = [blogPost, category, blockContent, caseStudy, quote, pageSection, pageSeo, siteSeo, articleSection];

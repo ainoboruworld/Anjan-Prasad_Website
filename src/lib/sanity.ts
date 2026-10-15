@@ -36,9 +36,21 @@ export function getSanityClient(): SanityClient | null {
   return client;
 }
 
+export interface ArticleCmsSection {
+  heading?: string;
+  text?: PortableTextBlock[];
+  imageUrl?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+}
+
 export interface CmsArticle extends Article {
   /** Portable Text body from the CMS (rendered by <PortableText/>). */
   portableBody?: PortableTextBlock[];
+  /** Pinkfly-style sections: heading + paragraphs + optional image below. */
+  cmsSections?: ArticleCmsSection[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 interface RawPost {
@@ -53,6 +65,9 @@ interface RawPost {
   kicker?: string;
   bannerTitle?: string;
   body?: PortableTextBlock[];
+  sections?: ArticleCmsSection[];
+  metaTitle?: string;
+  metaDescription?: string;
   sources?: string;
   caseStudy?: {
     sector?: string;
@@ -86,7 +101,8 @@ function toCaseStudy(c: NonNullable<RawPost["caseStudy"]>, seed?: Article): Arti
 
 const POST_QUERY = `*[_type == "blogPost" && defined(slug.current) && publishedAt <= now()] | order(publishedAt desc){
   "slug": slug.current, title, "category": category->title, publishedAt, readTime, excerpt,
-  "imageUrl": featuredImage.asset->url, "cardImageUrl": cardImage.asset->url, kicker, bannerTitle, body, sources,
+  "imageUrl": featuredImage.asset->url, "cardImageUrl": cardImage.asset->url, kicker, bannerTitle, body, sources, metaTitle, metaDescription,
+  "sections": sections[]{heading, text, "imageUrl": image.asset->url, "imageAlt": image.alt, "imageCaption": image.caption},
   "caseStudy": select(defined(caseStudy.sector) => caseStudy{sector, client, "logoUrl": logo.asset->url, summary, metrics, tags, quoteText, quoteBy}, null)
 }`;
 
@@ -118,6 +134,9 @@ function toArticle(p: RawPost, seed?: Article): CmsArticle {
     sources: p.sources,
     caseStudy: p.caseStudy ? toCaseStudy(p.caseStudy, seed) : undefined,
     portableBody: p.body,
+    cmsSections: p.sections?.length ? p.sections : undefined,
+    metaTitle: p.metaTitle,
+    metaDescription: p.metaDescription,
   };
 }
 

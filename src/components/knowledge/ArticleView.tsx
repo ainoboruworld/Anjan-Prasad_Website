@@ -130,7 +130,9 @@ function CaseBody({ a }: { a: Article }) {
             <span key={t}>{t}</span>
           ))}
         </div>
-        {a.body?.length ? (
+        {(a as CmsArticle).cmsSections?.length ? (
+          <SectionsList sections={(a as CmsArticle).cmsSections!} />
+        ) : a.body?.length ? (
           <Blocks blocks={a.body} />
         ) : (
           <p>Full case study coming soon: the problem, what we tried, what worked and what we would do differently.</p>
@@ -156,6 +158,39 @@ function DraftBody() {
         started again tomorrow.
       </p>
       <EndCta />
+    </div>
+  );
+}
+
+/** Pinkfly-style sections: heading + paragraphs + image below, with a TOC. */
+function SectionsList({ sections }: { sections: NonNullable<CmsArticle["cmsSections"]> }) {
+  const headings = sections.map((s) => s.heading).filter((h): h is string => Boolean(h));
+  return (
+    <>
+      <Toc headings={headings} />
+      {sections.map((s, i) => (
+        <section key={i}>
+          {s.heading && <h2 id={slugId(s.heading)}>{s.heading}</h2>}
+          {s.text?.length ? <PortableText value={s.text} /> : null}
+          {s.imageUrl && (
+            <figure className="bimg">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={s.imageUrl} alt={s.imageAlt ?? ""} loading="lazy" />
+              {s.imageCaption && <figcaption>{s.imageCaption}</figcaption>}
+            </figure>
+          )}
+        </section>
+      ))}
+    </>
+  );
+}
+
+function SectionsBody({ a }: { a: CmsArticle }) {
+  return (
+    <div id="abody">
+      <SectionsList sections={a.cmsSections!} />
+      <EndCta />
+      {a.sources && <p className="srcs">{a.sources}</p>}
     </div>
   );
 }
@@ -198,10 +233,12 @@ function CmsBody({ a }: { a: CmsArticle }) {
 /** Full article page: header, banner, body and "keep reading". */
 export function ArticleView({ article, related }: { article: CmsArticle; related: Article[] }) {
   const { head, tail } = splitTitle(article.title);
-  const body = article.portableBody?.length ? (
-    <CmsBody a={article} />
-  ) : article.caseStudy ? (
+  const body = article.caseStudy ? (
     <CaseBody a={article} />
+  ) : article.cmsSections?.length ? (
+    <SectionsBody a={article} />
+  ) : article.portableBody?.length ? (
+    <CmsBody a={article} />
   ) : article.body?.length ? (
     <SeedBody a={article} />
   ) : (
