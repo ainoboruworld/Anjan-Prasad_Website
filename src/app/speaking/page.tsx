@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSections, secHeading } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
 import { SpeakingForm } from "@/components/forms/SpeakingForm";
@@ -47,19 +48,24 @@ const ROOMS = [
   },
 ];
 
-export default function SpeakingPage() {
+export const revalidate = 300;
+
+export default async function SpeakingPage() {
+  const sec = await getSections();
+  const hero = sec["speaking-hero"];
+  const h1 = secHeading(hero, { plain: "Ask him anything. ", em: "He has run the numbers." });
   return (
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Speaker</span>
+          <span className="lab">{hero?.label ?? "Speaker"}</span>
           <h1>
-            Ask him anything. <em>He has run the numbers.</em>
+            {h1.plain}
+            {h1.em && <em>{h1.em}</em>}
           </h1>
           <p>
-            Anjan runs three businesses today and spent seventeen plus years before that inside global agencies, spending
-            budgets for some of the biggest brands in the country. On a stage or a mic he does one thing: say plainly
-            what building a business is actually like, with the numbers to back it.
+            {hero?.body ??
+              "Anjan runs three businesses today and spent seventeen plus years before that inside global agencies, spending budgets for some of the biggest brands in the country. On a stage or a mic he does one thing: say plainly what building a business is actually like, with the numbers to back it."}
           </p>
           <Cta href="#invite">Invite Anjan to speak</Cta>
         </div>

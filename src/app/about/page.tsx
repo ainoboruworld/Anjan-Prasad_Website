@@ -6,7 +6,7 @@ import { VideoPair } from "@/components/shared/VideoPair";
 import { CloseCta } from "@/components/shared/CloseCta";
 import { Cta } from "@/components/ui/Cta";
 import { QuoteSlideshow } from "@/components/about/QuoteSlideshow";
-import { getQuotes } from "@/lib/sanity";
+import { getQuotes, getSections, splitEm } from "@/lib/sanity";
 
 export const revalidate = 300;
 
@@ -69,7 +69,11 @@ const EXPECT = [
 ];
 
 export default async function AboutPage() {
-  const quotes = await getQuotes();
+  const [quotes, sec] = await Promise.all([getQuotes(), getSections()]);
+  const hero = sec["about-hero"];
+  const heroTitle = hero?.heading ? splitEm(hero.heading) : null;
+  const heroParas = hero?.body?.split(/\n\s*\n/).filter(Boolean);
+  const beliefs = sec["about-beliefs"]?.items?.filter((b) => b.title && b.text);
   return (
     <main className="pg on" data-p="about" id="main">
       <header className="abz">
@@ -79,18 +83,33 @@ export default async function AboutPage() {
             <span className="abz-tag">Serial entrepreneur</span>
           </div>
           <div className="abz-tx">
-            <span className="lab">About me</span>
+            <span className="lab">{hero?.label ?? "About me"}</span>
             <h1>
-              Hi, I&rsquo;m Anjan. <em>Let me tell you how I got here.</em>
+              {heroTitle ? (
+                <>
+                  {heroTitle.plain}
+                  {heroTitle.em && <em>{heroTitle.em}</em>}
+                </>
+              ) : (
+                <>
+                  Hi, I&rsquo;m Anjan. <em>Let me tell you how I got here.</em>
+                </>
+              )}
             </h1>
-            <p>
-              I&rsquo;ll be honest: I never planned to become an entrepreneur. I was the guy with the steady corporate
-              job, the good title and the monthly salary that showed up on time.
-            </p>
-            <p>
-              Then one day I walked away from all of it to build something of my own. Some days I still wonder how I
-              had the nerve. But everything I know about business, I learned after that day.
-            </p>
+            {heroParas?.length ? (
+              heroParas.map((p) => <p key={p.slice(0, 24)}>{p}</p>)
+            ) : (
+              <>
+                <p>
+                  I&rsquo;ll be honest: I never planned to become an entrepreneur. I was the guy with the steady
+                  corporate job, the good title and the monthly salary that showed up on time.
+                </p>
+                <p>
+                  Then one day I walked away from all of it to build something of my own. Some days I still wonder how
+                  I had the nerve. But everything I know about business, I learned after that day.
+                </p>
+              </>
+            )}
           </div>
         </div>
         <div className="wrap">
@@ -209,7 +228,10 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="bl">
-            {BELIEFS.map((b) => (
+            {(beliefs?.length
+              ? beliefs.map((b, k) => ({ n: String(k + 1).padStart(2, "0"), h: b.title!, p: b.text! }))
+              : BELIEFS
+            ).map((b) => (
               <div key={b.n}>
                 <b>{b.n}</b>
                 <h3>{b.h}</h3>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSections, secHeading } from "@/lib/sanity";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { SITE } from "@/lib/data/site";
 
@@ -8,19 +9,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export const revalidate = 300;
+
+export default async function ContactPage() {
+  const sec = await getSections();
+  const hero = sec["contact-hero"];
+  const h1 = secHeading(hero, { plain: "Let\u2019s ", em: "talk." });
   return (
     <main className="pg on" data-p="contact" id="main">
       <header className="ph1">
         <div className="wrap cgrid">
           <div>
-            <span className="lab">Contact</span>
+            <span className="lab">{hero?.label ?? "Contact"}</span>
             <h1>
-              Let&rsquo;s <em>talk.</em>
+              {h1.plain}
+              {h1.em && <em>{h1.em}</em>}
             </h1>
             <p>
-              For advisory, use the application. For everything else, speaking, collaborations, press or just a hello,
-              write to me here.
+              {hero?.body ??
+                "For advisory, use the application. For everything else, speaking, collaborations, press or just a hello, write to me here."}
             </p>
             <ul className="cl">
               <li>

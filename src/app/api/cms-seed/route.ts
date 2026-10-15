@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import { env, serverEnv } from "@/lib/env";
 import { ARTICLES, type ArticleBlock } from "@/lib/data/articles";
+import { TESTIMONIALS } from "@/lib/data/site";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -27,18 +28,99 @@ const QUOTES: [string, string][] = [
   ["Plans don’t survive contact with customers.", "Systems do."],
 ];
 
-const SITE_COPY = {
-  _id: "siteCopy",
-  _type: "siteCopy",
-  title: "Site copy",
-  heroTitle: "Build a Business That *Outlasts You.*",
-  heroSubheadline:
-    "I work with founders on the decisions that shape their businesses, from finding product-market fit to pricing, profitability and scaling. The goal is simple: build a business that grows with purpose and stands on its own.",
-  aboutLabel: "Serial entrepreneur. Three times from zero, and counting.",
-  aboutHeading: "I don’t study businesses. *I run them.*",
-  aboutBody:
-    "I run three businesses today, after seventeen plus years inside global agencies managing over ₹1,200 Cr in budgets for some of India’s biggest brands. I’ve had the salary and left it to start from zero, worried about payroll and fixed things at midnight. That’s what makes my advice different: I advise businesses the way I run my own, on systems, margins and honest execution.",
-};
+interface SeedSection {
+  key: string;
+  page: string;
+  sectionTitle: string;
+  label?: string;
+  heading?: string;
+  body?: string;
+  items?: { title?: string; value?: string; text?: string }[];
+}
+
+/** Every editable section, pre-filled with the site's current content. */
+const SECTIONS: SeedSection[] = [
+  {
+    key: "home-hero",
+    page: "Home",
+    sectionTitle: "Hero",
+    heading: "Build a Business That *Outlasts You.*",
+    body: "I work with founders on the decisions that shape their businesses, from finding product-market fit to pricing, profitability and scaling. The goal is simple: build a business that grows with purpose and stands on its own.",
+  },
+  {
+    key: "home-about",
+    page: "Home",
+    sectionTitle: "About intro",
+    label: "Serial entrepreneur. Three times from zero, and counting.",
+    heading: "I don’t study businesses. *I run them.*",
+    body: "I run three businesses today, after seventeen plus years inside global agencies managing over ₹1,200 Cr in budgets for some of India’s biggest brands. I’ve had the salary and left it to start from zero, worried about payroll and fixed things at midnight. That’s what makes my advice different: I advise businesses the way I run my own, on systems, margins and honest execution.",
+  },
+  {
+    key: "home-testimonials",
+    page: "Home",
+    sectionTitle: "Testimonials",
+    items: TESTIMONIALS.map((t) => ({ title: t.name, value: t.role, text: t.quote })),
+  },
+  {
+    key: "home-close",
+    page: "Home",
+    sectionTitle: "Closing CTA",
+    label: "Your next step",
+    heading: "Ready to build *your next chapter?*",
+    body: "Bring a proven operating playbook into your business, or get clarity on your next decision.",
+  },
+  {
+    key: "about-hero",
+    page: "About",
+    sectionTitle: "Hero",
+    label: "About me",
+    heading: "Hi, I’m Anjan. *Let me tell you how I got here.*",
+    body: "I’ll be honest: I never planned to become an entrepreneur. I was the guy with the steady corporate job, the good title and the monthly salary that showed up on time.\n\nThen one day I walked away from all of it to build something of my own. Some days I still wonder how I had the nerve. But everything I know about business, I learned after that day.",
+  },
+  {
+    key: "about-beliefs",
+    page: "About",
+    sectionTitle: "What I believe",
+    items: [
+      { title: "Profit is the plan.", text: "I spent years spending other people's crores. Spending my own taught me: growth multiplies whatever you have, including losses." },
+      { title: "Say no more often.", text: "Every business I've run grew fastest after I stopped doing something. The second product, the fourth channel, the client who drains the team." },
+      { title: "Systems over heroics.", text: "If the business needs me at 11pm, I haven't built a business yet. I build so the week runs without me, then I work on what's next." },
+      { title: "Skin in the game.", text: "I only advise on what I've run, broken and fixed with my own money. Advice is cheap when the adviser has nothing to lose." },
+    ],
+  },
+  {
+    key: "advisory-hero",
+    page: "Business Advisory",
+    sectionTitle: "Hero",
+    label: "Programs · Business Advisory",
+    heading: "Clear decisions for founders *who are building for the long run.*",
+    body: "I run three businesses today and spent seventeen plus years inside global agencies before that. Founders bring me the decision in front of them: one focused consultation when that's all it takes, ongoing advisory when you want me at the table as you build. Either way it starts with you telling me where the business is.",
+  },
+  {
+    key: "mentorship-hero",
+    page: "Mentorship",
+    sectionTitle: "Hero",
+    label: "Programs · Mentorship",
+    heading: "A seat at your table, *for the whole journey.*",
+    body: "I mentor a small number of early-stage founders the way I wish someone had mentored me: long-term, hands-on and honest, sometimes with equity, always with skin in the game.",
+  },
+  {
+    key: "speaking-hero",
+    page: "Speaker",
+    sectionTitle: "Hero",
+    label: "Speaker",
+    heading: "Ask him anything. *He has run the numbers.*",
+    body: "Anjan runs three businesses today and spent seventeen plus years before that inside global agencies, spending budgets for some of the biggest brands in the country. On a stage or a mic he does one thing: say plainly what building a business is actually like, with the numbers to back it.",
+  },
+  {
+    key: "contact-hero",
+    page: "Contact",
+    sectionTitle: "Hero",
+    label: "Contact",
+    heading: "Let’s *talk.*",
+    body: "For advisory, use the application. For everything else, speaking, collaborations, press or just a hello, write to me here.",
+  },
+];
 
 let keyN = 0;
 const key = () => `seed${(keyN++).toString(36)}${Date.now().toString(36)}`;
@@ -123,7 +205,19 @@ export async function GET(req: Request) {
     await createIfMissing({ _id: `quote-seed-${i + 1}`, _type: "quote", lead: QUOTES[i][0], emphasis: QUOTES[i][1], order: i + 1 });
   }
 
-  await createIfMissing(SITE_COPY);
+  for (const s of SECTIONS) {
+    await createIfMissing({
+      _id: `sec-${s.key}`,
+      _type: "pageSection",
+      key: s.key,
+      page: s.page,
+      sectionTitle: s.sectionTitle,
+      label: s.label,
+      heading: s.heading,
+      body: s.body,
+      items: s.items?.map((it) => ({ _key: key(), ...it })),
+    });
+  }
 
   // Every article: blog posts and case studies.
   for (const a of ARTICLES.filter((x) => x.body?.length)) {

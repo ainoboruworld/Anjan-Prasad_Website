@@ -165,29 +165,46 @@ export async function getQuotes(): Promise<SiteQuote[] | null> {
   }
 }
 
-export interface SiteCopy {
-  heroTitle?: string;
-  heroSubheadline?: string;
-  aboutLabel?: string;
-  aboutHeading?: string;
-  aboutBody?: string;
+export interface SectionItem {
+  title?: string;
+  value?: string;
+  text?: string;
 }
 
-/** The "Site copy" document; every field optional, {} when unavailable. */
-export async function getSiteCopy(): Promise<SiteCopy> {
+/** One editable page section (Pinkfly-style): "Home · Hero", "About · Beliefs", … */
+export interface PageSection {
+  key: string;
+  label?: string;
+  heading?: string;
+  body?: string;
+  items?: SectionItem[];
+}
+
+export type Sections = Record<string, PageSection>;
+
+/** All page sections keyed by their section key; {} when the CMS is off. */
+export async function getSections(): Promise<Sections> {
   const sanity = getSanityClient();
   if (!sanity) return {};
   try {
-    const copy = await sanity.fetch<SiteCopy | null>(
-      `*[_type == "siteCopy"][0]{heroTitle, heroSubheadline, aboutLabel, aboutHeading, aboutBody}`,
+    const raw = await sanity.fetch<PageSection[]>(
+      `*[_type == "pageSection" && defined(key)]{key, label, heading, body, items}`,
       {},
       { next: { revalidate: REVALIDATE_SECONDS } }
     );
-    return copy ?? {};
+    return Object.fromEntries(raw.map((s) => [s.key, s]));
   } catch (err) {
-    console.warn("[sanity] site copy fetch failed:", (err as Error).message);
+    console.warn("[sanity] sections fetch failed:", (err as Error).message);
     return {};
   }
+}
+
+/** A section's heading parts, or the built-in fallback when unset. */
+export function secHeading(
+  sec: PageSection | undefined,
+  fallback: { plain: string; em?: string }
+): { plain: string; em?: string } {
+  return sec?.heading ? splitEm(sec.heading) : fallback;
 }
 
 /** Split "plain *italic*" into its plain and italic parts. */

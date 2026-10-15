@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSections, secHeading } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";
@@ -51,18 +52,24 @@ const YEAR = [
   },
 ];
 
-export default function MentorshipPage() {
+export const revalidate = 300;
+
+export default async function MentorshipPage() {
+  const sec = await getSections();
+  const hero = sec["mentorship-hero"];
+  const h1 = secHeading(hero, { plain: "A seat at your table, ", em: "for the whole journey." });
   return (
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Programs · Mentorship</span>
+          <span className="lab">{hero?.label ?? "Programs · Mentorship"}</span>
           <h1>
-            A seat at your table, <em>for the whole journey.</em>
+            {h1.plain}
+            {h1.em && <em>{h1.em}</em>}
           </h1>
           <p>
-            I mentor a small number of early-stage founders the way I wish someone had mentored me: long-term, hands-on
-            and honest, sometimes with equity, always with skin in the game.
+            {hero?.body ??
+              "I mentor a small number of early-stage founders the way I wish someone had mentored me: long-term, hands-on and honest, sometimes with equity, always with skin in the game."}
           </p>
           <Cta href="#apply">Apply for mentorship</Cta>
         </div>

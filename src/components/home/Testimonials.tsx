@@ -3,11 +3,19 @@
 import { useEffect, useState } from "react";
 import { TESTIMONIALS } from "@/lib/data/site";
 
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  initials: string;
+}
+
 /** "In their own words." — one quote at a time, auto-rotating every 6s. */
-export function Testimonials() {
+export function Testimonials({ items }: { items?: Testimonial[] | null }) {
+  const list = items?.length ? items : TESTIMONIALS;
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
-  const n = TESTIMONIALS.length;
+  const n = list.length;
   const go = (d: number) => setI((k) => (k + d + n) % n);
 
   useEffect(() => {
@@ -42,7 +50,7 @@ export function Testimonials() {
         </div>
 
         <div className="tr2 rv on" aria-live="polite">
-          {TESTIMONIALS.map((t, k) => (
+          {list.map((t, k) => (
             <figure className={`sl${k === i ? " on" : ""}`} key={t.name} aria-hidden={k !== i}>
               <blockquote>{t.quote}</blockquote>
               <figcaption>
