@@ -18,9 +18,7 @@ export function Hero({ sec = {} as PageSection }: { sec?: PageSection }) {
           height={624}
           priority
           sizes="(max-width: 900px) 90vw, 600px"
-        />
-        <div className="desk" aria-hidden="true" />
-      </div>
+        />      </div>
 
       <div className="wrap">
         <h1>
