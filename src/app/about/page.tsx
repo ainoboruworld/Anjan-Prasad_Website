@@ -6,6 +6,9 @@ import { VideoPair } from "@/components/shared/VideoPair";
 import { CloseCta } from "@/components/shared/CloseCta";
 import { Cta } from "@/components/ui/Cta";
 import { QuoteSlideshow } from "@/components/about/QuoteSlideshow";
+import { getQuotes } from "@/lib/sanity";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About",
@@ -65,7 +68,8 @@ const EXPECT = [
   { h: "I reply myself.", p: "Every application, within five working days." },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const quotes = await getQuotes();
   return (
     <main className="pg on" data-p="about" id="main">
       <header className="abz">
@@ -107,7 +111,7 @@ export default function AboutPage() {
       <section className="mani">
         <div className="wrap">
           <span className="lab">How I work</span>
-          <QuoteSlideshow />
+          <QuoteSlideshow quotes={quotes} />
           <div className="sg">Anjan</div>
         </div>
       </section>

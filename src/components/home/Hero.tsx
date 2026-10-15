@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { Cta } from "../ui/Cta";
+import { splitEm, type SiteCopy } from "@/lib/sanity";
 
 /** Home hero: the opening statement and Anjan's portrait on the soft-blue arch. */
-export function Hero() {
+export function Hero({ copy = {} }: { copy?: SiteCopy }) {
+  const title = copy.heroTitle ? splitEm(copy.heroTitle) : { plain: "Build a Business That ", em: "Outlasts You." };
   return (
     <header className="hero">
       <div className="stage">
@@ -21,12 +23,12 @@ export function Hero() {
 
       <div className="wrap">
         <h1>
-          Build a Business That <em>Outlasts You.</em>
+          {title.plain}
+          {title.em && <em>{title.em}</em>}
         </h1>
         <p>
-          I work with founders on the decisions that shape their businesses, from finding product-market fit to
-          pricing, profitability and scaling. The goal is simple: build a business that grows with purpose and stands
-          on its own.
+          {copy.heroSubheadline ??
+            "I work with founders on the decisions that shape their businesses, from finding product-market fit to pricing, profitability and scaling. The goal is simple: build a business that grows with purpose and stands on its own."}
         </p>
         <div className="more">
           <Cta href="/business-advisory#capply">Book a consultation</Cta>

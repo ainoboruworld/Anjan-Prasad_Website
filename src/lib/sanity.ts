@@ -72,7 +72,7 @@ function shortDate(iso?: string): string {
   return `${d.getDate()} ${MONTHS[d.getMonth()]}`;
 }
 
-function toArticle(p: RawPost): CmsArticle {
+function toArticle(p: RawPost, seed?: Article): CmsArticle {
   const category = (p.category ?? "Business") as ArticleCategory;
   return {
     slug: p.slug,
@@ -82,10 +82,12 @@ function toArticle(p: RawPost): CmsArticle {
     publishedAt: p.publishedAt ?? new Date().toISOString(),
     readTime: p.readTime ? `${p.readTime} min read` : "5 min read",
     excerpt: p.excerpt ?? "",
-    image: p.imageUrl ?? "/images/life-3.jpg",
-    cardImage: p.cardImageUrl,
+    // While a CMS post has no uploaded images, keep the seed's visuals so
+    // banners and card thumbnails never regress to the placeholder.
+    image: p.imageUrl ?? seed?.image ?? "/images/life-3.jpg",
+    cardImage: p.cardImageUrl ?? seed?.cardImage,
     kicker: p.kicker ?? (p.caseStudy ? "Case Studies" : category),
-    bannerTitle: p.bannerTitle,
+    bannerTitle: p.bannerTitle ?? seed?.bannerTitle,
     sources: p.sources,
     caseStudy: p.caseStudy ?? undefined,
     portableBody: p.body,
@@ -98,7 +100,8 @@ export async function getArticles(): Promise<CmsArticle[]> {
   if (!sanity) return ARTICLES;
   try {
     const raw = await sanity.fetch<RawPost[]>(POST_QUERY, {}, { next: { revalidate: REVALIDATE_SECONDS } });
-    const cms = raw.map(toArticle);
+    const seedBySlug = new Map(ARTICLES.map((a) => [a.slug, a]));
+    const cms = raw.map((p) => toArticle(p, seedBySlug.get(p.slug)));
     const seen = new Set(cms.map((a) => a.slug));
     return [...cms, ...ARTICLES.filter((a) => !seen.has(a.slug))];
   } catch (err) {
@@ -110,4 +113,59 @@ export async function getArticles(): Promise<CmsArticle[]> {
 export async function getArticle(slug: string): Promise<CmsArticle | undefined> {
   const all = await getArticles();
   return all.find((a) => a.slug === slug);
+}
+
+export interface SiteQuote {
+  lead: string;
+  em: string;
+}
+
+/** CMS quotes for the About slideshow; null when none are published yet. */
+export async function getQuotes(): Promise<SiteQuote[] | null> {
+  const sanity = getSanityClient();
+  if (!sanity) return null;
+  try {
+    const raw = await sanity.fetch<{ lead?: string; emphasis?: string }[]>(
+      `*[_type == "quote"] | order(coalesce(order, 9999) asc, _createdAt asc){lead, emphasis}`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    const quotes = raw.filter((q) => q.lead && q.emphasis).map((q) => ({ lead: q.lead!, em: q.emphasis! }));
+    return quotes.length ? quotes : null;
+  } catch (err) {
+    console.warn("[sanity] quotes fetch failed:", (err as Error).message);
+    return null;
+  }
+}
+
+export interface SiteCopy {
+  heroTitle?: string;
+  heroSubheadline?: string;
+  aboutLabel?: string;
+  aboutHeading?: string;
+  aboutBody?: string;
+}
+
+/** The "Site copy" document; every field optional, {} when unavailable. */
+export async function getSiteCopy(): Promise<SiteCopy> {
+  const sanity = getSanityClient();
+  if (!sanity) return {};
+  try {
+    const copy = await sanity.fetch<SiteCopy | null>(
+      `*[_type == "siteCopy"][0]{heroTitle, heroSubheadline, aboutLabel, aboutHeading, aboutBody}`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return copy ?? {};
+  } catch (err) {
+    console.warn("[sanity] site copy fetch failed:", (err as Error).message);
+    return {};
+  }
+}
+
+/** Split "plain *italic*" into its plain and italic parts. */
+export function splitEm(text: string): { plain: string; em?: string } {
+  const m = text.match(/^(.*?)\*([^*]+)\*\s*$/);
+  if (!m) return { plain: text };
+  return { plain: m[1].trimEnd() + (m[1].trim() ? " " : ""), em: m[2] };
 }
