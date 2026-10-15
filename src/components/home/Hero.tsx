@@ -13,9 +13,9 @@ export function Hero({ sec = {} as PageSection }: { sec?: PageSection }) {
         <Image
           className="fig"
           src={sec.imageUrl ?? "/images/hero-anjan-cut.webp"}
-          alt={sec.imageAlt ?? "Anjan Prasad, seated at his desk"}
-          width={1200}
-          height={1080}
+          alt={sec.imageAlt ?? "Anjan Prasad, smiling at his desk"}
+          width={810}
+          height={1160}
           priority
           sizes="(max-width: 900px) 90vw, 600px"
         />
