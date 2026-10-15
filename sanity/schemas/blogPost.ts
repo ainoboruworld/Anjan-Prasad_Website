@@ -31,14 +31,14 @@ export const blogPost = defineType({
     defineField({ name: "excerpt", title: "Excerpt", type: "text", rows: 3 }),
     defineField({
       name: "featuredImage",
-      title: "Featured image (banner)",
+      title: "Featured image — banner (1600 × 700)",
       type: "image",
       options: { hotspot: true },
       description: "Upload 1600×700 px (landscape, JPG, under 400 KB). Shown full width at the top of the article.",
     }),
     defineField({
       name: "cardImage",
-      title: "Card thumbnail",
+      title: "Card thumbnail (900 × 675)",
       type: "image",
       options: { hotspot: true },
       description: "Upload 900×675 px (4:3, JPG, under 200 KB). Shown on Knowledge Hub cards; falls back to the featured image when empty.",

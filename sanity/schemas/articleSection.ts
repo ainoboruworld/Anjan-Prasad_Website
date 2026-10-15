@@ -49,7 +49,7 @@ export const articleSection = defineType({
       title: "Image — below the paragraphs (1200 × 700)",
       type: "image",
       options: { hotspot: true },
-      description: "Landscape, roughly 1200×700 px, JPG under 300 KB. Sits between this section's paragraphs and the next section. Leave empty for a section with no picture.",
+      description: "Landscape, 1200×700 px, JPG under 300 KB. Sits between this section's paragraphs and the next section. Leave empty for a section with no picture.",
       fields: [
         { name: "alt", type: "string", title: "Alt text", description: "One line describing the image, for SEO and screen readers." },
         { name: "caption", type: "string", title: "Caption (optional)", description: "Short line shown under the image." },

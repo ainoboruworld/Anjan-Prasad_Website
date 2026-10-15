@@ -31,6 +31,7 @@ export const blockContent = defineType({
     }),
     defineArrayMember({
       type: "image",
+      title: "Image (1200 × 700)",
       options: { hotspot: true },
       description: "Upload 1200×700 px (landscape, JPG, under 300 KB). Place between two paragraphs; it renders centered at reading width.",
       fields: [

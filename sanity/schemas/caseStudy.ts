@@ -12,7 +12,12 @@ export const caseStudy = defineType({
   fields: [
     defineField({ name: "sector", title: "Sector", type: "string", description: "e.g. AgriTech" }),
     defineField({ name: "client", title: "Client", type: "string" }),
-    defineField({ name: "logo", title: "Client logo", type: "image" }),
+    defineField({
+      name: "logo",
+      title: "Client logo (212 × 72)",
+      type: "image",
+      description: "Full-colour logo on white or transparent, 212×72 px, PNG under 100 KB. Shown on the case cards.",
+    }),
     defineField({ name: "summary", title: "Summary", type: "text", rows: 3 }),
     defineField({
       name: "metrics",

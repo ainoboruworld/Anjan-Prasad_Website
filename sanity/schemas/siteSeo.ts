@@ -20,7 +20,7 @@ export const siteSeo = defineType({
     defineField({ name: "metaDescription", title: "Default meta description", type: "text", rows: 3 }),
     defineField({
       name: "ogImage",
-      title: "Default share image",
+      title: "Default share image (1200 × 630)",
       type: "image",
       description: "Used when a page has no share image of its own. Upload 1200×630 px.",
     }),
