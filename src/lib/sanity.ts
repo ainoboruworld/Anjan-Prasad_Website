@@ -11,7 +11,7 @@
  */
 import { createClient, type SanityClient } from "@sanity/client";
 import type { PortableTextBlock } from "@portabletext/types";
-import { env, flags } from "./env";
+import { env, flags, serverEnv } from "./env";
 import { ARTICLES, type Article, type ArticleCategory } from "./data/articles";
 
 export const REVALIDATE_SECONDS = 300;
@@ -21,11 +21,16 @@ let client: SanityClient | null = null;
 export function getSanityClient(): SanityClient | null {
   if (!flags.sanity) return null;
   if (client) return client;
+  // This module only runs on the server (server components / route handlers),
+  // so the optional token never reaches the browser bundle. A token is only
+  // needed when the dataset is private; public datasets read without one.
+  const token = serverEnv.sanityApiToken || undefined;
   client = createClient({
     projectId: env.sanity.projectId,
     dataset: env.sanity.dataset,
     apiVersion: env.sanity.apiVersion,
-    useCdn: true,
+    useCdn: !token,
+    token,
     perspective: "published",
   });
   return client;
