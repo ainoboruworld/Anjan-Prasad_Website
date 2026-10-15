@@ -2512,10 +2512,10 @@ nav .burger{border-radius:var(--r-sm)!important}
 .aw{max-width:1320px}
 }
 
-/* Mobile: 16px gutters, readable body text, comfortable tap targets. */
+/* Mobile: 22px gutters, readable body text, comfortable tap targets. */
 @media(max-width:900px){
-.wrap{padding:0 16px}
-.aw{padding:0 16px}
+.wrap{padding:0 22px}
+.aw{padding:0 22px}
 body{font-size:15px}
 .art p,.wp li,.dx .wp li{font-size:15px!important}
 .mr small,.ac .b small{font-size:12px}

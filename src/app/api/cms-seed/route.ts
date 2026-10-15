@@ -390,7 +390,7 @@ export async function GET(req: Request) {
     newsletterText: "Playbooks, margins, and field notes on building profitable businesses in India. No motivation, only method.",
   });
 
-  // Every article: blog posts and case studies.
+  // Case studies only; blog posts are written directly in the Studio.
   for (const a of ARTICLES.filter((x) => x.body?.length)) {
     const id = `blogpost-${a.slug}`;
     const existing = await client.getDocument(id).catch(() => null);
