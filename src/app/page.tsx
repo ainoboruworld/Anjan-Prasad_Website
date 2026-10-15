@@ -10,20 +10,21 @@ import { FeaturedMedia } from "@/components/shared/VideoPair";
 import { Testimonials } from "@/components/home/Testimonials";
 import { KnowledgeTeaser } from "@/components/home/KnowledgeTeaser";
 import { CloseCta } from "@/components/shared/CloseCta";
-import { getArticles } from "@/lib/sanity";
+import { getArticles, getSiteCopy } from "@/lib/sanity";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const articles = (await getArticles()).filter((a) => !a.caseStudy);
+  const [all, copy] = await Promise.all([getArticles(), getSiteCopy()]);
+  const articles = all.filter((a) => !a.caseStudy);
 
   return (
     <main className="pg on" data-p="home" id="main">
-      <Hero />
+      <Hero copy={copy} />
       <TrustWall />
       <CasesRow />
       <RecordBand />
-      <AboutIntro />
+      <AboutIntro copy={copy} />
       <Journey
         cta={{
           href: "/about",
