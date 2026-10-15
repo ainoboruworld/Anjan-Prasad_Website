@@ -30,6 +30,8 @@ const QUOTES: [string, string][] = [
 
 interface SeedSection {
   key: string;
+  /** Local image to upload into the section (hero portraits etc.). */
+  imagePath?: string;
   page: string;
   sectionTitle: string;
   label?: string;
@@ -44,6 +46,7 @@ const SECTIONS: SeedSection[] = [
     key: "home-hero",
     page: "Home",
     sectionTitle: "Hero",
+    imagePath: "/images/hero-anjan.webp",
     heading: "Build a Business That *Outlasts You.*",
     body: "I work with founders on the decisions that shape their businesses, from finding product-market fit to pricing, profitability and scaling. The goal is simple: build a business that grows with purpose and stands on its own.",
   },
@@ -51,6 +54,7 @@ const SECTIONS: SeedSection[] = [
     key: "home-about",
     page: "Home",
     sectionTitle: "About intro",
+    imagePath: "/images/portrait-anjan.jpg",
     label: "Serial entrepreneur. Three times from zero, and counting.",
     heading: "I don’t study businesses. *I run them.*",
     body: "I run three businesses today, after seventeen plus years inside global agencies managing over ₹1,200 Cr in budgets for some of India’s biggest brands. I’ve had the salary and left it to start from zero, worried about payroll and fixed things at midnight. That’s what makes my advice different: I advise businesses the way I run my own, on systems, margins and honest execution.",
@@ -73,6 +77,7 @@ const SECTIONS: SeedSection[] = [
     key: "about-hero",
     page: "About",
     sectionTitle: "Hero",
+    imagePath: "/images/portrait-anjan-2.jpg",
     label: "About me",
     heading: "Hi, I’m Anjan. *Let me tell you how I got here.*",
     body: "I’ll be honest: I never planned to become an entrepreneur. I was the guy with the steady corporate job, the good title and the monthly salary that showed up on time.\n\nThen one day I walked away from all of it to build something of my own. Some days I still wonder how I had the nerve. But everything I know about business, I learned after that day.",
@@ -97,6 +102,14 @@ const SECTIONS: SeedSection[] = [
     label: "Trust & Experience",
     heading: "A record measured *in outcomes.*",
     body: "Seventeen plus years across global agencies, enterprise growth teams and my own ventures. These are the numbers I'm proudest of.",
+    items: [
+      { title: "Years of experience", value: "17+" },
+      { title: "Businesses guided", value: "250+" },
+      { title: "Brands worked with", value: "100+" },
+      { title: "Ventures built", value: "4" },
+      { title: "Companies advised", value: "Fortune 500" },
+      { title: "Institutions and universities", value: "3+" },
+    ],
   },
   { key: "home-life", page: "Home", sectionTitle: "Off the clock", label: "Off the clock", heading: "Life beyond *the boardroom.*" },
   { key: "home-wheel", page: "Home", sectionTitle: "360 holistic", label: "360° business consulting", heading: "One advisor who sees *the whole business.*" },
@@ -109,6 +122,17 @@ const SECTIONS: SeedSection[] = [
     body: "How profitable businesses are actually built, written to be used, not skimmed.",
   },
   { key: "about-story", page: "About", sectionTitle: "My story", label: "My story", heading: "The long version, *over a cup of coffee.*" },
+  {
+    key: "about-cred",
+    page: "About",
+    sectionTitle: "Credentials strip",
+    items: [
+      { title: "Years building and advising", value: "16+" },
+      { title: "Revenue generated", value: "₹120 Cr+" },
+      { title: "Brands worked with", value: "100+" },
+      { title: "Businesses guided", value: "250+" },
+    ],
+  },
   { key: "about-work", page: "About", sectionTitle: "How I work", label: "How I work" },
   {
     key: "advisory-who",
@@ -135,7 +159,19 @@ const SECTIONS: SeedSection[] = [
     ],
   },
   { key: "advisory-help", page: "Business Advisory", sectionTitle: "How I help", label: "How I help", heading: "Whatever you *call it.*" },
-  { key: "advisory-steps", page: "Business Advisory", sectionTitle: "How it works", label: "How it works", heading: "Simple, and *personal.*" },
+  {
+    key: "advisory-steps",
+    page: "Business Advisory",
+    sectionTitle: "How it works",
+    label: "How it works",
+    heading: "Simple, and *personal.*",
+    items: [
+      { title: "You request a session", text: "A short form about your business and the decision in front of you. Ten minutes, no deck needed." },
+      { title: "I read it myself", text: "Every request, no team in between. I reply within five working days." },
+      { title: "We talk", text: "A focused one-to-one session on the real problem. If I'm not the right person for it, I'll tell you that on the call." },
+      { title: "You leave with a next step", text: "A written, specific one. One session is often enough; if you want me at the table longer, we agree how." },
+    ],
+  },
   { key: "mentorship-long-game", page: "Mentorship", sectionTitle: "Not another program", label: "Not another program", heading: "This is the *long game.*" },
   {
     key: "mentorship-differs",
@@ -149,7 +185,19 @@ const SECTIONS: SeedSection[] = [
       { title: "Sometimes, with equity", text: "For a few startups I believe in deeply, I take part of my commitment in equity. Skin in the game, both ways." },
     ],
   },
-  { key: "mentorship-rhythm", page: "Mentorship", sectionTitle: "The rhythm", label: "The rhythm", heading: "What a year together *looks like.*" },
+  {
+    key: "mentorship-rhythm",
+    page: "Mentorship",
+    sectionTitle: "The rhythm",
+    label: "The rhythm",
+    heading: "What a year together *looks like.*",
+    items: [
+      { title: "A monthly deep dive", text: "One long working session a month: the numbers, the team, the one thing that matters most right now." },
+      { title: "A message away", text: "Between sessions you don't wait for a slot. A vendor quote, a hire, a pricing call: send it, I answer." },
+      { title: "Quarterly honesty", text: "Every quarter we stop and compare the business to where we said it would be. No stories, just the numbers." },
+      { title: "Doors, not just advice", text: "My network becomes yours: agencies, vendors, lawyers, operators and the people I'd call for my own companies." },
+    ],
+  },
   { key: "speaking-why", page: "Speaker", sectionTitle: "Why hosts invite him", label: "Why hosts invite him", heading: "Stories are cheap. *Numbers aren't.*" },
   {
     key: "speaking-talks",
@@ -163,7 +211,19 @@ const SECTIONS: SeedSection[] = [
       { title: "Marketing from both chairs", text: "He managed over ₹1,200 Cr in budgets on the agency side, then spent his own money as a founder. What changes when it's your rupee." },
     ],
   },
-  { key: "speaking-rooms", page: "Speaker", sectionTitle: "Where this lands", label: "Where this lands", heading: "Rooms he's *at home in.*" },
+  {
+    key: "speaking-rooms",
+    page: "Speaker",
+    sectionTitle: "Where this lands",
+    label: "Where this lands",
+    heading: "Rooms he's *at home in.*",
+    items: [
+      { title: "Podcasts", text: "Long-form and unscripted. He answers the question asked, with real numbers from his own companies, not rehearsed lines." },
+      { title: "Business schools", text: "He already teaches at IIFT and IMT Ghaziabad. Case-led sessions where students work a real decision, not slideware." },
+      { title: "Tech schools and universities", text: "For engineers who will build companies: revenue, pricing and customers, the chapters the curriculum skips." },
+      { title: "Conferences and corporate events", text: "Keynotes and fireside chats on strategy, profitability and operating discipline, sized to the room and the hour." },
+    ],
+  },
   {
     key: "advisory-hero",
     page: "Business Advisory",
@@ -282,6 +342,7 @@ export async function GET(req: Request) {
   }
 
   for (const s of SECTIONS) {
+    const sectionImage = s.imagePath ? await uploadImage(s.imagePath) : null;
     await createIfMissing({
       _id: `sec-${s.key}`,
       _type: "pageSection",
@@ -291,9 +352,35 @@ export async function GET(req: Request) {
       label: s.label,
       heading: s.heading,
       body: s.body,
+      ...(sectionImage ? { image: { _type: "image", asset: { _type: "reference", _ref: sectionImage } } } : {}),
       items: s.items?.map((it) => ({ _key: key(), ...it })),
     });
   }
+
+  // SEO: one document per page plus the site-wide settings.
+  const PAGE_SEO: { page: string; metaTitle: string; metaDescription: string }[] = [
+    { page: "Home", metaTitle: "Anjan Prasad | Business Consultant, Business Advisor and Business Mentor", metaDescription: "Anjan Prasad is a business consultant, business advisor and business mentor who has built profitable businesses. Strategy, growth, marketing and go-to-market guidance for founders and people starting out." },
+    { page: "About", metaTitle: "About", metaDescription: "Hi, I'm Anjan. From Accenture and global agencies to founding Noboru World, Lushful and Filing Buddy: the long version of how I got here." },
+    { page: "Business Advisory", metaTitle: "Business Advisory", metaDescription: "Clear decisions for founders who are building for the long run. Business advisory and one-to-one consulting with Anjan Prasad, from a single session to an ongoing seat at your table." },
+    { page: "Mentorship", metaTitle: "Mentorship", metaDescription: "Long-term mentorship for a small number of early-stage founders. Anjan Prasad takes a seat at your table for the journey, sometimes with equity, always with skin in the game." },
+    { page: "Speaker", metaTitle: "Speaker", metaDescription: "Invite Anjan Prasad to your podcast, business school or event. Seventeen plus years of building and advising profitable businesses, told plainly, with real numbers." },
+    { page: "Contact", metaTitle: "Contact", metaDescription: "For advisory, use the application. For everything else, speaking, collaborations, press or just a hello, write to Anjan here." },
+  ];
+  for (const ps of PAGE_SEO) {
+    await createIfMissing({ _id: `seo-${ps.page.toLowerCase().replace(/\s+/g, "-")}`, _type: "pageSeo", ...ps });
+  }
+  await createIfMissing({
+    _id: "siteSeo",
+    _type: "siteSeo",
+    metaTitle: "Anjan Prasad | Business Consultant, Business Advisor and Business Mentor",
+    metaDescription: "Anjan Prasad is a business consultant, business advisor and business mentor who has built profitable businesses. Strategy, growth, marketing and go-to-market guidance for founders and people starting out.",
+    email: "performance@noboruworld.com",
+    linkedin: "https://www.linkedin.com/in/anjanprasad/",
+    instagram: "https://www.instagram.com/anjanpr/",
+    footerAbout: "I work with founders as a business mentor and advisor, helping them build businesses that are profitable, scalable and built to last.",
+    newsletterHeading: "One operator\u2019s letter. Every week.",
+    newsletterText: "Playbooks, margins, and field notes on building profitable businesses in India. No motivation, only method.",
+  });
 
   // Every article: blog posts and case studies.
   for (const a of ARTICLES.filter((x) => x.body?.length)) {

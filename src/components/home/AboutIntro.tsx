@@ -9,7 +9,7 @@ export function AboutIntro({ sec = {} as PageSection }: { sec?: PageSection }) {
     <section className="sec about2">
       <div className="wrap">
         <div className="ph rv on">
-          <Image src="/images/portrait-anjan.jpg" alt="Portrait of Anjan Prasad" width={900} height={1125} sizes="(max-width: 900px) 100vw, 480px" />
+          <Image src={sec.imageUrl ?? "/images/portrait-anjan.jpg"} alt={sec.imageAlt ?? "Portrait of Anjan Prasad"} width={900} height={1125} sizes="(max-width: 900px) 100vw, 480px" />
         </div>
         <div className="rv on">
           <span className="lab">{sec.label ?? "Serial entrepreneur. Three times from zero, and counting."}</span>

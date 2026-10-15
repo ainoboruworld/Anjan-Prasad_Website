@@ -7,16 +7,18 @@ import { CloseCta } from "@/components/shared/CloseCta";
 import { Cta } from "@/components/ui/Cta";
 import { QuoteSlideshow } from "@/components/about/QuoteSlideshow";
 import { SecHead } from "@/components/shared/SecHead";
-import { getQuotes, getSections, splitEm } from "@/lib/sanity";
+import { getQuotes, getSections, splitEm, pageMetadata } from "@/lib/sanity";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const m = await pageMetadata('About', {
+    title: 'About',
+    description: "Hi, I'm Anjan. From Accenture and global agencies to founding Noboru World, Lushful and Filing Buddy: the long version of how I got here.",
+  });
+  return { ...m, alternates: { canonical: '/about' } };
+}
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Hi, I'm Anjan. From Accenture and global agencies to founding Noboru World, Lushful and Filing Buddy: the long version of how I got here.",
-  alternates: { canonical: "/about" },
-};
 
 const CRED = [
   { v: "16", plus: true, l: "Years building and advising" },
@@ -80,7 +82,7 @@ export default async function AboutPage() {
       <header className="abz">
         <div className="wrap">
           <div className="abz-ph">
-            <Image src="/images/portrait-anjan-2.jpg" alt="Anjan Prasad" width={900} height={1125} priority sizes="(max-width: 900px) 100vw, 420px" />
+            <Image src={hero?.imageUrl ?? "/images/portrait-anjan-2.jpg"} alt={hero?.imageAlt ?? "Anjan Prasad"} width={900} height={1125} priority sizes="(max-width: 900px) 100vw, 420px" />
             <span className="abz-tag">Serial entrepreneur</span>
           </div>
           <div className="abz-tx">
@@ -115,7 +117,7 @@ export default async function AboutPage() {
         </div>
         <div className="wrap">
           <div className="abz-cred">
-            {CRED.map((c) => (
+            {(sec["about-cred"]?.items?.length ? sec["about-cred"].items!.filter((x) => x.title && x.value).map((x) => ({ v: x.value!, plus: false, l: x.title! })) : CRED).map((c) => (
               <div key={c.l}>
                 <b>
                   {c.v}

@@ -53,4 +53,9 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem("quote").title("Business Quotes"),
       S.documentTypeListItem("category").title("Categories"),
+      S.divider(),
+      S.documentTypeListItem("pageSeo").title("SEO (per page)"),
+      S.listItem()
+        .title("Site Settings & SEO")
+        .child(S.document().schemaType("siteSeo").documentId("siteSeo")),
     ]);

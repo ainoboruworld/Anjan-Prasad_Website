@@ -29,6 +29,14 @@ export const pageSection = defineType({
     }),
     defineField({ name: "body", title: "Text", type: "text", rows: 4 }),
     defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+      description: "The section's photo, where it has one (hero portrait, about portrait). Keep roughly the same shape as the current photo.",
+      fields: [{ name: "alt", type: "string", title: "Alt text", description: "One line describing the image, for SEO and screen readers." }],
+    }),
+    defineField({
       name: "items",
       title: "Items",
       type: "array",

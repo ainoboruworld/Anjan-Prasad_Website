@@ -15,6 +15,8 @@ export interface PageSection {
   label?: string;
   heading?: string;
   body?: string;
+  imageUrl?: string;
+  imageAlt?: string;
   items?: SectionItem[];
 }
 

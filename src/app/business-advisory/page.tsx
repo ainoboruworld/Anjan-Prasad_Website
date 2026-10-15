@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
-import { getSections, secHeading } from "@/lib/sanity";
+import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
 
-export const metadata: Metadata = {
-  title: "Business Advisory",
-  description:
-    "Clear decisions for founders who are building for the long run. Business advisory and one-to-one consulting with Anjan Prasad, from a single session to an ongoing seat at your table.",
-  alternates: { canonical: "/business-advisory" },
-};
 
 const WHO = [
   {
@@ -58,6 +52,14 @@ const STEPS = [
   },
   { n: "04", h: "You leave with a next step", p: "A written, specific one. One session is often enough; if you want me at the table longer, we agree how." },
 ];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const m = await pageMetadata('Business Advisory', {
+    title: 'Business Advisory',
+    description: 'Clear decisions for founders who are building for the long run. Business advisory and one-to-one consulting with Anjan Prasad, from a single session to an ongoing seat at your table.',
+  });
+  return { ...m, alternates: { canonical: '/business-advisory' } };
+}
 
 export default async function BusinessAdvisoryPage({
   searchParams,
@@ -162,7 +164,7 @@ export default async function BusinessAdvisoryPage({
             </div>
           </div>
           <ol className="st4">
-            {STEPS.map((s) => (
+            {(sec["advisory-steps"]?.items?.length ? sec["advisory-steps"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : STEPS).map((s) => (
               <li key={s.n}>
                 <b>{s.n}</b>
                 <h3>{s.h}</h3>

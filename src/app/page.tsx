@@ -10,9 +10,24 @@ import { FeaturedMedia } from "@/components/shared/VideoPair";
 import { Testimonials } from "@/components/home/Testimonials";
 import { KnowledgeTeaser } from "@/components/home/KnowledgeTeaser";
 import { CloseCta } from "@/components/shared/CloseCta";
-import { getArticles, getSections, splitEm } from "@/lib/sanity";
+import type { Metadata } from "next";
+import { getArticles, getSections, getPageSeo, splitEm } from "@/lib/sanity";
 
 export const revalidate = 300;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("Home");
+  if (!seo.metaTitle && !seo.metaDescription && !seo.ogImageUrl) return {};
+  return {
+    ...(seo.metaTitle ? { title: { absolute: seo.metaTitle } } : {}),
+    ...(seo.metaDescription ? { description: seo.metaDescription } : {}),
+    openGraph: {
+      ...(seo.metaTitle ? { title: seo.metaTitle } : {}),
+      ...(seo.metaDescription ? { description: seo.metaDescription } : {}),
+      ...(seo.ogImageUrl ? { images: [seo.ogImageUrl] } : {}),
+    },
+  };
+}
 
 function initials(name: string): string {
   return name
