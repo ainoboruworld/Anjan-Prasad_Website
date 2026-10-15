@@ -9,6 +9,16 @@ site's current content into the CMS: all blog posts with their images,
 the six categories, the five business quotes and the "Site copy" document.
 It never overwrites anything that already exists, so it is safe to re-run.
 
+## Instant publish (recommended)
+
+By default the site refreshes CMS content every 5 minutes. For instant
+updates: set `SANITY_REVALIDATE_SECRET` in Vercel (any random string),
+then in sanity.io/manage → API → Webhooks add a webhook with URL
+`https://your-domain/api/revalidate?secret=<that string>`, dataset
+`production`, triggered on create, update and delete. Every publish then
+shows on the site immediately. Opening that URL in a browser also forces
+a refresh by hand.
+
 ## What is editable
 
 - **Blog Post** — every article: title, banner and card images, body with
