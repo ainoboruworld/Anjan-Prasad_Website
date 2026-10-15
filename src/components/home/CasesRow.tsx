@@ -3,17 +3,37 @@
 
 import { SecHead } from "../shared/SecHead";
 import type { PageSection } from "@/lib/sections";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CASE_STUDIES, articleHref } from "@/lib/data/articles";
 
-/** "Work that moved the numbers." — horizontally scrolling case cards. */
+/**
+ * "Work that moved the numbers." — horizontally scrolling case cards.
+ * Auto-advances as a slideshow, looping back to the first card; pauses
+ * while the visitor hovers the row or after they use the arrows.
+ */
 export function CasesRow({ sec }: { sec?: PageSection }) {
   const row = useRef<HTMLDivElement>(null);
+  const [hold, setHold] = useState(false);
   const by = (dir: 1 | -1) => {
     const el = row.current;
     if (el) el.scrollBy({ left: (dir * el.clientWidth) / 3, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    if (hold) return;
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => {
+      const el = row.current;
+      if (!el || document.hidden) return;
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 8) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: el.clientWidth / 3, behavior: "smooth" });
+      }
+    }, 3500);
+    return () => clearInterval(t);
+  }, [hold]);
 
   return (
     <section className="cases" id="cases">
@@ -23,16 +43,32 @@ export function CasesRow({ sec }: { sec?: PageSection }) {
             <SecHead sec={sec} label="Case studies" plain="Work that moved " em="the numbers." />
           </div>
           <div className="cvctl">
-            <button type="button" className="ccp" aria-label="Previous" onClick={() => by(-1)}>
+            <button
+              type="button"
+              className="ccp"
+              aria-label="Previous"
+              onClick={() => {
+                setHold(true);
+                by(-1);
+              }}
+            >
               ←
             </button>
-            <button type="button" className="ccn" aria-label="Next" onClick={() => by(1)}>
+            <button
+              type="button"
+              className="ccn"
+              aria-label="Next"
+              onClick={() => {
+                setHold(true);
+                by(1);
+              }}
+            >
               →
             </button>
           </div>
         </div>
 
-        <div className="ccrow" ref={row}>
+        <div className="ccrow" ref={row} onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
           {CASE_STUDIES.map((a) => {
             const c = a.caseStudy!;
             return (

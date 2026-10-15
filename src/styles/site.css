@@ -2854,3 +2854,9 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .csb blockquote{font-size:19px}
 .art .toc a{font-size:14px}
 }
+
+/* 3D hero portrait: the background-removed cutout sits on the arch and the
+   head and gesture rise above its rim, so the figure reads as popping out
+   of the frame. Overrides the earlier framed-arch treatment. */
+.hero .fig{left:50%;right:auto;transform:translateX(-50%);height:94%;width:112%;max-width:none;object-fit:contain;object-position:bottom center;border-radius:0;filter:drop-shadow(0 24px 40px rgba(11,26,46,.28));-webkit-mask:linear-gradient(0deg,transparent 0,#000 9%);mask:linear-gradient(0deg,transparent 0,#000 9%)}
+@media(max-width:900px){.hero .fig{height:96%;width:104%}}

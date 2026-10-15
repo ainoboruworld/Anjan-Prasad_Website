@@ -12,10 +12,10 @@ export function Hero({ sec = {} as PageSection }: { sec?: PageSection }) {
         <div className="arch" aria-hidden="true" />
         <Image
           className="fig"
-          src={sec.imageUrl ?? "/images/hero-anjan.webp"}
-          alt={sec.imageAlt ?? "Anjan Prasad, seated at a table"}
-          width={900}
-          height={1200}
+          src={sec.imageUrl ?? "/images/hero-anjan-cut.webp"}
+          alt={sec.imageAlt ?? "Anjan Prasad, seated at his desk"}
+          width={1200}
+          height={1120}
           priority
           sizes="(max-width: 900px) 90vw, 600px"
         />
