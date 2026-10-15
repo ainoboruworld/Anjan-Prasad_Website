@@ -7,6 +7,8 @@ export interface SectionItem {
   title?: string;
   value?: string;
   text?: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 /** One editable page section (Pinkfly-style): "Home · Hero", "About · Beliefs", … */

@@ -85,20 +85,20 @@ export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: Logo
 
         <div className="mqw">
           <div className="mqh">
-            <span className="lab">Companies advised</span>
-            <small>{(logos.advised?.length ?? COMPANIES_ADVISED.length)} brands</small>
+            <span className="lab">{sec?.items?.[0]?.title ?? "Companies advised"}</span>
+            <small>{sec?.items?.[0]?.value ?? `${logos.advised?.length ?? COMPANIES_ADVISED.length} brands`}</small>
           </div>
           {logos.advised?.length ? <CmsMarquee logos={logos.advised} /> : <Marquee logos={COMPANIES_ADVISED} />}
 
           <div className="mqh">
-            <span className="lab">Where I learned and mentored</span>
-            <small>Career · Startups</small>
+            <span className="lab">{sec?.items?.[1]?.title ?? "Where I learned and mentored"}</span>
+            <small>{sec?.items?.[1]?.value ?? "Career · Startups"}</small>
           </div>
           {logos.career?.length ? <CmsMarquee logos={logos.career} reverse /> : <Marquee logos={CAREER} reverse />}
 
           <div className="mqh">
-            <span className="lab">Where I taught</span>
-            <small>Visiting faculty</small>
+            <span className="lab">{sec?.items?.[2]?.title ?? "Where I taught"}</span>
+            <small>{sec?.items?.[2]?.value ?? "Visiting faculty"}</small>
           </div>
           <div className="fac">
             {logos.faculty?.length

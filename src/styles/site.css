@@ -2862,3 +2862,10 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 @media(max-width:900px){.hero .fig{height:92%}}
 
 .hero .fig{z-index:1}
+
+/* Form success: once sent, the fields give way to a clear confirmation
+   panel, so the visitor knows the request went through. */
+.fm.done > *:not(.ok){display:none}
+.fm .ok{position:relative;padding:26px 24px 26px 64px;background:var(--mist);border-left:2px solid #CDB27A;color:var(--navy);font-size:16px;line-height:1.65}
+.fm .ok::before{content:"✓";position:absolute;left:22px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:#CDB27A;color:#fff;font-size:15px;line-height:28px;text-align:center}
+.fm .ok b{display:block;font:400 22px var(--font-serif);margin-bottom:4px}

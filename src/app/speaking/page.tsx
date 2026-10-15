@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
+import { SecProse } from "@/components/shared/SecProse";
 import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
@@ -79,7 +80,7 @@ export default async function SpeakingPage() {
           <div>
             <SecHead sec={sec["speaking-why"]} label="Why hosts invite him" plain="Stories are cheap. " em="Numbers aren't." />
           </div>
-          <div className="tx">
+          <SecProse body={sec["speaking-why"]?.body}>
             <p className="big">
               Most business talks are either theory from people who never operated, or motivation with nothing
               underneath. Anjan sits in the rare third seat: <b>still operating, and willing to show the working</b>.
@@ -90,7 +91,7 @@ export default async function SpeakingPage() {
               else in the room has it.
             </p>
             <p className="sm">No jargon, no slides for the sake of slides, and questions welcome at any point.</p>
-          </div>
+          </SecProse>
         </div>
       </section>
 

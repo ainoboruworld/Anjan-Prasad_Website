@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
+import { SecProse } from "@/components/shared/SecProse";
 import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
@@ -83,7 +84,7 @@ export default async function MentorshipPage() {
           <div>
             <SecHead sec={sec["mentorship-long-game"]} label="Not another program" plain="This is the " em="long game." />
           </div>
-          <div className="tx">
+          <SecProse body={sec["mentorship-long-game"]?.body}>
             <p className="big">
               Advisory answers a question. Mentorship walks the road. I take very few mentees at a time, because this
               only works when I know your business almost as well as <b>you</b> do.
@@ -93,7 +94,7 @@ export default async function MentorshipPage() {
               customers. You don&rsquo;t need a polished deck. You need to be all in, and honest about where you are.
             </p>
             <p className="sm">Running an established business with one decision in front of you? Advisory is the faster door.</p>
-          </div>
+          </SecProse>
         </div>
       </section>
 

@@ -144,6 +144,20 @@ export default async function AboutPage() {
             <SecHead sec={sec["about-story"]} label="My story" plain="The long version, " em="over a cup of coffee." />
             <span className="ph-flag">Story draft: confirm details with Anjan</span>
           </div>
+          {sec["about-story"]?.body ? (
+            <div className="sr">
+              {sec["about-story"]
+                .body!.split(/\n\s*\n/)
+                .map((p) => p.trim())
+                .filter(Boolean)
+                .map((p, i) => (
+                  <p key={i} className={i === 0 ? "drop" : /^[“"]/.test(p) ? "pull" : undefined}>
+                    {p}
+                  </p>
+                ))}
+              <p className="sgn">Anjan</p>
+            </div>
+          ) : (
           <div className="sr">
             <p className="drop">
               My first real job was at Accenture. After that I spent years in advertising, at Mindshare and IPG
@@ -178,6 +192,7 @@ export default async function AboutPage() {
             </p>
             <p className="sgn">Anjan</p>
           </div>
+          )}
         </div>
         <div className="wrap">
           <div className="secta secta-c">
@@ -190,7 +205,10 @@ export default async function AboutPage() {
       <section className="proof">
         <div className="wrap">
           <div className="pg3">
-            {PROOF.map((p) => (
+            {(sec["about-proof"]?.items?.length
+              ? sec["about-proof"].items!.filter((x) => x.title).map((x) => ({ lab: x.value ?? "", h: x.title!, p: x.text ?? "" }))
+              : PROOF
+            ).map((p) => (
               <div key={p.lab}>
                 <span className="lab">{p.lab}</span>
                 <h3>{p.h}</h3>

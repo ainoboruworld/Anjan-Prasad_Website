@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
+import { SecProse } from "@/components/shared/SecProse";
 import { getSections, secHeading, pageMetadata, getAreas } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
@@ -137,7 +138,7 @@ export default async function BusinessAdvisoryPage({
           <div>
             <SecHead sec={sec["advisory-help"]} label="How I help" plain="Whatever you " em="call it." />
           </div>
-          <div className="tx">
+          <SecProse body={sec["advisory-help"]?.body}>
             <p className="big">
               <b>Business consultant</b>, <b>business advisor</b>, <b>business mentor</b>: founders have called me all
               three. The title never changes what happens in the room. You bring the decision that&rsquo;s costing you
@@ -152,7 +153,7 @@ export default async function BusinessAdvisoryPage({
               And for a few early startups I believe in, it goes deeper: a long-term seat at the table.{" "}
               <Link href="/mentorship">That is the mentorship program</Link>.
             </p>
-          </div>
+          </SecProse>
         </div>
       </section>
 

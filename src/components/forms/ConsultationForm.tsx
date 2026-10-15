@@ -59,7 +59,7 @@ export function ConsultationForm({
         </span>
       )}
       <div className="ok" role="status">
-        <b>Thank you.</b> I&rsquo;ll be in touch soon.
+        <b>Thank you.</b>{" "}I&rsquo;ll be in touch soon.
       </div>
     </form>
   );

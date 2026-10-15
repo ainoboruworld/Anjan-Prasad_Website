@@ -58,7 +58,7 @@ export function AdvisoryForm({ presetArea }: { presetArea?: string }) {
         </span>
       )}
       <div className="ok" role="status">
-        <b>Thank you.</b> I&rsquo;ll read this myself and reply within five working days.
+        <b>Thank you.</b>{" "}I&rsquo;ll read this myself and reply within five working days.
       </div>
     </form>
   );

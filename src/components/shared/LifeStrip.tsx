@@ -73,8 +73,8 @@ export function LifeStrip({ variant = "home", sec }: { variant?: "home" | "about
         <div className="note rv on">
           <SecHead sec={sec} label="Off the clock" plain="Life beyond " em="the boardroom." />
           <p>
-            Most of my best decisions weren&rsquo;t made in meetings. They came on quiet mornings, long drives and
-            slow weekends.
+            {sec?.body ??
+              "Most of my best decisions weren’t made in meetings. They came on quiet mornings, long drives and slow weekends."}
           </p>
           <Signature />
           <div className="snav">
@@ -88,7 +88,15 @@ export function LifeStrip({ variant = "home", sec }: { variant?: "home" | "about
         </div>
 
         <div className={`strip rv on${variant === "about" ? " strip2" : ""}`} ref={strip} onScroll={measure}>
-          {LIFE_PHOTOS.map((p) => (
+          {(sec?.items?.some((it) => it.imageUrl)
+            ? sec!.items!.filter((it) => it.imageUrl).map((it, i) => ({
+                src: it.imageUrl!,
+                tag: it.title ?? "",
+                caption: it.text ?? "",
+                rotate: LIFE_PHOTOS[i % LIFE_PHOTOS.length].rotate,
+              }))
+            : LIFE_PHOTOS
+          ).map((p) => (
             <figure className="pc" key={p.src + p.tag} style={{ ["--r" as string]: p.rotate }}>
               <div className="im">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

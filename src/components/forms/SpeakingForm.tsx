@@ -53,7 +53,7 @@ export function SpeakingForm() {
         </span>
       )}
       <div className="ok" role="status">
-        <b>Thank you.</b> I read every invitation myself and reply within five working days.
+        <b>Thank you.</b>{" "}I read every invitation myself and reply within five working days.
       </div>
     </form>
   );

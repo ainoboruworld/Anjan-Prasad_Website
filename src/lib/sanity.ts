@@ -195,7 +195,7 @@ export async function getSections(): Promise<Sections> {
   if (!sanity) return {};
   try {
     const raw = await sanity.fetch<PageSection[]>(
-      `*[_type == "pageSection" && defined(key)]{key, label, heading, body, items, "imageUrl": image.asset->url, "imageAlt": image.alt}`,
+      `*[_type == "pageSection" && defined(key)]{key, label, heading, body, items[]{title, value, text, "imageUrl": image.asset->url, "imageAlt": image.alt}, "imageUrl": image.asset->url, "imageAlt": image.alt}`,
       {},
       { next: { revalidate: REVALIDATE_SECONDS } }
     );
