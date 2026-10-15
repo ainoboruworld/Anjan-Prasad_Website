@@ -2869,3 +2869,7 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .fm .ok{position:relative;padding:26px 24px 26px 64px;background:var(--mist);border-left:2px solid #CDB27A;color:var(--navy);font-size:16px;line-height:1.65}
 .fm .ok::before{content:"✓";position:absolute;left:22px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:#CDB27A;color:#fff;font-size:15px;line-height:28px;text-align:center}
 .fm .ok b{display:block;font:400 22px var(--font-serif);margin-bottom:4px}
+
+/* The story's closing CTA spans the full grid, so it centers on the page
+   instead of sitting inside the first column. */
+.story .wrap .secta{grid-column:1/-1}

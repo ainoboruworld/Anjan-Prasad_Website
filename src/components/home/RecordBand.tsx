@@ -93,9 +93,12 @@ export function RecordBand({ sec }: { sec?: PageSection }) {
                   .map((x): (typeof STATS)[number] => {
                     const num = parseInt(x.value!.replace(/[^0-9]/g, ""), 10);
                     const isNum = Number.isFinite(num) && /^[0-9]/.test(x.value!.trim());
+                    // A text stat can carry a logo: the item's photo in the
+                    // Studio, or the built-in Fortune 500 tile as fallback.
+                    const logo = x.imageUrl ?? (x.value!.trim() === "Fortune 500" ? "/brand-logos/fortune-500-tile.png" : undefined);
                     return isNum
                       ? { to: num, plus: x.value!.includes("+"), label: x.title! }
-                      : { text: x.value!, label: x.title! };
+                      : { text: x.value!, logo, label: x.title! };
                   })
               : STATS
             ).map((s) => (
