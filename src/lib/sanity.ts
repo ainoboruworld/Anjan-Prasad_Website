@@ -44,6 +44,7 @@ interface RawPost {
   readTime?: number;
   excerpt?: string;
   imageUrl?: string;
+  cardImageUrl?: string;
   kicker?: string;
   bannerTitle?: string;
   body?: PortableTextBlock[];
@@ -53,7 +54,7 @@ interface RawPost {
 
 const POST_QUERY = `*[_type == "blogPost" && defined(slug.current) && publishedAt <= now()] | order(publishedAt desc){
   "slug": slug.current, title, "category": category->title, publishedAt, readTime, excerpt,
-  "imageUrl": featuredImage.asset->url, kicker, bannerTitle, body, sources,
+  "imageUrl": featuredImage.asset->url, "cardImageUrl": cardImage.asset->url, kicker, bannerTitle, body, sources,
   "caseStudy": select(defined(caseStudy.sector) => caseStudy, null)
 }`;
 
@@ -77,6 +78,7 @@ function toArticle(p: RawPost): CmsArticle {
     readTime: p.readTime ? `${p.readTime} min read` : "5 min read",
     excerpt: p.excerpt ?? "",
     image: p.imageUrl ?? "/images/life-3.jpg",
+    cardImage: p.cardImageUrl,
     kicker: p.kicker ?? (p.caseStudy ? "Case Studies" : category),
     bannerTitle: p.bannerTitle,
     sources: p.sources,
