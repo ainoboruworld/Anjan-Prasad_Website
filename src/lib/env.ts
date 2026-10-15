@@ -36,15 +36,27 @@ export const serverEnv = {
   supabaseServiceRole: process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   sanityApiToken: process.env.SANITY_API_TOKEN ?? "",
+  /** Gmail (or any) SMTP — preferred mail transport when set. */
+  smtpHost: process.env.SMTP_HOST ?? "smtp.gmail.com",
+  smtpPort: Number(process.env.SMTP_PORT ?? 465),
+  smtpUser: process.env.SMTP_USER ?? "",
+  smtpPass: process.env.SMTP_PASS ?? "",
   /** Verified "from" address for outbound mail. */
   resendFrom: process.env.RESEND_FROM_EMAIL ?? "Anjan Prasad <onboarding@resend.dev>",
   /** Where internal notifications (applications, requests, contact) are sent. */
   notifyAdminEmail: process.env.NOTIFY_ADMIN_EMAIL ?? "performance@noboruworld.com",
 } as const;
 
+/** All admin notification recipients (NOTIFY_ADMIN_EMAIL is comma-separated). */
+export const notifyAdminEmails = serverEnv.notifyAdminEmail
+  .split(",")
+  .map((e) => e.trim())
+  .filter(Boolean);
+
 /** Feature flags derived from configuration — drive graceful degradation. */
 export const flags = {
   supabase: Boolean(env.supabase.url && (env.supabase.anonKey || serverEnv.supabaseServiceRole)),
   sanity: Boolean(env.sanity.projectId),
   resend: Boolean(serverEnv.resendApiKey),
+  smtp: Boolean(serverEnv.smtpUser && serverEnv.smtpPass),
 } as const;

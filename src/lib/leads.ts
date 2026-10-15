@@ -1,14 +1,15 @@
 import "server-only";
 import { getServerSupabase } from "./supabase/server";
-import { sendEmail } from "./email/resend";
+import { sendEmail } from "./email/mailer";
 import { adminNotification, autoReply, newsletterWelcome } from "./email/templates";
-import { serverEnv } from "./env";
+import { notifyAdminEmails } from "./env";
 import type { LeadRequest, NewsletterValues } from "./validation/schemas";
 
 /**
  * Lead pipeline (server-only):
  *   1. store the lead in Supabase `leads` (skipped until configured);
- *   2. notify Anjan and send an auto-reply via Resend (skipped until configured).
+ *   2. notify the admin inboxes and auto-reply by email, via Gmail SMTP or
+ *      Resend, whichever is configured (skipped until one is).
  * Neither step throws — a configuration gap must never lose a founder's
  * message, so the route always logs the payload as a last resort.
  */
@@ -86,7 +87,7 @@ export async function processLead(input: LeadRequest): Promise<{ stored: boolean
 
   const label = KIND_LABEL[input.kind];
   const admin = await sendEmail({
-    to: serverEnv.notifyAdminEmail,
+    to: notifyAdminEmails,
     subject: `New ${label}: ${name}`,
     html: adminNotification(label, flatten(input)),
     replyTo: email,

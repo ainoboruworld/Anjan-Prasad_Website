@@ -23,12 +23,22 @@ Tables:
 - `public.newsletter_subscriptions` — one row per subscriber, unique on
   email.
 
-## Email trigger (Resend)
+## Email trigger (Gmail SMTP, or Resend)
 
-Set `RESEND_API_KEY`, `NOTIFY_ADMIN_EMAIL` and `NOTIFY_FROM_EMAIL`. Every
-lead then also sends a notification email to Anjan and an auto-reply to the
-sender; newsletter signups get a welcome email. The Supabase insert and the
-email both happen on the same submit, so nothing needs a webhook.
+Preferred, free: Gmail SMTP. On the sending Google account enable 2-Step
+Verification, create an App Password (myaccount.google.com/apppasswords),
+then set in Vercel:
+
+- `SMTP_USER` — the Gmail address
+- `SMTP_PASS` — the 16-character app password
+- `NOTIFY_ADMIN_EMAIL` — comma-separated, e.g.
+  `first@mail.com, second@mail.com`; every address gets each lead
+
+Alternative: set `RESEND_API_KEY` (and `RESEND_FROM_EMAIL` on a verified
+domain) instead; SMTP wins when both are set. Every lead then sends a
+notification to all admin inboxes and an auto-reply to the sender;
+newsletter signups get a welcome email. The Supabase insert and the email
+happen on the same submit, so nothing needs a webhook.
 
 ## API routes
 
