@@ -229,13 +229,6 @@ const SECTIONS: SeedSection[] = [
     ].join("\n\n"),
   },
   {
-    key: "advisory-brands",
-    page: "Business Advisory",
-    sectionTitle: "Brand wall",
-    label: "Proof across industries",
-    heading: "Brands this advice *has already served.*",
-  },
-  {
     key: "advisory-impact",
     page: "Business Advisory",
     sectionTitle: "Business impact",
@@ -246,14 +239,6 @@ const SECTIONS: SeedSection[] = [
       { value: "250+", title: "Businesses guided", text: "From first-customer startups to Fortune 500 teams, across tech, food, compliance and retail." },
       { value: "₹120 Cr+", title: "Revenue generated", text: "Across the businesses I've built and grown myself. I remember what every rupee of it cost." },
     ],
-  },
-  {
-    key: "advisory-cases",
-    page: "Business Advisory",
-    sectionTitle: "Case studies row",
-    label: "Case studies",
-    heading: "Work that moved *the numbers.*",
-    body: "Want results like these in your business?",
   },
   {
     key: "advisory-steps",
@@ -657,6 +642,21 @@ export async function GET(req: Request) {
         ...(colour ? { colourLogo: { _type: "image", asset: { _type: "reference", _ref: colour } } } : {}),
       });
     }
+  }
+
+  // Venture upgrades: Lushful's role changed and Filing Buddy left the
+  // ventures row. Applied only to the seed's own values, never to edits.
+  try {
+    const lush = await client.getDocument("logo-lushful");
+    if (lush && lush.role === "02 · Co-founder") {
+      await client.patch("logo-lushful").set({ role: "03 · Co-founder & MD", order: 3 }).commit();
+    }
+    const fb = await client.getDocument("logo-filing-buddy");
+    if (fb && fb.group === "ventures") {
+      await client.delete("logo-filing-buddy");
+    }
+  } catch (err) {
+    failed.push(`venture upgrades: ${(err as Error).message}`);
   }
 
   return NextResponse.json({ ok: failed.length === 0, created, skipped, failed });

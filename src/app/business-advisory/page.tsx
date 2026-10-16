@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
 import { SecProse } from "@/components/shared/SecProse";
-import { getSections, secHeading, pageMetadata, getAreas, getBrandLogos } from "@/lib/sanity";
-import { AdvisoryBrands } from "@/components/consultation/AdvisoryBrands";
-import { CasesRow } from "@/components/home/CasesRow";
+import { getSections, secHeading, pageMetadata, getAreas } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
@@ -70,7 +68,7 @@ export default async function BusinessAdvisoryPage({
   searchParams: Promise<{ w?: string }>;
 }) {
   const { w } = await searchParams;
-  const [sec, areas, logos] = await Promise.all([getSections(), getAreas(), getBrandLogos()]);
+  const [sec, areas] = await Promise.all([getSections(), getAreas()]);
   const hero = sec["advisory-hero"];
   const h1 = secHeading(hero, { plain: "Clear decisions for founders ", em: "who are building for the long run." });
 
@@ -139,7 +137,6 @@ export default async function BusinessAdvisoryPage({
 
       <Diagnosis initialKey={w} areas={areas} />
 
-      <AdvisoryBrands sec={sec["advisory-brands"]} logos={logos} />
 
       {!sec["advisory-help"]?.hidden && (
       <section className="sec ways">
@@ -196,7 +193,6 @@ export default async function BusinessAdvisoryPage({
         </section>
       )}
 
-      <CasesRow sec={sec["advisory-cases"]} />
 
       {!sec["advisory-steps"]?.hidden && (
       <section className="sec steps">
