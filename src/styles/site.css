@@ -2874,8 +2874,16 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
    instead of sitting inside the first column. */
 .story .wrap .secta{grid-column:1/-1}
 
-/* Advisory brand wall and impact band spacing. */
-.abw{padding:72px 0}
-.abw .mqw{margin-top:34px}
+/* Advisory impact band spacing. */
 .aimp{padding:84px 0}
 .aimp .sh{margin-bottom:40px}
+
+/* Ventures marquee: the "brands built" cards move like the logo rows. */
+.ven-mq{display:block}
+.ven-mq .mq ul{align-items:stretch;gap:22px;padding:4px 11px}
+.ven-mq .vc2{min-width:280px;height:100%}
+@media(max-width:900px){.ven-mq .vc2{min-width:230px}}
+.ven-mq li{display:block;counter-increment:none;border:0;padding:0;grid-template-columns:none}
+.ven-mq li::before{content:none}
+.ven-mq .mq li{height:auto}
+.ven-mq .mq{margin-bottom:0}

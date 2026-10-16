@@ -29,8 +29,11 @@ export const HAS_TILE = new Set([
 
 export const VENTURES: (BrandLogo & { role: string })[] = [
   { slug: "noboru-world", name: "Noboru World", width: 108, height: 37, role: "01 · Founder & CEO" },
-  { slug: "lushful", name: "Lushful", width: 130, height: 31, role: "02 · Co-founder" },
-  { slug: "filing-buddy", name: "Filing Buddy", width: 46, height: 60, role: "03 · CEO" },
+  { slug: "pinkfly", name: "Pinkfly", width: 125, height: 32, role: "02 · Founder" },
+  { slug: "lushful", name: "Lushful", width: 130, height: 31, role: "03 · Co-founder & MD" },
+  { slug: "auxman", name: "Auxman", width: 48, height: 48, role: "04 · Founder" },
+  { slug: "fundamentals", name: "Fundamentals", width: 97, height: 52, role: "05 · Founder" },
+  { slug: "sapiens", name: "Sapiens", width: 44, height: 52, role: "06 · Founder" },
 ];
 
 export const COMPANIES_ADVISED: BrandLogo[] = [

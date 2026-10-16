@@ -64,24 +64,36 @@ export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: Logo
           <SecHead sec={sec} label="Trusted over seventeen years" plain="The brands built, " em="advised, and led." />
         </div>
 
-        <div className="ven">
-          {logos.ventures?.length
-            ? logos.ventures.map((v, i) => (
-                <div className="vc2" key={v.name} style={{ ["--d" as string]: `${i * 90}ms` }}>
-                  <small>{v.role}</small>
-                  <b className="vlg">
-                    <CmsTile logo={v} />
-                  </b>
-                </div>
-              ))
-            : VENTURES.map((v, i) => (
-                <div className="vc2" key={v.slug} style={{ ["--d" as string]: `${i * 90}ms` }}>
-                  <small>{v.role}</small>
-                  <b className="vlg">
-                    <LogoTile logo={v} />
-                  </b>
-                </div>
-              ))}
+        {/* Ventures ride the same moving marquee as the logo rows below, so
+            more brands can be added in the Studio without crowding the grid. */}
+        <div className="ven ven-mq">
+          <div className="mq">
+            {[false, true].map((hidden) => (
+              <ul key={String(hidden)} aria-hidden={hidden || undefined}>
+                {logos.ventures?.length
+                  ? logos.ventures.map((v) => (
+                      <li key={v.name}>
+                        <div className="vc2">
+                          <small>{v.role}</small>
+                          <b className="vlg">
+                            <CmsTile logo={v} />
+                          </b>
+                        </div>
+                      </li>
+                    ))
+                  : VENTURES.map((v) => (
+                      <li key={v.slug}>
+                        <div className="vc2">
+                          <small>{v.role}</small>
+                          <b className="vlg">
+                            <LogoTile logo={v} />
+                          </b>
+                        </div>
+                      </li>
+                    ))}
+              </ul>
+            ))}
+          </div>
         </div>
 
         <div className="mqw">
