@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { SecHead } from "@/components/shared/SecHead";
 import { SecProse } from "@/components/shared/SecProse";
-import { getSections, secHeading, pageMetadata, getAreas } from "@/lib/sanity";
+import { getSections, secHeading, pageMetadata, getAreas, getBrandLogos } from "@/lib/sanity";
+import { AdvisoryBrands } from "@/components/consultation/AdvisoryBrands";
+import { CasesRow } from "@/components/home/CasesRow";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
@@ -68,7 +70,7 @@ export default async function BusinessAdvisoryPage({
   searchParams: Promise<{ w?: string }>;
 }) {
   const { w } = await searchParams;
-  const [sec, areas] = await Promise.all([getSections(), getAreas()]);
+  const [sec, areas, logos] = await Promise.all([getSections(), getAreas(), getBrandLogos()]);
   const hero = sec["advisory-hero"];
   const h1 = secHeading(hero, { plain: "Clear decisions for founders ", em: "who are building for the long run." });
 
@@ -137,6 +139,8 @@ export default async function BusinessAdvisoryPage({
 
       <Diagnosis initialKey={w} areas={areas} />
 
+      <AdvisoryBrands sec={sec["advisory-brands"]} logos={logos} />
+
       {!sec["advisory-help"]?.hidden && (
       <section className="sec ways">
           <div className="wrap wy2">
@@ -162,6 +166,37 @@ export default async function BusinessAdvisoryPage({
           </div>
         </section>
       )}
+
+
+      {!sec["advisory-impact"]?.hidden && (
+        <section className="proof aimp">
+          <div className="wrap">
+            <div className="sh">
+              <div>
+                <SecHead sec={sec["advisory-impact"]} label="Business impact" plain="Results you can " em="measure." />
+              </div>
+            </div>
+            <div className="pg3">
+              {(sec["advisory-impact"]?.items?.length
+                ? sec["advisory-impact"].items!.filter((x) => x.title)
+                : [
+                    { value: "\u20B91,200 Cr+", title: "Budgets managed", text: "Across media and performance marketing for some of India's biggest brands, before spending my own." },
+                    { value: "250+", title: "Businesses guided", text: "From first-customer startups to Fortune 500 teams, across tech, food, compliance and retail." },
+                    { value: "\u20B9120 Cr+", title: "Revenue generated", text: "Across the businesses I've built and grown myself. I remember what every rupee of it cost." },
+                  ]
+              ).map((x) => (
+                <div key={x.title}>
+                  <span className="lab">{x.title}</span>
+                  <h3>{x.value}</h3>
+                  <p>{x.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <CasesRow sec={sec["advisory-cases"]} />
 
       {!sec["advisory-steps"]?.hidden && (
       <section className="sec steps">
