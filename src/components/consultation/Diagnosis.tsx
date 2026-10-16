@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AdvisoryForm } from "../forms/AdvisoryForm";
 import { WheelPanes } from "../shared/WheelPanes";
 import { AREAS, findArea, type Area, type AreaKey } from "@/lib/data/areas";
@@ -10,7 +10,7 @@ import { AREAS, findArea, type Area, type AreaKey } from "@/lib/data/areas";
  * the request form, so "Book a consultation on finance" pre-fills the area.
  * `initialKey` comes from `/consultation?w=fin` (the home wheel's CTAs).
  */
-export function Diagnosis({ initialKey , areas = AREAS }: { initialKey?: string ; areas?: Area[] }) {
+export function Diagnosis({ initialKey, areas = AREAS, beforeForm }: { initialKey?: string; areas?: Area[]; beforeForm?: ReactNode }) {
   const start = findArea(initialKey)?.key ?? areas[0]?.key ?? "mkt";
   const [active, setActive] = useState<AreaKey>(start);
   // Auto-advancing slideshow: each service holds for 3.5 seconds, pausing
@@ -119,6 +119,8 @@ export function Diagnosis({ initialKey , areas = AREAS }: { initialKey?: string 
           </div>
         </div>
       </section>
+
+      {beforeForm}
 
       <section className="sec apply" id="capply">
         <div className="wrap">

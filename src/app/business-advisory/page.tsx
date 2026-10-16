@@ -135,7 +135,66 @@ export default async function BusinessAdvisoryPage({
         </section>
       )}
 
-      <Diagnosis initialKey={w} areas={areas} />
+      <Diagnosis
+        initialKey={w}
+        areas={areas}
+        beforeForm={
+          <>
+          {!sec["advisory-impact"]?.hidden && (
+            <section className="proof aimp">
+              <div className="wrap">
+                <div className="sh">
+                  <div>
+                    <SecHead sec={sec["advisory-impact"]} label="Business impact" plain="Results you can " em="measure." />
+                  </div>
+                </div>
+                <div className="pg3">
+                  {(sec["advisory-impact"]?.items?.length
+                    ? sec["advisory-impact"].items!.filter((x) => x.title)
+                    : [
+                        { value: "\u20B91,200 Cr+", title: "Budgets managed", text: "Across media and performance marketing for some of India's biggest brands, before spending my own." },
+                        { value: "250+", title: "Businesses guided", text: "From first-customer startups to Fortune 500 teams, across tech, food, compliance and retail." },
+                        { value: "\u20B9120 Cr+", title: "Revenue generated", text: "Across the businesses I've built and grown myself. I remember what every rupee of it cost." },
+                      ]
+                  ).map((x) => (
+                    <div key={x.title}>
+                      <span className="lab">{x.title}</span>
+                      <h3>{x.value}</h3>
+                      <p>{x.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {!sec["advisory-steps"]?.hidden && (
+          <section className="sec steps">
+              <div className="wrap">
+                <div className="sh">
+                  <div>
+                    <SecHead sec={sec["advisory-steps"]} label="How it works" plain="Simple, and " em="personal." />
+                  </div>
+                </div>
+                <ol className="st4">
+                  {(sec["advisory-steps"]?.items?.length ? sec["advisory-steps"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : STEPS).map((s) => (
+                    <li key={s.n}>
+                      <b>{s.n}</b>
+                      <h3>{s.h}</h3>
+                      <p>{s.p}</p>
+                    </li>
+                  ))}
+                </ol>
+                <div className="secta">
+                  <p>Building something early and want a longer runway together?</p>
+                  <Cta href="/mentorship">Explore mentorship</Cta>
+                </div>
+              </div>
+            </section>
+          )}
+          </>
+        }
+      />
 
 
       {!sec["advisory-help"]?.hidden && (
@@ -165,59 +224,8 @@ export default async function BusinessAdvisoryPage({
       )}
 
 
-      {!sec["advisory-impact"]?.hidden && (
-        <section className="proof aimp">
-          <div className="wrap">
-            <div className="sh">
-              <div>
-                <SecHead sec={sec["advisory-impact"]} label="Business impact" plain="Results you can " em="measure." />
-              </div>
-            </div>
-            <div className="pg3">
-              {(sec["advisory-impact"]?.items?.length
-                ? sec["advisory-impact"].items!.filter((x) => x.title)
-                : [
-                    { value: "\u20B91,200 Cr+", title: "Budgets managed", text: "Across media and performance marketing for some of India's biggest brands, before spending my own." },
-                    { value: "250+", title: "Businesses guided", text: "From first-customer startups to Fortune 500 teams, across tech, food, compliance and retail." },
-                    { value: "\u20B9120 Cr+", title: "Revenue generated", text: "Across the businesses I've built and grown myself. I remember what every rupee of it cost." },
-                  ]
-              ).map((x) => (
-                <div key={x.title}>
-                  <span className="lab">{x.title}</span>
-                  <h3>{x.value}</h3>
-                  <p>{x.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
 
-      {!sec["advisory-steps"]?.hidden && (
-      <section className="sec steps">
-          <div className="wrap">
-            <div className="sh">
-              <div>
-                <SecHead sec={sec["advisory-steps"]} label="How it works" plain="Simple, and " em="personal." />
-              </div>
-            </div>
-            <ol className="st4">
-              {(sec["advisory-steps"]?.items?.length ? sec["advisory-steps"].items!.filter((x) => x.title && x.text).map((x, i) => ({ n: String(i + 1).padStart(2, "0"), h: x.title!, p: x.text! })) : STEPS).map((s) => (
-                <li key={s.n}>
-                  <b>{s.n}</b>
-                  <h3>{s.h}</h3>
-                  <p>{s.p}</p>
-                </li>
-              ))}
-            </ol>
-            <div className="secta">
-              <p>Building something early and want a longer runway together?</p>
-              <Cta href="/mentorship">Explore mentorship</Cta>
-            </div>
-          </div>
-        </section>
-      )}
     </main>
   );
 }
