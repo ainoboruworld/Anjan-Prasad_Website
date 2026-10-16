@@ -5,14 +5,16 @@ import { SecHead } from "../shared/SecHead";
 import type { PageSection } from "@/lib/sections";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { CASE_STUDIES, articleHref } from "@/lib/data/articles";
+import { CASE_STUDIES, articleHref, type Article } from "@/lib/data/articles";
 
 /**
  * "Work that moved the numbers." — horizontally scrolling case cards.
  * Auto-advances as a slideshow, looping back to the first card; pauses
- * while the visitor hovers the row or after they use the arrows.
+ * while the visitor hovers the row or after they use the arrows. Cards
+ * come from the Studio's Case Studies documents (CMS merged over the
+ * seed), passed in as `cases`.
  */
-export function CasesRow({ sec }: { sec?: PageSection }) {
+export function CasesRow({ sec, cases }: { sec?: PageSection; cases?: Article[] }) {
   const row = useRef<HTMLDivElement>(null);
   const [hold, setHold] = useState(false);
   const by = (dir: 1 | -1) => {
@@ -71,7 +73,7 @@ export function CasesRow({ sec }: { sec?: PageSection }) {
         </div>
 
         <div className="ccrow" ref={row} onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
-          {CASE_STUDIES.map((a) => {
+          {(cases?.length ? cases : CASE_STUDIES).map((a) => {
             const c = a.caseStudy!;
             return (
               <Link className="cc" href={articleHref(a.slug)} key={a.slug}>

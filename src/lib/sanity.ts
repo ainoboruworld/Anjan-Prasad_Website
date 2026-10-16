@@ -92,7 +92,7 @@ function toCaseStudy(c: NonNullable<RawPost["caseStudy"]>, seed?: Article): Arti
     sector: c.sector ?? base?.sector ?? "",
     client: c.client ?? base?.client ?? "",
     logo: c.logoUrl ?? base?.logo,
-    cardMetrics: base?.cardMetrics ?? [metrics[0] ?? ["", ""], metrics[1] ?? ["", ""]],
+    cardMetrics: metrics.length ? [metrics[0], metrics[1] ?? ["", ""]] : base?.cardMetrics ?? [["", ""], ["", ""]],
     summary: c.summary ?? base?.summary ?? "",
     metrics: metrics.length ? metrics : base?.metrics ?? [],
     tags: c.tags?.length ? c.tags : base?.tags ?? [],
