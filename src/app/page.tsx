@@ -51,7 +51,7 @@ export default async function HomePage() {
     <main className="pg on" data-p="home" id="main">
       <Hero sec={sec["home-hero"]} />
       <TrustWall sec={sec["home-trust"]} logos={logos} />
-      <CasesRow sec={sec["home-cases"]} />
+      <CasesRow sec={sec["home-cases"]} cases={all.filter((a) => a.caseStudy)} />
       <RecordBand sec={sec["home-record"]} />
       <AboutIntro sec={sec["home-about"]} />
       {!sec["home-journey"]?.hidden && (
