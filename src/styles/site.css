@@ -2873,3 +2873,9 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 /* The story's closing CTA spans the full grid, so it centers on the page
    instead of sitting inside the first column. */
 .story .wrap .secta{grid-column:1/-1}
+
+/* Advisory brand wall and impact band spacing. */
+.abw{padding:72px 0}
+.abw .mqw{margin-top:34px}
+.aimp{padding:84px 0}
+.aimp .sh{margin-bottom:40px}

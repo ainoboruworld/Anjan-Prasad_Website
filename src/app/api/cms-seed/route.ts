@@ -223,10 +223,37 @@ const SECTIONS: SeedSection[] = [
     label: "How I help",
     heading: "Whatever you *call it.*",
     body: [
-      "Business consultant, business advisor, business mentor: founders have called me all three. The title never changes what happens in the room. You bring the decision that’s costing you sleep, and we settle it.",
+      "**Business consultant**, **business advisor**, **business mentor**: founders have called me all three. The title never changes what happens in the room. You bring the decision that’s costing you sleep, and we settle it.",
       "One month that looks like a growth consultant fixing a leaking funnel. Another, it’s a fractional CMO building your marketing engine, or a GTM strategist taking a product to its first hundred customers. The label follows the problem, never the other way around.",
       "And for a few early startups I believe in, it goes deeper: a long-term seat at the table. That is the mentorship program.",
     ].join("\n\n"),
+  },
+  {
+    key: "advisory-brands",
+    page: "Business Advisory",
+    sectionTitle: "Brand wall",
+    label: "Proof across industries",
+    heading: "Brands this advice *has already served.*",
+  },
+  {
+    key: "advisory-impact",
+    page: "Business Advisory",
+    sectionTitle: "Business impact",
+    label: "Business impact",
+    heading: "Results you can *measure.*",
+    items: [
+      { value: "₹1,200 Cr+", title: "Budgets managed", text: "Across media and performance marketing for some of India's biggest brands, before spending my own." },
+      { value: "250+", title: "Businesses guided", text: "From first-customer startups to Fortune 500 teams, across tech, food, compliance and retail." },
+      { value: "₹120 Cr+", title: "Revenue generated", text: "Across the businesses I've built and grown myself. I remember what every rupee of it cost." },
+    ],
+  },
+  {
+    key: "advisory-cases",
+    page: "Business Advisory",
+    sectionTitle: "Case studies row",
+    label: "Case studies",
+    heading: "Work that moved *the numbers.*",
+    body: "Want results like these in your business?",
   },
   {
     key: "advisory-steps",
@@ -463,6 +490,15 @@ export async function GET(req: Request) {
         const missing = Object.fromEntries(Object.entries(fields).filter(([, v]) => v !== undefined));
         if (Object.keys(missing).length) {
           await client.patch(id).setIfMissing(missing).commit();
+        }
+        // Upgrade a field the seed itself wrote earlier (and the Studio has
+        // not edited since): the body text matches the old seed verbatim.
+        if (s.key === "advisory-help" && typeof s.body === "string") {
+          const old = s.body.replace(/\*\*/g, "");
+          const doc = await client.getDocument(id);
+          if (doc && doc.body === old && old !== s.body) {
+            await client.patch(id).set({ body: s.body }).commit();
+          }
         }
       } catch (err) {
         failed.push(`${id} (patch): ${(err as Error).message}`);

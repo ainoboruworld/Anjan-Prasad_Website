@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
 
+/** Render a paragraph's text, turning **double-asterisk** runs into bold. */
+function withBold(text: string): ReactNode[] {
+  return text.split(/\*\*([^*]+)\*\*/g).map((part, i) => (i % 2 ? <b key={i}>{part}</b> : part));
+}
+
 /**
  * CMS-aware prose column for the "wy2" sections (How I help, Why hosts
  * invite him, Not another program). When the section's Text is filled in
@@ -17,7 +22,7 @@ export function SecProse({ body, children }: { body?: string; children: ReactNod
     <div className="tx">
       {paras.map((p, i) => (
         <p key={i} className={i === 0 ? "big" : i === paras.length - 1 && paras.length >= 3 ? "sm" : undefined}>
-          {p}
+          {withBold(p)}
         </p>
       ))}
     </div>

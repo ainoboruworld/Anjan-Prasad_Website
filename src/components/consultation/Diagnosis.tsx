@@ -11,12 +11,27 @@ import { AREAS, findArea, type Area, type AreaKey } from "@/lib/data/areas";
  * `initialKey` comes from `/consultation?w=fin` (the home wheel's CTAs).
  */
 export function Diagnosis({ initialKey , areas = AREAS }: { initialKey?: string ; areas?: Area[] }) {
-  const start = findArea(initialKey)?.key ?? "tech";
+  const start = findArea(initialKey)?.key ?? areas[0]?.key ?? "mkt";
   const [active, setActive] = useState<AreaKey>(start);
+  // Auto-advancing slideshow: each service holds for 3.5 seconds, pausing
+  // once the visitor interacts (hover, focus or click).
+  const [hold, setHold] = useState(Boolean(initialKey && findArea(initialKey)));
   const [presetArea, setPresetArea] = useState<string | undefined>(
     initialKey ? findArea(initialKey)?.name : undefined
   );
   const wheelRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (hold) return;
+    const t = setInterval(() => {
+      if (document.hidden) return;
+      setActive((k) => {
+        const i = areas.findIndex((a) => a.key === k);
+        return areas[(i + 1) % areas.length].key;
+      });
+    }, 3500);
+    return () => clearInterval(t);
+  }, [hold, areas]);
 
   useEffect(() => {
     if (initialKey && findArea(initialKey)) {
@@ -43,7 +58,7 @@ export function Diagnosis({ initialKey , areas = AREAS }: { initialKey?: string 
             </div>
           </div>
 
-          <div className="dxg">
+          <div className="dxg" onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}>
             <div className="dxl" role="tablist" aria-label="Areas">
               {areas.map((a) => (
                 <button
@@ -63,6 +78,7 @@ export function Diagnosis({ initialKey , areas = AREAS }: { initialKey?: string 
               ))}
             </div>
             <WheelPanes
+              areas={areas}
               active={active}
               cta={(key, name) => (
                 <a
