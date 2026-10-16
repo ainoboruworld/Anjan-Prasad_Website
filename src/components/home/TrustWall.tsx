@@ -53,6 +53,11 @@ function CmsMarquee({ logos, reverse = false }: { logos: CmsLogo[]; reverse?: bo
   );
 }
 
+/** Role text without the "01 · " numbering some documents still carry. */
+function venRole(role?: string): string | undefined {
+  return role?.replace(/^\s*\d+\s*[·.\-]\s*/, "");
+}
+
 /** "The brands built, advised, and led." — ventures, marquees, faculty. */
 export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: LogoGroups }) {
   if (sec?.hidden) return null;
@@ -74,7 +79,7 @@ export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: Logo
                   ? logos.ventures.map((v) => (
                       <li key={v.name}>
                         <div className="vc2">
-                          <small>{v.role}</small>
+                          <small>{venRole(v.role)}</small>
                           <b className="vlg">
                             <CmsTile logo={v} />
                           </b>
@@ -84,7 +89,7 @@ export function TrustWall({ sec, logos = {} }: { sec?: PageSection; logos?: Logo
                   : VENTURES.map((v) => (
                       <li key={v.slug}>
                         <div className="vc2">
-                          <small>{v.role}</small>
+                          <small>{venRole(v.role)}</small>
                           <b className="vlg">
                             <LogoTile logo={v} />
                           </b>

@@ -9,7 +9,7 @@ import { AREAS, type Area, type AreaKey } from "@/lib/data/areas";
 
 /**
  * "One advisor who sees the whole business." — the 360° ring. Auto-advances
- * every second until the visitor hovers or picks an area.
+ * every five seconds until the visitor hovers or picks an area.
  */
 export function Wheel({ sec, areas = AREAS }: { sec?: PageSection; areas?: Area[] }) {
   const [active, setActive] = useState<AreaKey>("tech");
@@ -23,7 +23,7 @@ export function Wheel({ sec, areas = AREAS }: { sec?: PageSection; areas?: Area[
         const i = AREAS.findIndex((a) => a.key === k);
         return AREAS[(i + 1) % AREAS.length].key;
       });
-    }, 1000);
+    }, 5000);
     return () => clearInterval(t);
   }, [hold]);
 
