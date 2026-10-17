@@ -123,7 +123,7 @@ const SECTIONS: SeedSection[] = [
     heading: "A record measured *in outcomes.*",
     body: "Seventeen plus years across global agencies, enterprise growth teams and my own ventures. These are the numbers I'm proudest of.",
     items: [
-      { title: "Years of experience", value: "17+" },
+      { title: "Years of experience", value: "16+" },
       { title: "Businesses guided", value: "250+" },
       { title: "Brands worked with", value: "100+" },
       { title: "Ventures built", value: "4" },
@@ -478,6 +478,14 @@ export async function GET(req: Request) {
         }
         // Upgrade a field the seed itself wrote earlier (and the Studio has
         // not edited since): the body text matches the old seed verbatim.
+        if (s.key === "home-record") {
+          const doc = await client.getDocument(id);
+          const docItems = (doc?.items ?? []) as { _key: string; title?: string; value?: string }[];
+          const old = docItems.find((it) => it.title === "Years of experience" && it.value === "17+");
+          if (old) {
+            await client.patch(id).set({ [`items[_key=="${old._key}"].value`]: "16+" }).commit();
+          }
+        }
         if (s.key === "advisory-help" && typeof s.body === "string") {
           const old = s.body.replace(/\*\*/g, "");
           const doc = await client.getDocument(id);
