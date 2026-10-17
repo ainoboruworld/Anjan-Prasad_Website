@@ -126,7 +126,7 @@ const SECTIONS: SeedSection[] = [
       { title: "Years of experience", value: "16+" },
       { title: "Businesses guided", value: "250+" },
       { title: "Brands worked with", value: "100+" },
-      { title: "Ventures built", value: "4" },
+      { title: "Ventures built", value: "5" },
       { title: "Companies advised", value: "Fortune 500" },
       { title: "Institutions and universities", value: "3+" },
     ],
@@ -481,9 +481,14 @@ export async function GET(req: Request) {
         if (s.key === "home-record") {
           const doc = await client.getDocument(id);
           const docItems = (doc?.items ?? []) as { _key: string; title?: string; value?: string }[];
-          const old = docItems.find((it) => it.title === "Years of experience" && it.value === "17+");
-          if (old) {
-            await client.patch(id).set({ [`items[_key=="${old._key}"].value`]: "16+" }).commit();
+          for (const [title, from, to] of [
+            ["Years of experience", "17+", "16+"],
+            ["Ventures built", "4", "5"],
+          ] as const) {
+            const old = docItems.find((it) => it.title === title && it.value === from);
+            if (old) {
+              await client.patch(id).set({ [`items[_key=="${old._key}"].value`]: to }).commit();
+            }
           }
         }
         if (s.key === "advisory-help" && typeof s.body === "string") {
