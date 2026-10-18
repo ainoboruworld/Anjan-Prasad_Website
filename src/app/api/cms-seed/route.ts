@@ -186,7 +186,7 @@ const SECTIONS: SeedSection[] = [
     sectionTitle: "Credentials strip",
     items: [
       { title: "Years building and advising", value: "16+" },
-      { title: "Revenue generated", value: "₹120 Cr+" },
+      { title: "Marketing budgets managed", value: "₹1,200 Cr+" },
       { title: "Brands worked with", value: "100+" },
       { title: "Businesses guided", value: "250+" },
     ],
@@ -489,6 +489,20 @@ export async function GET(req: Request) {
             if (old) {
               await client.patch(id).set({ [`items[_key=="${old._key}"].value`]: to }).commit();
             }
+          }
+        }
+        if (s.key === "about-cred") {
+          const doc = await client.getDocument(id);
+          const docItems = (doc?.items ?? []) as { _key: string; title?: string; value?: string }[];
+          const old = docItems.find((it) => it.title === "Revenue generated" && it.value === "₹120 Cr+");
+          if (old) {
+            await client
+              .patch(id)
+              .set({
+                [`items[_key=="${old._key}"].title`]: "Marketing budgets managed",
+                [`items[_key=="${old._key}"].value`]: "₹1,200 Cr+",
+              })
+              .commit();
           }
         }
         if (s.key === "advisory-help" && typeof s.body === "string") {
