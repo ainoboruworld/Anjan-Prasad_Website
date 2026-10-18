@@ -3,6 +3,7 @@ import { ApMark } from "../brand/ApMark";
 import { NewsletterForm } from "../forms/NewsletterForm";
 import { SITE } from "@/lib/data/site";
 import { getSiteSeo } from "@/lib/sanity";
+import { Socials } from "../shared/Socials";
 
 export async function Footer() {
   const site = await getSiteSeo();
@@ -58,14 +59,16 @@ export async function Footer() {
 
         <div>
           <h5>Connect</h5>
-          <a href={linkedin} target="_blank" rel="noopener">
-            LinkedIn
-          </a>
-          <a href={instagram} target="_blank" rel="noopener">
-            Instagram
-          </a>
-          <span style={{ opacity: 0.6 }}>YouTube (coming soon)</span>
           <a href={`mailto:${email}`}>{email}</a>
+          <Socials
+            links={[
+              { name: "LinkedIn", href: linkedin },
+              { name: "Instagram", href: instagram },
+              { name: "YouTube", href: site.youtube },
+              { name: "Substack", href: site.substack },
+              { name: "Twitter / X", href: site.twitter },
+            ]}
+          />
         </div>
       </div>
 

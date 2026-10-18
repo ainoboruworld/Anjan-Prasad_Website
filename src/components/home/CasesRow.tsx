@@ -17,9 +17,15 @@ import { CASE_STUDIES, articleHref, type Article } from "@/lib/data/articles";
 export function CasesRow({ sec, cases }: { sec?: PageSection; cases?: Article[] }) {
   const row = useRef<HTMLDivElement>(null);
   const [hold, setHold] = useState(false);
+  // One full card per step, so the scroll snap never pulls a short step back.
+  const step = (el: HTMLDivElement) => {
+    const card = el.querySelector<HTMLElement>(".cc");
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 20;
+    return card ? card.offsetWidth + gap : el.clientWidth / 3;
+  };
   const by = (dir: 1 | -1) => {
     const el = row.current;
-    if (el) el.scrollBy({ left: (dir * el.clientWidth) / 3, behavior: "smooth" });
+    if (el) el.scrollBy({ left: dir * step(el), behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export function CasesRow({ sec, cases }: { sec?: PageSection; cases?: Article[] 
       if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 8) {
         el.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        el.scrollBy({ left: el.clientWidth / 3, behavior: "smooth" });
+        el.scrollBy({ left: step(el), behavior: "smooth" });
       }
     }, 3500);
     return () => clearInterval(t);

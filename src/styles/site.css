@@ -2536,9 +2536,9 @@ footer .ft7 a{padding:6px 0}
 .lg-tile{width:112px;height:42px;padding:5px 10px}
 .lg-tile.large{width:156px;height:56px}
 .mq ul{gap:40px;padding-right:40px}
-/* Case cards: one swipeable card at 85% width. */
+/* Case cards: exactly one card in view per swipe on phones. */
 .ccrow{gap:14px;padding-bottom:22px}
-.cc{flex:0 0 85%!important}
+.cc{flex:0 0 100%!important}
 /* 360° home ring scales to the screen; pane sits below (grid is already
    one column under 900). */
 #wheel-h .wring{max-width:min(88vw,360px)}
@@ -2901,3 +2901,13 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .ven-mq .vc2 b.vlg{margin-top:0;display:flex;align-items:center;justify-content:center;height:48px}
 .ven-mq .mq ul{gap:30px;padding:6px 8px}
 @media(max-width:900px){.ven-mq .vc2{min-width:175px;padding:14px 12px!important}}
+
+/* Social icon row (footer Connect column and the contact page). Quiet soft
+   blue at rest, gold on hover, matching the footer's link treatment. */
+.socl{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.socl a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(169,189,209,.35);border-radius:50%;color:#A9BDD1;transition:color .25s,border-color .25s,transform .25s}
+.socl a:hover{color:#CDB27A;border-color:rgba(205,178,122,.6);transform:translateY(-2px)}
+.socl svg{width:16px;height:16px}
+.cl .socl{margin-top:6px}
+.cl .socl a{color:#5A6B7E;border-color:rgba(11,26,46,.2)}
+.cl .socl a:hover{color:#0B1A2E;border-color:rgba(11,26,46,.45)}

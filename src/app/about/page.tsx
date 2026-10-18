@@ -22,7 +22,7 @@ export const revalidate = 300;
 
 const CRED = [
   { v: "16", plus: true, l: "Years building and advising" },
-  { v: "₹120 Cr", plus: true, l: "Revenue generated" },
+  { v: "₹1,200 Cr", plus: true, l: "Marketing budgets managed" },
   { v: "100", plus: true, l: "Brands worked with" },
   { v: "250", plus: true, l: "Businesses guided" },
 ];
