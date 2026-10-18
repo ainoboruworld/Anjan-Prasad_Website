@@ -64,9 +64,9 @@ export async function Footer() {
             links={[
               { name: "LinkedIn", href: linkedin },
               { name: "Instagram", href: instagram },
-              { name: "YouTube", href: site.youtube },
-              { name: "Substack", href: site.substack },
-              { name: "Twitter / X", href: site.twitter },
+              { name: "YouTube", href: site.youtube ?? SITE.youtube },
+              { name: "Substack", href: site.substack ?? SITE.substack },
+              { name: "Twitter / X", href: site.twitter ?? SITE.twitter },
             ]}
           />
         </div>

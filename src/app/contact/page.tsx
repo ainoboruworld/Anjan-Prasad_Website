@@ -60,9 +60,9 @@ export default async function ContactPage() {
                   links={[
                     { name: "LinkedIn", href: site.linkedin ?? SITE.linkedin },
                     { name: "Instagram", href: site.instagram ?? SITE.instagram },
-                    { name: "YouTube", href: site.youtube },
-                    { name: "Substack", href: site.substack },
-                    { name: "Twitter / X", href: site.twitter },
+                    { name: "YouTube", href: site.youtube ?? SITE.youtube },
+                    { name: "Substack", href: site.substack ?? SITE.substack },
+                    { name: "Twitter / X", href: site.twitter ?? SITE.twitter },
                   ]}
                 />
               </li>
