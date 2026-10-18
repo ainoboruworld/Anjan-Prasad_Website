@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getSections, secHeading, pageMetadata, getSiteSeo } from "@/lib/sanity";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { SITE } from "@/lib/data/site";
+import { Socials } from "@/components/shared/Socials";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -52,6 +53,18 @@ export default async function ContactPage() {
               <li>
                 <small>Reply time</small>
                 <span>Within five working days</span>
+              </li>
+              <li>
+                <small>Elsewhere</small>
+                <Socials
+                  links={[
+                    { name: "LinkedIn", href: site.linkedin ?? SITE.linkedin },
+                    { name: "Instagram", href: site.instagram ?? SITE.instagram },
+                    { name: "YouTube", href: site.youtube },
+                    { name: "Substack", href: site.substack },
+                    { name: "Twitter / X", href: site.twitter },
+                  ]}
+                />
               </li>
             </ul>
             <div className="secta">

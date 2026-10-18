@@ -214,6 +214,9 @@ export interface SiteSeo {
   email?: string;
   linkedin?: string;
   instagram?: string;
+  youtube?: string;
+  substack?: string;
+  twitter?: string;
   footerAbout?: string;
   newsletterHeading?: string;
   newsletterText?: string;
@@ -225,7 +228,7 @@ export async function getSiteSeo(): Promise<SiteSeo> {
   if (!sanity) return {};
   try {
     const d = await sanity.fetch<SiteSeo | null>(
-      `*[_type == "siteSeo"][0]{metaTitle, metaDescription, "ogImageUrl": ogImage.asset->url, email, linkedin, instagram, footerAbout, newsletterHeading, newsletterText}`,
+      `*[_type == "siteSeo"][0]{metaTitle, metaDescription, "ogImageUrl": ogImage.asset->url, email, linkedin, instagram, youtube, substack, twitter, footerAbout, newsletterHeading, newsletterText}`,
       {},
       { next: { revalidate: REVALIDATE_SECONDS } }
     );
