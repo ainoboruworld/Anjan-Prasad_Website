@@ -8,6 +8,9 @@ export const SITE = {
   email: "performance@noboruworld.com",
   linkedin: "https://www.linkedin.com/in/anjanprasad/",
   instagram: "https://www.instagram.com/anjanpr/",
+  youtube: "https://www.youtube.com/@anjanpr",
+  substack: "https://anjanpr.substack.com",
+  twitter: "https://x.com/anjanpr",
   twitterHandle: "@anjanpr",
 } as const;
 
