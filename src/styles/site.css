@@ -2890,3 +2890,14 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 
 /* Venture card designation: always on one line, clearly readable. */
 .ven-mq .vc2 small{display:block;white-space:nowrap;color:#CDB27A;margin-bottom:10px}
+
+/* Ventures, open layout: no card box. The designation reads clearly in
+   bright gold above a short gold rule, with the logo centred on a fixed
+   row so every entry carries the same weight as it glides past. */
+.ven-mq .vc2{min-width:210px;padding:18px 20px!important;text-align:center;background:none!important;border:0!important;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0}
+.ven-mq .vc2::before{content:none}
+.ven-mq .vc2 small{margin-bottom:0;font-size:12px;letter-spacing:.22em;color:#E3C98E;white-space:nowrap}
+.ven-mq .vc2 small::after{content:"";display:block;width:26px;height:1px;margin:10px auto 14px;background:linear-gradient(90deg,transparent,#CDB27A,transparent)}
+.ven-mq .vc2 b.vlg{margin-top:0;display:flex;align-items:center;justify-content:center;height:48px}
+.ven-mq .mq ul{gap:30px;padding:6px 8px}
+@media(max-width:900px){.ven-mq .vc2{min-width:175px;padding:14px 12px!important}}

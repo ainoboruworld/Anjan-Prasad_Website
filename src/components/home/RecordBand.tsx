@@ -27,10 +27,10 @@ function Counter({ to, active }: { to: number; active: boolean }) {
 }
 
 const STATS: { to?: number; text?: string; logo?: string; plus?: boolean; label: string }[] = [
-  { to: 17, plus: true, label: "Years of experience" },
+  { to: 16, plus: true, label: "Years of experience" },
   { to: 250, plus: true, label: "Businesses guided" },
   { to: 100, plus: true, label: "Brands worked with" },
-  { to: 4, label: "Ventures built" },
+  { to: 5, label: "Ventures built" },
   { logo: "/brand-logos/fortune-500-tile.png", text: "Fortune 500", label: "Companies advised" },
   { to: 3, plus: true, label: "Institutions and universities" },
 ];

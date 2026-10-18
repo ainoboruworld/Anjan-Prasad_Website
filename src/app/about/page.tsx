@@ -147,7 +147,6 @@ export default async function AboutPage() {
           <div className="wrap">
             <div className="stl">
               <SecHead sec={sec["about-story"]} label="My story" plain="The long version, " em="over a cup of coffee." />
-              <span className="ph-flag">Story draft: confirm details with Anjan</span>
             </div>
             {sec["about-story"]?.body ? (
               <div className="sr">
