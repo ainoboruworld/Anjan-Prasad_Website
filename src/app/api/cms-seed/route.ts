@@ -622,7 +622,16 @@ export async function GET(req: Request) {
     });
   }
 
-  // The nine 360° areas.
+  // The eight 360° areas.
+  // Earlier seeds wrote old names; a doc still carrying one (never edited by
+  // hand in the Studio) is upgraded to the current content wholesale.
+  const OLD_AREA_NAMES: Record<string, string[]> = {
+    mkt: ["Marketing and sales"],
+    rev: ["Revenue growth"],
+    hr: ["People and culture"],
+    pro: ["Profit optimisation"],
+    log: ["Logistics and supply chain"],
+  };
   for (const a of AREAS) {
     await createIfMissing({
       _id: `area-${a.key}`,
@@ -634,7 +643,17 @@ export async function GET(req: Request) {
       note: a.note,
       points: [...a.points],
     });
+    const doc = await client.getDocument(`area-${a.key}`);
+    if (doc?.name && OLD_AREA_NAMES[a.key]?.includes(doc.name as string)) {
+      await client
+        .patch(`area-${a.key}`)
+        .set({ name: a.name, stat: a.stat, headline: a.headline, note: a.note, points: [...a.points] })
+        .commit();
+    }
   }
+  // The retired ninth area, if a seed from that era left it behind.
+  const prd = await client.getDocument("area-prd").catch(() => null);
+  if (prd && prd.name === "Productivity") await client.delete("area-prd");
 
   // Trust-wall brand logos, muted + colour versions uploaded as assets.
   const LOGO_GROUPS: { group: string; logos: { slug: string; name: string; role?: string }[] }[] = [
