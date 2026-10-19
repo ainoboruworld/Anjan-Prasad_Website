@@ -17,5 +17,18 @@ export default defineConfig({
   dataset,
   basePath: "/studio",
   plugins: [structureTool({ structure }), visionTool({ defaultApiVersion: apiVersion })],
-  schema: { types: schemaTypes },
+  schema: {
+    types: schemaTypes,
+    templates: (prev) => [
+      ...prev,
+      // Pre-fills the sector so a new case study lands in the filtered
+      // "Case Studies" list straight away (the filter keys on it).
+      {
+        id: "blogPost-case-study",
+        title: "Case Study",
+        schemaType: "blogPost",
+        value: { caseStudy: { sector: "Business" } },
+      },
+    ],
+  },
 });

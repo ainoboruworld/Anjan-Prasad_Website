@@ -40,6 +40,7 @@ export const structure: StructureResolver = (S) =>
             .apiVersion(apiVersion)
             .filter('_type == "blogPost" && !defined(caseStudy.sector)')
             .schemaType("blogPost")
+            .initialValueTemplates([S.initialValueTemplateItem("blogPost")])
         ),
       S.listItem()
         .title("Case Studies")
@@ -49,6 +50,7 @@ export const structure: StructureResolver = (S) =>
             .apiVersion(apiVersion)
             .filter('_type == "blogPost" && defined(caseStudy.sector)')
             .schemaType("blogPost")
+            .initialValueTemplates([S.initialValueTemplateItem("blogPost-case-study")])
         ),
       S.divider(),
       S.documentTypeListItem("quote").title("Business Quotes"),
