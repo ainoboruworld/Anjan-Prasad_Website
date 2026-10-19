@@ -15,7 +15,7 @@ const FALLBACK: { lead: string; em: string }[] = [
   { lead: "Plans don’t survive contact with customers.", em: "Systems do." },
 ];
 
-const ROTATE_MS = 1000;
+const ROTATE_MS = 3000;
 
 export function QuoteSlideshow({ quotes }: { quotes?: { lead: string; em: string }[] | null }) {
   const list = quotes?.length ? quotes : FALLBACK;
