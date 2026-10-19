@@ -2922,3 +2922,9 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .ven-mq .vc2 .lx.cmsx{height:30px!important;transform:scale(1)}
 .ven-mq .vc2 .lx.cmsx img{max-width:150px}
 .ven-mq .vc2 b.vlg{height:40px}
+
+/* Advised / mentored / taught rows: smaller CMS logos, nudged 2px up. */
+.mq .lx.cmsx{height:28px!important;transform:translateY(-2px)}
+.mq .lx.cmsx img{max-width:130px}
+.fac .lx.cmsx{height:34px!important;transform:translateY(-2px)}
+.fac .lx.cmsx img{max-width:140px}
