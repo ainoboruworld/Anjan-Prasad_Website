@@ -2916,3 +2916,9 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
    versions sit in a grid cell instead of filling an (unsized) absolute box. */
 .lx.cmsx{display:grid;place-items:center;width:auto}
 .lx.cmsx img{position:static;grid-area:1/1;width:auto;height:100%;max-width:200px;object-fit:contain}
+
+/* Ventures marquee: the CMS tiles render at their natural width for 44px of
+   height, which reads oversized between the designations. Pull them down. */
+.ven-mq .vc2 .lx.cmsx{height:30px!important;transform:scale(1)}
+.ven-mq .vc2 .lx.cmsx img{max-width:150px}
+.ven-mq .vc2 b.vlg{height:40px}
