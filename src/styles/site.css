@@ -2911,3 +2911,8 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .cl .socl{margin-top:6px}
 .cl .socl a{color:#5A6B7E;border-color:rgba(11,26,46,.2)}
 .cl .socl a:hover{color:#0B1A2E;border-color:rgba(11,26,46,.45)}
+
+/* CMS logo tiles: the width comes from the image itself, so the two stacked
+   versions sit in a grid cell instead of filling an (unsized) absolute box. */
+.lx.cmsx{display:grid;place-items:center;width:auto}
+.lx.cmsx img{position:static;grid-area:1/1;width:auto;height:100%;max-width:200px;object-fit:contain}
