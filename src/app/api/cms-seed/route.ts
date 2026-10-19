@@ -411,7 +411,9 @@ export async function GET(req: Request) {
   async function uploadImage(path: string): Promise<string | null> {
     if (assetByPath.has(path)) return assetByPath.get(path)!;
     try {
-      const res = await fetch(`${env.siteUrl}${path}`);
+      // The deployment serving this request always has its own public files,
+      // whatever domain it runs on; env.siteUrl only covers the custom domain.
+      const res = await fetch(`${new URL(req.url).origin}${path}`);
       if (!res.ok) return null;
       const buf = Buffer.from(await res.arrayBuffer());
       const asset = await client.assets.upload("image", buf, { filename: path.split("/").pop() });
