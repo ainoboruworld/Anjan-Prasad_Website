@@ -25,12 +25,15 @@ function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boo
 
 /** A CMS-managed logo: muted by default, colour version on hover when given. */
 function CmsTile({ logo }: { logo: CmsLogo }) {
+  // `.lx` sizes its absolutely positioned images from the box, so a CMS tile
+  // (whose width is unknown) uses `cmsx`: the images stay in the layout and
+  // the box takes its width from them.
   return (
-    <span className="lx" style={{ height: 44 }}>
+    <span className="lx cmsx" style={{ height: 44 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="lt" src={logo.url} alt={logo.name} style={{ height: 44, width: "auto" }} loading="lazy" />
+      <img className="lt" src={logo.url} alt={logo.name} loading="lazy" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="lc2" src={logo.colourUrl ?? logo.url} alt="" aria-hidden style={{ height: 44, width: "auto" }} loading="lazy" />
+      <img className="lc2" src={logo.colourUrl ?? logo.url} alt="" aria-hidden loading="lazy" />
     </span>
   );
 }
