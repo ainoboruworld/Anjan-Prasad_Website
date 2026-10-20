@@ -11,6 +11,13 @@ export const blogPost = defineType({
   title: "Blog Post",
   type: "document",
   fields: [
+    defineField({
+      name: "hidden",
+      title: "Hide from the website",
+      type: "boolean",
+      description: "When on, this post or case study disappears from the whole site (lists, slideshows and its own page).",
+      initialValue: false,
+    }),
     defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
     defineField({
       name: "slug",
