@@ -24,12 +24,21 @@ function Marquee({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: boo
 }
 
 /** A CMS-managed logo: muted by default, colour version on hover when given. */
+/** The hand-fitted box per brand from the original design, keyed by name. */
+const DESIGN_DIMS = new Map(
+  [...VENTURES, ...COMPANIES_ADVISED, ...CAREER, ...FACULTY].map((l) => [l.name.toLowerCase(), l])
+);
+
 function CmsTile({ logo }: { logo: CmsLogo }) {
-  // `.lx` sizes its absolutely positioned images from the box, so a CMS tile
-  // (whose width is unknown) uses `cmsx`: the images stay in the layout and
-  // the box takes its width from them.
+  // A known brand keeps its fitted box from the design, so the rows align
+  // exactly as before the CMS took over; an unknown (newly added) logo falls
+  // back to `cmsx`, where the box takes its width from the image.
+  const known = DESIGN_DIMS.get(logo.name.trim().toLowerCase());
+  const props = known
+    ? { className: "lx", style: { width: known.width, height: known.height } }
+    : { className: "lx cmsx", style: { height: 44 } };
   return (
-    <span className="lx cmsx" style={{ height: 44 }}>
+    <span {...props}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="lt" src={logo.url} alt={logo.name} loading="lazy" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
