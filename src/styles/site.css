@@ -2917,14 +2917,6 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .lx.cmsx{display:grid;place-items:center;width:auto}
 .lx.cmsx img{position:static;grid-area:1/1;width:auto;height:100%;max-width:200px;object-fit:contain}
 
-/* Ventures marquee: the CMS tiles render at their natural width for 44px of
-   height, which reads oversized between the designations. Pull them down. */
-.ven-mq .vc2 .lx.cmsx{height:30px!important;transform:scale(1)}
-.ven-mq .vc2 .lx.cmsx img{max-width:150px}
-.ven-mq .vc2 b.vlg{height:40px}
-
-/* Advised / mentored / taught rows: smaller CMS logos, nudged 2px up, each
-   in a uniform box so the row reads as one aligned line. */
-.mq .lx.cmsx{width:118px;height:28px!important;transform:translateY(-2px)}
-.fac .lx.cmsx{width:130px;height:34px!important;transform:translateY(-2px)}
-.mq .lx.cmsx img,.fac .lx.cmsx img{width:100%;height:100%;object-fit:contain;max-width:none}
+/* Known brands keep their fitted boxes from the design (set inline by the
+   component); the cmsx fallback above only covers newly added logos. */
+.lx.cmsx{max-width:150px}
