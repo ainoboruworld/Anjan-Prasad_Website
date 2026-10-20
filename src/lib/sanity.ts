@@ -56,6 +56,7 @@ export interface CmsArticle extends Article {
 
 interface RawPost {
   slug: string;
+  hidden?: boolean;
   title: string;
   category?: string;
   publishedAt?: string;
@@ -101,7 +102,7 @@ function toCaseStudy(c: NonNullable<RawPost["caseStudy"]>, seed?: Article): Arti
 }
 
 const POST_QUERY = `*[_type == "blogPost" && defined(slug.current) && publishedAt <= now()] | order(publishedAt desc){
-  "slug": slug.current, title, "category": category->title, publishedAt, readTime, excerpt,
+  "slug": slug.current, hidden, title, "category": category->title, publishedAt, readTime, excerpt,
   "imageUrl": featuredImage.asset->url, "cardImageUrl": cardImage.asset->url, kicker, bannerTitle, body, sources, metaTitle, metaDescription,
   "sections": sections[]{heading, text, "imageUrl": image.asset->url, "imageAlt": image.alt, "imageCaption": image.caption},
   "caseStudy": select(defined(caseStudy.sector) => caseStudy{sector, client, "logoUrl": logo.asset->url, summary, metrics, tags, quoteText, quoteBy}, null)
@@ -148,8 +149,10 @@ export async function getArticles(): Promise<CmsArticle[]> {
   try {
     const raw = await sanity.fetch<RawPost[]>(POST_QUERY, {}, { next: { revalidate: REVALIDATE_SECONDS } });
     const seedBySlug = new Map(ARTICLES.map((a) => [a.slug, a]));
-    const cms = raw.map((p) => toArticle(p, seedBySlug.get(p.slug)));
-    const seen = new Set(cms.map((a) => a.slug));
+    const cms = raw.filter((p) => !p.hidden).map((p) => toArticle(p, seedBySlug.get(p.slug)));
+    // A hidden CMS post also suppresses its built-in seed twin, so hiding a
+    // seeded case study in the Studio removes it from the whole site.
+    const seen = new Set(raw.map((p) => p.slug));
     return [...cms, ...ARTICLES.filter((a) => !seen.has(a.slug))];
   } catch (err) {
     console.warn("[sanity] fetch failed, using seed content:", (err as Error).message);
