@@ -8,7 +8,8 @@ import { newsletterSchema, type NewsletterValues } from "@/lib/validation/schema
 import { useNewsletterSubscribe } from "@/hooks/mutations/useNewsletterSubscribe";
 
 const SEEN_KEY = "ap-nlp-seen";
-const MIN_MS = 15_000;
+const MIN_MS = 12_000;
+const TRAP_STATE = { apTrap: true };
 
 function seen(): boolean {
   try {
@@ -25,23 +26,38 @@ function markSeen() {
   }
 }
 
+type Trigger = "scroll" | "exit" | "back" | "article";
+
 /**
- * Newsletter pop-up. Never on entry: it waits at least 15 seconds and then
- * triggers on 60% homepage scroll, the end of an article, or desktop exit
- * intent. Shown at most once per visitor, never on consultation or contact.
+ * The leaving-visitor offer. Most people scroll and go; this catches that
+ * moment once, with something worth stopping for: the seven questions Anjan
+ * asks before a first call, sent by email (which starts the follow-up
+ * journey). Triggers, all after 12 seconds on the page and never on entry:
+ *   - back button: a history trap, so the first "back" shows the card
+ *     instead of leaving (the second back leaves as normal)
+ *   - desktop exit intent (cursor leaves through the top)
+ *   - 60% scroll on the homepage, 92% at the end of an article
+ * Shown at most once per visitor, never on the application pages.
  */
 export function NewsletterPopup() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [trigger, setTrigger] = useState<Trigger>("scroll");
   const openedRef = useRef(false);
+  const trappedRef = useRef(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const { register, handleSubmit, formState } = useForm<NewsletterValues>({
     resolver: zodResolver(newsletterSchema),
-    defaultValues: { name: "", email: "" },
+    defaultValues: { name: "", email: "", source: "magnet" },
   });
   const mutation = useNewsletterSubscribe();
 
-  const excluded = pathname.startsWith("/business-advisory") || pathname.startsWith("/mentorship") || pathname.startsWith("/contact");
+  const excluded =
+    pathname.startsWith("/business-advisory") ||
+    pathname.startsWith("/mentorship") ||
+    pathname.startsWith("/contact") ||
+    pathname.startsWith("/resources") ||
+    pathname.startsWith("/studio");
   const isHome = pathname === "/";
   const isArticle = /^\/knowledge-hub\/.+/.test(pathname);
 
@@ -55,29 +71,52 @@ export function NewsletterPopup() {
     const ready = Date.now() + MIN_MS;
     let disposed = false;
 
-    const show = () => {
+    const show = (t: Trigger) => {
       if (disposed || openedRef.current || Date.now() < ready || seen()) return;
       openedRef.current = true;
+      setTrigger(t);
       setOpen(true);
       markSeen();
+    };
+
+    // Arm the back-button trap once the visitor has engaged a little.
+    const arm = () => {
+      if (trappedRef.current || seen()) return;
+      trappedRef.current = true;
+      try {
+        history.pushState(TRAP_STATE, "", location.href);
+      } catch {
+        /* ignore */
+      }
+    };
+    const onPop = () => {
+      if (trappedRef.current && !openedRef.current && Date.now() >= ready) {
+        show("back");
+        trappedRef.current = false;
+      }
     };
 
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (max <= 0) return;
       const p = window.scrollY / max;
-      if (isHome && p > 0.6) show();
-      if (isArticle && p > 0.92) show();
+      if (p > 0.25) arm();
+      if (isHome && p > 0.6) show("scroll");
+      if (isArticle && p > 0.92) show("article");
     };
     const onExit = (e: MouseEvent) => {
-      if (e.clientY <= 0 && window.matchMedia("(pointer: fine)").matches) show();
+      if (e.clientY <= 0 && window.matchMedia("(pointer: fine)").matches) show("exit");
     };
+    const armTimer = window.setTimeout(arm, MIN_MS);
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("popstate", onPop);
     document.documentElement.addEventListener("mouseleave", onExit);
     return () => {
       disposed = true;
+      window.clearTimeout(armTimer);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("popstate", onPop);
       document.documentElement.removeEventListener("mouseleave", onExit);
     };
   }, [excluded, isHome, isArticle, pathname]);
@@ -110,10 +149,16 @@ export function NewsletterPopup() {
 
   if (excluded || !open) return null;
   const done = mutation.isSuccess;
+  const heading =
+    trigger === "back"
+      ? "Before you go, one page worth keeping."
+      : trigger === "article"
+        ? "If that was useful, this is the next step."
+        : "Leaving with questions? Take these seven.";
 
   return (
     <div
-      className={`nlp${open ? " show" : ""}`}
+      className={`nlp nlp-lg${open ? " show" : ""}`}
       ref={cardRef}
       role="dialog"
       aria-modal="false"
@@ -123,19 +168,25 @@ export function NewsletterPopup() {
         ×
       </button>
       <div className="inner">
-        <span className="lab">Anjan&rsquo;s notes</span>
-        <h3 id="nlp-title">One operator&rsquo;s letter. Every week.</h3>
+        <span className="lab">Free · one page · 5 min</span>
+        <h3 id="nlp-title">{heading}</h3>
         {done ? (
           <p className="done-msg" role="status">
-            <b>Thank you.</b> The next letter is on its way.
+            <b>Sent.</b> The seven questions are on their way to your inbox. Answer them honestly, then reply to me with
+            the one that stung.
           </p>
         ) : (
           <>
             <p>
-              What I&rsquo;m seeing inside Indian businesses right now, and what I&rsquo;d do about it. No motivation,
-              only method.
+              <b>The 7 questions I ask every founder before a first call.</b>{" "}Answer them in writing and half the
+              decision settles itself. I&rsquo;ll email you the page, and a few short notes after it.
             </p>
-            <form noValidate onSubmit={handleSubmit((v) => mutation.mutate(v))}>
+            <ul className="nlp-pts">
+              <li>How many days of cash you really have</li>
+              <li>Which customers actually make your margin</li>
+              <li>The decision you keep postponing</li>
+            </ul>
+            <form noValidate onSubmit={handleSubmit((v) => mutation.mutate({ ...v, source: "magnet" }))}>
               <input placeholder="First name" aria-label="First name" autoComplete="given-name" {...register("name")} />
               <input
                 type="email"
@@ -146,16 +197,21 @@ export function NewsletterPopup() {
                 {...register("email")}
               />
               <button type="submit" disabled={mutation.isPending}>
-                {mutation.isPending ? "Sending…" : "Send me the letter"}
+                {mutation.isPending ? "Sending…" : "Send me the 7 questions"}
               </button>
             </form>
             {formState.errors.email && (
               <span className="later" role="alert" style={{ textDecoration: "none", cursor: "default" }}>
                 {formState.errors.email.message}
               </span>
+            )}
+            {mutation.isError && (
+              <span className="later" role="alert" style={{ textDecoration: "none", cursor: "default" }}>
+                {mutation.error.message}
+              </span>
             )}{" "}
             <button type="button" className="later" onClick={close}>
-              Maybe later
+              No thanks, I&rsquo;ll manage
             </button>
           </>
         )}

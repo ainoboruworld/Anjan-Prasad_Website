@@ -5,10 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ENGAGEMENTS, speakingSchema, type SpeakingValues } from "@/lib/validation/schemas";
 import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
+import { FormSuccess } from "./FormSuccess";
 
 /** Speaking invitation → /api/leads (kind: "speaking"). */
 export function SpeakingForm() {
-  const { register, handleSubmit, formState } = useForm<SpeakingValues>({
+  const { register, handleSubmit, formState, getValues } = useForm<SpeakingValues>({
     resolver: zodResolver(speakingSchema),
     defaultValues: { engagement: "Podcast" },
   });
@@ -52,9 +53,15 @@ export function SpeakingForm() {
           {mutation.error.message}
         </span>
       )}
-      <div className="ok" role="status">
-        <b>Thank you.</b>{" "}I read every invitation myself and reply within five working days.
-      </div>
+      {done && (
+        <FormSuccess
+          title="Thank you for the invitation."
+          reply="I read every invitation myself and reply within five working days — with a yes, a question about the audience, or a polite no."
+          days="Five working days"
+          workingDays={5}
+          prefill={{ name: getValues("name"), email: getValues("email") }}
+        />
+      )}
     </form>
   );
 }

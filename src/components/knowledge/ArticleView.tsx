@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { ApMark } from "../brand/ApMark";
+import { ArticleActions } from "./ArticleActions";
 import { Cta } from "../ui/Cta";
 import { articleHref, articleMeta, splitTitle, type Article } from "@/lib/data/articles";
 import type { CmsArticle } from "@/lib/sanity";
@@ -262,6 +263,7 @@ export function ArticleView({ article, related }: { article: CmsArticle; related
           <ApMark />
           <span>Anjan Prasad</span>
         </div>
+        <ArticleActions slug={article.slug} title={article.title} />
 
         <figure className="abn">
           {/* eslint-disable-next-line @next/next/no-img-element */}

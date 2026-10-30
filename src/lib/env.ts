@@ -45,6 +45,10 @@ export const serverEnv = {
   resendFrom: process.env.RESEND_FROM_EMAIL ?? "Anjan Prasad <onboarding@resend.dev>",
   /** Where internal notifications (applications, requests, contact) are sent. */
   notifyAdminEmail: process.env.NOTIFY_ADMIN_EMAIL ?? "performance@noboruworld.com",
+  /** Vercel Cron sends this as a Bearer token to /api/cron/journey. */
+  cronSecret: process.env.CRON_SECRET ?? "",
+  /** Signs one-click unsubscribe links (falls back to CRON_SECRET). */
+  journeySecret: process.env.JOURNEY_SECRET ?? "",
 } as const;
 
 /** All admin notification recipients (NOTIFY_ADMIN_EMAIL is comma-separated). */

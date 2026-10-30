@@ -11,6 +11,7 @@ import {
 } from "@/lib/validation/schemas";
 import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
+import { FormSuccess } from "./FormSuccess";
 
 /**
  * Consultation or mentorship request → /api/leads (kind prop decides).
@@ -23,7 +24,7 @@ export function ConsultationForm({
   presetArea?: string;
   kind?: "consultation" | "mentorship";
 }) {
-  const { register, handleSubmit, formState, setValue } = useForm<ConsultationValues>({
+  const { register, handleSubmit, formState, setValue, getValues } = useForm<ConsultationValues>({
     resolver: zodResolver(consultationSchema),
     defaultValues: { identity: "Running a business", area: presetArea ?? "Not sure yet" },
   });
@@ -58,9 +59,13 @@ export function ConsultationForm({
           {mutation.error.message}
         </span>
       )}
-      <div className="ok" role="status">
-        <b>Thank you.</b>{" "}I&rsquo;ll be in touch soon.
-      </div>
+      {done && (
+        <FormSuccess
+          title={kind === "mentorship" ? "Thank you for telling me your story." : "Thank you. Your request is in."}
+          area={getValues("area")}
+          prefill={{ name: getValues("name"), email: getValues("email") }}
+        />
+      )}
     </form>
   );
 }

@@ -6,13 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { advisorySchema, CONSULT_AREAS, HEARD_FROM, STAGES, type AdvisoryValues } from "@/lib/validation/schemas";
 import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
+import { FormSuccess } from "./FormSuccess";
 
 /**
  * Advisory application → /api/leads (kind: "advisory"). `presetArea` is set
  * by the diagnosis picker's CTA ("Book a consultation on finance").
  */
 export function AdvisoryForm({ presetArea }: { presetArea?: string }) {
-  const { register, handleSubmit, formState, setValue } = useForm<AdvisoryValues>({
+  const { register, handleSubmit, formState, setValue, getValues } = useForm<AdvisoryValues>({
     resolver: zodResolver(advisorySchema),
     defaultValues: { stage: "Idea stage", heardFrom: "LinkedIn", area: presetArea ?? "Not sure yet" },
   });
@@ -57,9 +58,16 @@ export function AdvisoryForm({ presetArea }: { presetArea?: string }) {
           {mutation.error.message}
         </span>
       )}
-      <div className="ok" role="status">
-        <b>Thank you.</b>{" "}I&rsquo;ll read this myself and reply within five working days.
-      </div>
+      {done && (
+        <FormSuccess
+          title="Thank you. Your application is in."
+          reply="I read every application myself and reply within five working days — with a first session proposed, or a straight no and the reason."
+          days="Five working days"
+          workingDays={5}
+          area={getValues("area") || undefined}
+          prefill={{ name: getValues("name"), email: getValues("email") }}
+        />
+      )}
     </form>
   );
 }

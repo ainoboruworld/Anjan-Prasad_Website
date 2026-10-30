@@ -1,8 +1,17 @@
 import "server-only";
 import { getServerSupabase } from "./supabase/server";
 import { sendEmail } from "./email/mailer";
-import { adminNotification, autoReply, newsletterWelcome } from "./email/templates";
-import { notifyAdminEmails } from "./env";
+import {
+  adminNotification,
+  articleEmail,
+  autoReply,
+  autoReplySubject,
+  newsletterWelcome,
+  type AutoReplyContext,
+} from "./email/templates";
+import { env, notifyAdminEmails } from "./env";
+import type { CmsArticle } from "./sanity";
+import { enrol } from "./journey";
 import type { LeadRequest, NewsletterValues } from "./validation/schemas";
 
 /**
@@ -94,10 +103,24 @@ export async function processLead(input: LeadRequest): Promise<{ stored: boolean
   });
   const reply = await sendEmail({
     to: email,
-    subject: "Thank you — Anjan Prasad",
-    html: autoReply(name, input.kind),
+    subject: autoReplySubject(name, input.kind),
+    html: autoReply(name, input.kind, input.values as AutoReplyContext),
   });
   emailed = admin.ok || reply.ok;
+
+  // Speaking invitations are not sales conversations; everyone else joins
+  // the short follow-up journey.
+  if (input.kind !== "speaking") {
+    const v = input.values as { area?: string; stage?: string; identity?: string; company?: string; decision?: string; message?: string };
+    void enrol(email, name, "lead", {
+      kind: input.kind,
+      area: v.area,
+      stage: v.stage,
+      identity: v.identity,
+      company: v.company,
+      decision: v.decision ?? v.message,
+    });
+  }
 
   if (!stored && !emailed) {
     // Nothing is configured yet: keep the lead in the server log.
@@ -108,15 +131,77 @@ export async function processLead(input: LeadRequest): Promise<{ stored: boolean
 
 export async function processNewsletter(input: NewsletterValues): Promise<{ stored: boolean }> {
   let stored = false;
+  const source = input.source || "footer";
   const supabase = getServerSupabase();
   if (supabase) {
     const { error } = await supabase
       .from("newsletter_subscriptions")
-      .upsert({ email: input.email, name: input.name || null, source: "footer" }, { onConflict: "email" });
+      .upsert({ email: input.email, name: input.name || null, source }, { onConflict: "email" });
     if (error) console.warn("[newsletter] upsert failed:", error.message);
     else stored = true;
   }
-  void sendEmail({ to: input.email, subject: "Welcome — Anjan Prasad", html: newsletterWelcome(input.name) });
+  if (source === "magnet") {
+    // The checklist request: the first journey email delivers it right away.
+    void enrol(input.email, input.name, "magnet");
+  } else {
+    void sendEmail({ to: input.email, subject: "Welcome — Anjan Prasad", html: newsletterWelcome(input.name) });
+    void enrol(input.email, input.name, "subscriber");
+  }
   if (!stored) console.info("[newsletter] subscription (not stored):", input.email);
   return { stored };
+}
+
+/** Plain-text teaser of an article body for the email. */
+function articlePreview(a: CmsArticle): string[] {
+  const out: string[] = [];
+  for (const b of a.body ?? []) {
+    if ((b.type === "lead" || b.type === "p") && b.text) out.push(b.text);
+    if (out.length >= 3) break;
+  }
+  if (!out.length && a.cmsSections?.length) {
+    for (const s of a.cmsSections) {
+      for (const blk of s.text ?? []) {
+        const t = ((blk as { children?: { text?: string }[] }).children ?? []).map((c) => c.text ?? "").join("");
+        if (t.trim()) out.push(t);
+        if (out.length >= 3) break;
+      }
+      if (out.length >= 3) break;
+    }
+  }
+  if (!out.length && a.caseStudy?.summary) out.push(a.caseStudy.summary);
+  return out;
+}
+
+/** "Email me this article": send it and add the reader to the letter. */
+export async function sendArticle(
+  input: NewsletterValues & { slug: string },
+  article: CmsArticle
+): Promise<{ sent: boolean; stored: boolean }> {
+  let stored = false;
+  const supabase = getServerSupabase();
+  if (supabase) {
+    const { error } = await supabase
+      .from("newsletter_subscriptions")
+      .upsert({ email: input.email, name: input.name || null, source: `article:${article.slug}` }, { onConflict: "email" });
+    if (error) console.warn("[articles] upsert failed:", error.message);
+    else stored = true;
+  }
+  const url = `${env.siteUrl.replace(/\/$/, "")}/knowledge-hub/${article.slug}`;
+  const res = await sendEmail({
+    to: input.email,
+    subject: `${article.title} — from Anjan Prasad`,
+    html: articleEmail(input.name, {
+      title: article.title,
+      excerpt: article.excerpt,
+      kicker: article.kicker,
+      category: article.category,
+      readTime: article.readTime,
+      image: article.image,
+      url,
+      preview: articlePreview(article),
+    }),
+  });
+  if (!res.ok) console.info(`[articles] send skipped/failed for ${input.email}: ${res.error ?? "no transport"}`);
+  void enrol(input.email, input.name, "article", { slug: article.slug, articleTitle: article.title });
+  return { sent: res.ok, stored };
 }
