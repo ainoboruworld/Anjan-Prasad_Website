@@ -16,7 +16,33 @@ export interface SendArgs {
   to: string | string[];
   subject: string;
   html: string;
+  /** Plain-text alternative. Derived from the HTML when omitted. */
+  text?: string;
   replyTo?: string;
+  /** Extra headers, e.g. List-Unsubscribe on follow-up emails. */
+  headers?: Record<string, string>;
+}
+
+/** Readable plain-text version of our simple HTML emails. */
+export function htmlToText(html: string): string {
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(p|div|h1|h2|h3|li|tr|blockquote)>/gi, "\n")
+    .replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, (_, href, label) => `${label.trim()} (${href})`)
+    .replace(/<[^>]+>/g, "")
+    .replace(/&rsquo;|&lsquo;/g, "'")
+    .replace(/&ldquo;|&rdquo;/g, '"')
+    .replace(/&ndash;/g, "–")
+    .replace(/&mdash;/g, "—")
+    .replace(/&rarr;/g, "→")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
 export interface SendResult {
@@ -36,7 +62,9 @@ export async function sendEmail(args: SendArgs): Promise<SendResult> {
       to: args.to,
       subject: args.subject,
       html: args.html,
-      replyTo: args.replyTo,
+      text: args.text ?? htmlToText(args.html),
+      replyTo: args.replyTo ?? (serverEnv.replyTo || undefined),
+      headers: args.headers,
     });
     if (error) return { ok: false, error: error.message };
     return { ok: true, id: data?.id };

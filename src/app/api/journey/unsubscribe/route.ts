@@ -20,3 +20,12 @@ export async function GET(req: Request) {
   await stop(email, "unsubscribed");
   return page("Done. No more follow-ups.", "You won’t hear from me again unless you write first. If you ever want to pick the conversation back up, the door is open.");
 }
+
+/** RFC 8058 one-click unsubscribe (mail clients POST to the same link). */
+export async function POST(req: Request) {
+  const url = new URL(req.url);
+  const email = (url.searchParams.get("e") ?? "").trim();
+  const token = url.searchParams.get("t") ?? "";
+  if (email && token && verifyUnsubscribe(email, token)) await stop(email, "unsubscribed");
+  return new Response(null, { status: 204 });
+}

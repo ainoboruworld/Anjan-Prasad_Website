@@ -60,8 +60,7 @@ export function AdvisoryForm({ presetArea }: { presetArea?: string }) {
       )}
       {done && (
         <FormSuccess
-          title="Thank you. Your application is in."
-          reply="I read every application myself and reply within five working days — with a first session proposed, or a straight no and the reason."
+          reply="I read every application myself. A first session proposed, or a straight no with the reason."
           days="Five working days"
           workingDays={5}
           area={getValues("area") || undefined}
