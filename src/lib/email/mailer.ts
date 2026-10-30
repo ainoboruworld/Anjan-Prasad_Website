@@ -1,7 +1,7 @@
 import "server-only";
 import nodemailer, { type Transporter } from "nodemailer";
 import { serverEnv, flags } from "../env";
-import { sendEmail as sendViaResend, type SendArgs, type SendResult } from "./resend";
+import { htmlToText, sendEmail as sendViaResend, type SendArgs, type SendResult } from "./resend";
 
 /**
  * One mail door for the whole app. Transport is picked from configuration:
@@ -40,7 +40,9 @@ export async function sendEmail(args: SendArgs): Promise<SendResult> {
       to: args.to,
       subject: args.subject,
       html: args.html,
-      replyTo: args.replyTo,
+      text: args.text ?? htmlToText(args.html),
+      replyTo: args.replyTo ?? (serverEnv.replyTo || undefined),
+      headers: args.headers,
     });
     return { ok: true, id: info.messageId };
   } catch (err) {

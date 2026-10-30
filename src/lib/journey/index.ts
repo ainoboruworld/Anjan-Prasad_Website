@@ -147,7 +147,13 @@ export async function runDue(limit = 200): Promise<{ sent: number; failed: numbe
     const v = vars(c.email, c.name, c.context ?? {});
     const subject = step.subject(v);
     const html = journeyShell(subject, step.body(v), unsubscribeUrl(c.email));
-    const res = await sendEmail({ to: c.email, subject, html });
+    const unsub = unsubscribeUrl(c.email);
+    const res = await sendEmail({
+      to: c.email,
+      subject,
+      html,
+      headers: { "List-Unsubscribe": `<${unsub}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" },
+    });
     if (!res.ok) {
       out.failed++;
       console.warn(`[journey] send failed for ${c.email} (${c.segment}#${c.step}): ${res.error}`);

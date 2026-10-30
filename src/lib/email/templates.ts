@@ -3,6 +3,8 @@
  * every client. Navy #0B1A2E, off-white #F4F1EB, gold #CDB27A.
  */
 
+import { addWorkingDays, formatReplyDate } from "../replyDate";
+
 function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -64,22 +66,6 @@ function quote(label: string, text?: string): string {
   </div>`;
 }
 
-function timeline(steps: [string, string][]): string {
-  return `<table style="border-collapse:collapse;margin:8px 0 22px">${steps
-    .map(
-      ([when, what]) =>
-        `<tr><td style="padding:7px 14px 7px 0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#4C6B8A;white-space:nowrap;vertical-align:top">${esc(when)}</td><td style="padding:7px 0;font-size:15px;line-height:1.6">${esc(what)}</td></tr>`
-    )
-    .join("")}</table>`;
-}
-
-function newsletterNudge(): string {
-  return `<div style="margin:28px 0 0;padding:18px 20px;background:#fff;border:1px solid rgba(11,26,46,.1)">
-    <div style="font-family:'Instrument Serif',Georgia,serif;font-size:19px;margin-bottom:6px">While you wait, the weekly letter.</div>
-    <div style="font-size:14px;line-height:1.65;color:#4C6B8A">One short note a week on margins, pricing, hiring and the decisions founders actually face. No motivation, only method. <a href="${SITE}/#newsletter" style="color:#0B1A2E;text-decoration:underline">Join it here</a>.</div>
-  </div>`;
-}
-
 export function autoReplySubject(name: string, kind: LeadKind): string {
   const first = name.split(" ")[0] || "there";
   const subjects: Record<LeadKind, string> = {
@@ -97,112 +83,69 @@ export function autoReplySubject(name: string, kind: LeadKind): string {
  * and business owners: it names what they asked about, quotes their own words
  * back, sets a concrete reply window and tells them what happens next.
  */
+/** Reply-by date, computed the same way the confirmation panel does it. */
+function replyBy(workingDays: number): string {
+  return formatReplyDate(addWorkingDays(new Date(), workingDays));
+}
+
+/**
+ * Personal confirmation to the sender. Short enough for a founder to read on
+ * a phone between meetings: what reached me, when they will hear back, and
+ * their own words so they know a person saw them. No marketing blocks here;
+ * the follow-up journey does that work later.
+ */
 export function autoReply(name: string, kind: LeadKind, ctx: AutoReplyContext = {}): string {
   const first = name.split(" ")[0] || "there";
   const lower = (s?: string) => (s ?? "").trim().toLowerCase();
   const areaKnown = ctx.area && lower(ctx.area) !== "not sure yet";
-  const who =
-    lower(ctx.identity) === "building an early-stage startup"
-      ? "building an early-stage startup"
-      : lower(ctx.identity) === "planning to start a business"
-        ? "about to start a business"
-        : lower(ctx.identity) === "running a business"
-          ? "running a business"
-          : "";
+  const area = areaKnown ? ` on <b>${esc(ctx.area!)}</b>` : "";
 
-  let title = `Thank you, ${first}.`;
-  let body = "";
+  let title = `Got it, ${first}.`;
+  let what = "";
+  let yourWords: [string, string | undefined] = ["What you wrote", ctx.decision];
+  let outcome = "";
+  let days = 4;
 
   switch (kind) {
-    case "consultation": {
-      title = `Thank you, ${first}. Your request is with me.`;
-      body =
-        para(
-          `You&rsquo;ve asked for a consultation${areaKnown ? ` on <b>${esc(ctx.area!)}</b>` : ""}${who ? ` while ${who}` : ""}. ` +
-            `That takes a clear head and a bit of courage, and I don&rsquo;t take it lightly.`
-        ) +
-        quote("The decision you described", ctx.decision) +
-        para(
-          `I read every request myself. There is no assistant and no template behind this. Within <b>3&ndash;4 working days</b> you&rsquo;ll hear from me either with a time for us to talk, or with an honest note on whether I&rsquo;m the right person for this decision. Either way, you get a reply.`
-        ) +
-        timeline([
-          ["Now", "Your request is in my inbox, exactly as you wrote it."],
-          ["Next", "I read it against the numbers and the context you've shared."],
-          ["3–4 working days", "You hear back from me with a time, or a straight answer."],
-        ]) +
-        para(
-          `If there&rsquo;s a deadline on this decision, reply to this email and tell me the date. I&rsquo;ll move it up.`
-        );
+    case "consultation":
+      what = `Your consultation request${area} is with me.`;
+      yourWords = ["The decision you're facing", ctx.decision];
+      outcome = `a time for us to talk, or a straight answer on whether I'm the right person for this`;
       break;
-    }
-    case "mentorship": {
-      title = `Thank you for telling me your story, ${first}.`;
-      body =
-        para(
-          `Not a pitch, just where you are and what you&rsquo;re building${areaKnown ? `, and why <b>${esc(ctx.area!)}</b> matters right now` : ""}. That&rsquo;s exactly what I asked for, and it&rsquo;s the only way I can judge whether I can actually help.`
-        ) +
-        quote("What you wrote", ctx.decision) +
-        para(
-          `I take on very few mentees, and I read every application myself. Within <b>3&ndash;4 working days</b> I&rsquo;ll reply honestly: either a yes and a first conversation, or a no with a reason and, where I can, a pointer to who or what might serve you better. You will not be left waiting.`
-        ) +
-        timeline([
-          ["Now", "Your story has reached me."],
-          ["Next", "I read it personally and think about fit, not just need."],
-          ["3–4 working days", "An honest reply, either way."],
-        ]) +
-        para(`In the meantime, keep building. Nothing about this should slow you down.`);
+    case "mentorship":
+      title = `Thank you for your story, ${first}.`;
+      what = `It&rsquo;s with me${areaKnown ? `, and I noted that <b>${esc(ctx.area!)}</b> is where it matters right now` : ""}. I take on very few mentees, so I read each one properly.`;
+      yourWords = ["What you wrote", ctx.decision];
+      outcome = `a yes and a first conversation, or an honest no with the reason`;
       break;
-    }
-    case "advisory": {
-      title = `Thank you, ${first}. Your application is in.`;
-      const biz = ctx.company ? `<b>${esc(ctx.company)}</b>` : "your business";
-      body =
-        para(
-          `You&rsquo;ve applied for advisory on ${biz}${ctx.stage ? ` at the <b>${esc(lower(ctx.stage))}</b> stage` : ""}${areaKnown ? `, focused on <b>${esc(ctx.area!)}</b>` : ""}. Advisory is a working relationship, so I treat the application as the first piece of work.`
-        ) +
-        quote("The decision you're facing", ctx.decision) +
-        para(
-          `I read every application myself and reply within <b>five working days</b>. If I think I can move the needle, I&rsquo;ll propose a first session. If I don&rsquo;t, I&rsquo;ll say so plainly and tell you why. Owners deserve a straight answer, not a holding pattern.`
-        ) +
-        timeline([
-          ["Now", "Your application is in my inbox."],
-          ["Next", "I review the decision, the stage and what you've already tried."],
-          ["Five working days", "A proposal for a first session, or a clear no with reasons."],
-        ]);
+    case "advisory":
+      what = `Your advisory application${ctx.company ? ` for <b>${esc(ctx.company)}</b>` : ""}${ctx.stage ? ` (${esc(lower(ctx.stage))}` : ""}${ctx.stage && areaKnown ? `, ${esc(lower(ctx.area!))})` : ctx.stage ? ")" : areaKnown ? ` on <b>${esc(ctx.area!)}</b>` : ""} is with me.`;
+      yourWords = ["The decision you're facing", ctx.decision];
+      outcome = `a first session proposed, or a straight no with the reason`;
+      days = 5;
       break;
-    }
-    case "speaking": {
+    case "speaking":
       title = `Thank you for the invitation, ${first}.`;
-      body =
-        para(
-          `You&rsquo;ve invited me to ${ctx.engagement ? `a <b>${esc(lower(ctx.engagement))}</b>` : "a session"}${ctx.organisation ? ` with <b>${esc(ctx.organisation)}</b>` : ""}. I&rsquo;m selective about where I speak, because I only want to be in a room where founders and operators leave with something they can use on Monday.`
-        ) +
-        quote("The session you have in mind", ctx.details) +
-        para(
-          `I read every invitation myself and reply within <b>five working days</b> with a yes, a question or two about the audience, or a polite no. If your date is close, reply here and flag it.`
-        );
+      what = `${ctx.organisation ? `<b>${esc(ctx.organisation)}</b>` : "Your session"}${ctx.engagement ? `, ${esc(lower(ctx.engagement))}` : ""}: noted, and I&rsquo;ll read the brief myself.`;
+      yourWords = ["The session you have in mind", ctx.details];
+      outcome = `a yes, a question or two about the room, or a polite no`;
+      days = 5;
       break;
-    }
     case "contact":
-    default: {
-      title = `Thank you for writing, ${first}.`;
-      body =
-        para(
-          `Your message${ctx.reason ? ` about <b>${esc(lower(ctx.reason))}</b>` : ""} has reached me, and I&rsquo;ll read it myself.`
-        ) +
-        quote("Your message", ctx.message) +
-        para(
-          `You&rsquo;ll hear back from me within <b>3&ndash;4 working days</b>. If it&rsquo;s time-sensitive, reply to this email and say so.`
-        );
+    default:
+      what = `Your message${ctx.reason ? ` about ${esc(lower(ctx.reason))}` : ""} is with me.`;
+      yourWords = ["Your message", ctx.message];
+      outcome = `a proper reply`;
       break;
-    }
   }
 
   return shell(
     title,
-    body +
-      para(`Warmly,<br><span style="font-family:'Instrument Serif',Georgia,serif;font-size:22px">Anjan</span><br><span style="font-size:13px;color:#4C6B8A">Business advisor &amp; mentor to founders</span>`) +
-      newsletterNudge()
+    para(`${what} I read every one myself; there is no assistant and no template behind this.`) +
+      quote(yourWords[0], yourWords[1]) +
+      para(`You&rsquo;ll hear from me by <b>${replyBy(days)}</b>: ${outcome}.`) +
+      para(`If there&rsquo;s a deadline on this, reply with the date and I&rsquo;ll move it up.`) +
+      para(`Anjan`)
   );
 }
 

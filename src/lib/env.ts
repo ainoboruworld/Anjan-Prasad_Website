@@ -43,6 +43,8 @@ export const serverEnv = {
   smtpPass: process.env.SMTP_PASS ?? "",
   /** Verified "from" address for outbound mail. */
   resendFrom: process.env.RESEND_FROM_EMAIL ?? "Anjan Prasad <onboarding@resend.dev>",
+  /** Default Reply-To on outbound mail (the inbox Anjan actually reads). */
+  replyTo: process.env.REPLY_TO_EMAIL ?? "",
   /** Where internal notifications (applications, requests, contact) are sent. */
   notifyAdminEmail: process.env.NOTIFY_ADMIN_EMAIL ?? "performance@noboruworld.com",
   /** Vercel Cron sends this as a Bearer token to /api/cron/journey. */

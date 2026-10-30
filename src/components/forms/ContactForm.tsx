@@ -36,7 +36,7 @@ export function ContactForm() {
           {mutation.error.message}
         </span>
       )}
-      {done && <FormSuccess title="Thank you for writing." reply="I read every message myself and reply within 3–4 working days." prefill={{ name: getValues("name"), email: getValues("email") }} />}
+      {done && <FormSuccess reply="I read every message myself." prefill={{ name: getValues("name"), email: getValues("email") }} />}
     </form>
   );
 }
