@@ -5,10 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, CONTACT_REASONS, type ContactValues } from "@/lib/validation/schemas";
 import { useSubmitLead } from "@/hooks/mutations/useSubmitLead";
 import { SelectField, SubmitButton, TextField, TextareaField } from "./fields";
+import { FormSuccess } from "./FormSuccess";
 
 /** Contact message → /api/leads (kind: "contact"). */
 export function ContactForm() {
-  const { register, handleSubmit, formState } = useForm<ContactValues>({
+  const { register, handleSubmit, formState, getValues } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: { reason: "Speaking or events" },
   });
@@ -35,9 +36,7 @@ export function ContactForm() {
           {mutation.error.message}
         </span>
       )}
-      <div className="ok" role="status">
-        <b>Thank you.</b>{" "}I&rsquo;ll reply soon.
-      </div>
+      {done && <FormSuccess title="Thank you for writing." reply="I read every message myself and reply within 3–4 working days." prefill={{ name: getValues("name"), email: getValues("email") }} />}
     </form>
   );
 }

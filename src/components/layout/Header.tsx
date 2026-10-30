@@ -60,7 +60,8 @@ export function Header() {
                   <button
                     type="button"
                     className="ddbtn"
-                    aria-haspopup="menu"
+                    aria-haspopup="true"
+                    aria-controls={`dd-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                     aria-expanded={ddOpen}
                     onClick={() => setDdOpen(!ddOpen)}
                   >
@@ -69,7 +70,7 @@ export function Header() {
                       <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.4" />
                     </svg>
                   </button>
-                  <div className="menu" role="menu">
+                  <div className="menu" id={`dd-${item.label.toLowerCase().replace(/\s+/g, "-")}`}>
                     {item.children.map((c) => (
                       <Link key={c.href} href={c.href} className={isCurrent(c.href) ? "cur" : undefined}>
                         {c.label}
