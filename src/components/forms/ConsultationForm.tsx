@@ -62,6 +62,7 @@ export function ConsultationForm({
       {done && (
         <FormSuccess
           title={kind === "mentorship" ? "Thank you for telling me your story." : "Thank you. Your request is in."}
+          area={getValues("area")}
           prefill={{ name: getValues("name"), email: getValues("email") }}
         />
       )}

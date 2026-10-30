@@ -253,3 +253,13 @@ export function articleEmail(name: string | undefined, a: ArticleEmailInput): st
       para(`Warmly,<br><span style="font-family:'Instrument Serif',Georgia,serif;font-size:22px">Anjan</span>`)
   );
 }
+
+/** Shell for follow-up emails: same brand frame, plus a one-click stop link. */
+export function journeyShell(title: string, body: string, unsubscribeHref: string): string {
+  return shell(
+    title,
+    body +
+      para(`Warmly,<br><span style="font-family:'Instrument Serif',Georgia,serif;font-size:22px">Anjan</span>`) +
+      `<p style="font-size:12px;line-height:1.6;color:#4C6B8A;margin-top:28px">You're getting this because you wrote to me, or asked for something, at anjanprasad.com. A few short notes, then I stop. <a href="${unsubscribeHref}" style="color:#4C6B8A">Stop these now</a>.</p>`
+  );
+}

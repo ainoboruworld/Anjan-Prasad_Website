@@ -58,6 +58,7 @@ export function SpeakingForm() {
           title="Thank you for the invitation."
           reply="I read every invitation myself and reply within five working days — with a yes, a question about the audience, or a polite no."
           days="Five working days"
+          workingDays={5}
           prefill={{ name: getValues("name"), email: getValues("email") }}
         />
       )}

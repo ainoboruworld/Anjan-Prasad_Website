@@ -11,6 +11,7 @@ import {
 } from "./email/templates";
 import { env, notifyAdminEmails } from "./env";
 import type { CmsArticle } from "./sanity";
+import { enrol } from "./journey";
 import type { LeadRequest, NewsletterValues } from "./validation/schemas";
 
 /**
@@ -107,6 +108,20 @@ export async function processLead(input: LeadRequest): Promise<{ stored: boolean
   });
   emailed = admin.ok || reply.ok;
 
+  // Speaking invitations are not sales conversations; everyone else joins
+  // the short follow-up journey.
+  if (input.kind !== "speaking") {
+    const v = input.values as { area?: string; stage?: string; identity?: string; company?: string; decision?: string; message?: string };
+    void enrol(email, name, "lead", {
+      kind: input.kind,
+      area: v.area,
+      stage: v.stage,
+      identity: v.identity,
+      company: v.company,
+      decision: v.decision ?? v.message,
+    });
+  }
+
   if (!stored && !emailed) {
     // Nothing is configured yet: keep the lead in the server log.
     console.info(`[leads] ${label} (not stored, not emailed):`, JSON.stringify(flatten(input)));
@@ -116,15 +131,22 @@ export async function processLead(input: LeadRequest): Promise<{ stored: boolean
 
 export async function processNewsletter(input: NewsletterValues): Promise<{ stored: boolean }> {
   let stored = false;
+  const source = input.source || "footer";
   const supabase = getServerSupabase();
   if (supabase) {
     const { error } = await supabase
       .from("newsletter_subscriptions")
-      .upsert({ email: input.email, name: input.name || null, source: "footer" }, { onConflict: "email" });
+      .upsert({ email: input.email, name: input.name || null, source }, { onConflict: "email" });
     if (error) console.warn("[newsletter] upsert failed:", error.message);
     else stored = true;
   }
-  void sendEmail({ to: input.email, subject: "Welcome — Anjan Prasad", html: newsletterWelcome(input.name) });
+  if (source === "magnet") {
+    // The checklist request: the first journey email delivers it right away.
+    void enrol(input.email, input.name, "magnet");
+  } else {
+    void sendEmail({ to: input.email, subject: "Welcome — Anjan Prasad", html: newsletterWelcome(input.name) });
+    void enrol(input.email, input.name, "subscriber");
+  }
   if (!stored) console.info("[newsletter] subscription (not stored):", input.email);
   return { stored };
 }
@@ -180,5 +202,6 @@ export async function sendArticle(
     }),
   });
   if (!res.ok) console.info(`[articles] send skipped/failed for ${input.email}: ${res.error ?? "no transport"}`);
+  void enrol(input.email, input.name, "article", { slug: article.slug, articleTitle: article.title });
   return { sent: res.ok, stored };
 }

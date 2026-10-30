@@ -88,6 +88,8 @@ export type ContactValues = z.infer<typeof contactSchema>;
 export const newsletterSchema = z.object({
   name: z.string().trim().max(120).optional().or(z.literal("")),
   email: emailField,
+  /** Where the signup came from: footer, popup, magnet, form, article:<slug>. */
+  source: z.string().trim().max(80).optional(),
 });
 export type NewsletterValues = z.infer<typeof newsletterSchema>;
 

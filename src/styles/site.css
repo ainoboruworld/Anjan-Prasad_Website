@@ -2881,6 +2881,7 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
 .fm .ok-steps li span{font:500 11px/1.9 var(--font-sans);letter-spacing:.16em;text-transform:uppercase;color:var(--harb)}
 .fm .ok-steps li.is-done span{color:#CDB27A}
 .fm .ok-steps li.is-done{color:var(--navy)}
+.fm .ok-steps li b{font-weight:500;color:var(--navy)}
 .fm .ok-nl{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;padding:26px 28px;background:var(--navy);color:var(--off);animation:okIn .6s 1s both}
 .fm .ok-nl-copy b{display:block;font:400 22px/1.2 var(--font-serif);margin-bottom:8px;color:#fff}
 .fm .ok-nl-copy p{font:400 14px/1.65 var(--font-sans);color:#A9BDD1;margin:0}
@@ -2993,4 +2994,41 @@ nav .l .dd.open .menu{opacity:1;pointer-events:auto;transform:none}
   .art blockquote{break-inside:avoid;background:#f4f1eb!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   a{color:inherit;text-decoration:none}
   .art .by::after{content:" · anjanprasad.com";color:#555}
+}
+
+/* Confirmation panel extras: reminder, reading picks. */
+.fm .ok-remind{display:inline-block;margin:6px 0 0;padding:0;border:0;background:none;font:500 12px var(--font-sans);letter-spacing:.04em;color:var(--navy);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.fm .ok-remind:hover{color:#CDB27A}
+.fm .ok-picks{margin:0 0 26px;animation:okIn .6s .9s both}
+.fm .ok-picks-lab{display:block;font:500 11px var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--harb);margin-bottom:12px}
+.fm .ok-picks-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fm .ok-pick{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;padding:10px;background:#fff;border:1px solid rgba(11,26,46,.08);text-decoration:none;color:var(--navy);transition:border-color .2s,transform .2s}
+.fm .ok-pick:hover{border-color:#CDB27A;transform:translateY(-1px)}
+.fm .ok-pick img{width:72px;height:56px;object-fit:cover;border-radius:4px;display:block}
+.fm .ok-pick small{display:block;font:500 10px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--harb);margin-bottom:3px}
+.fm .ok-pick b{display:block;font:400 15px/1.3 var(--font-serif)}
+@media(max-width:720px){.fm .ok-picks-row{grid-template-columns:1fr}}
+
+/* Leaving-visitor card: slightly larger than the old letter prompt. */
+.nlp.nlp-lg{width:420px}
+.nlp .nlp-pts{list-style:none;margin:-6px 0 16px;padding:0;display:grid;gap:6px}
+.nlp .nlp-pts li{position:relative;padding-left:20px;font:400 13.5px/1.5 var(--font-sans);color:var(--navy)}
+.nlp .nlp-pts li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:10px;border-radius:50%;background:#CDB27A}
+.nlp p b{color:var(--navy)}
+
+/* The seven-questions page. */
+.res .qlist{list-style:none;margin:10px 0 40px;padding:0;counter-reset:q}
+.res .qlist li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:28px 0;border-top:1px solid var(--line)}
+.res .qlist li:last-child{border-bottom:1px solid var(--line)}
+.res .qn{font:400 34px/1 var(--font-serif);color:#CDB27A}
+.res .qlist h2{font:400 clamp(21px,2vw,26px)/1.3 var(--font-serif);margin:0 0 8px;max-width:none}
+.res .qlist p{font:400 15px/1.65 var(--font-sans)!important;color:var(--harb)!important;margin:0 0 14px!important}
+.res .qline{height:0;border-bottom:1px dashed rgba(11,26,46,.22);margin:22px 0 0}
+@media(max-width:720px){.res .qlist li{grid-template-columns:40px 1fr;gap:12px}.res .qn{font-size:26px}}
+@media print{
+  .res .qline{display:block;margin-top:26px}
+  .res .qlist li{break-inside:avoid;padding:14pt 0}
+  .res .qlist h2{font-size:13pt}
+  .res .qlist p{font-size:10pt!important}
+  .res .qn{font-size:20pt}
 }
