@@ -19,18 +19,20 @@ export function Header() {
 
   // Programs dropdown: hover on desktop, click as well; closes on outside click.
   // Keyed like the sheet: navigating closes the dropdown without an effect.
-  const [ddOpenedAt, setDdOpenedAt] = useState<string | null>(null);
-  const ddOpen = ddOpenedAt === pathname;
-  const setDdOpen = (next: boolean) => setDdOpenedAt(next ? pathname : null);
+  // Keyed by "<pathname>|<menu label>" so each dropdown opens on its own.
+  const [ddKey, setDdKey] = useState<string | null>(null);
+  const isDdOpen = (label: string) => ddKey === `${pathname}|${label}`;
+  const setDdOpen = (label: string, next: boolean) => setDdKey(next ? `${pathname}|${label}` : null);
   const ddRef = useRef<HTMLDivElement>(null);
+  const anyDdOpen = ddKey !== null && ddKey.startsWith(`${pathname}|`);
   useEffect(() => {
-    if (!ddOpen) return;
+    if (!anyDdOpen) return;
     const onDown = (e: MouseEvent) => {
-      if (ddRef.current && !ddRef.current.contains(e.target as Node)) setDdOpen(false);
+      if (ddRef.current && !ddRef.current.contains(e.target as Node)) setDdKey(null);
     };
     window.addEventListener("pointerdown", onDown);
     return () => window.removeEventListener("pointerdown", onDown);
-  }, [ddOpen]);
+  }, [anyDdOpen]);
 
   // Lock body scroll while the sheet is open.
   useEffect(() => {
@@ -56,14 +58,14 @@ export function Header() {
           <div className="l">
             {NAV.map((item) =>
               item.children ? (
-                <div className={`dd${ddOpen ? " open" : ""}`} key={item.label} ref={ddRef}>
+                <div className={`dd${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
                   <button
                     type="button"
                     className="ddbtn"
                     aria-haspopup="true"
                     aria-controls={`dd-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                    aria-expanded={ddOpen}
-                    onClick={() => setDdOpen(!ddOpen)}
+                    aria-expanded={isDdOpen(item.label)}
+                    onClick={() => setDdOpen(item.label, !isDdOpen(item.label))}
                   >
                     {item.label}
                     <svg viewBox="0 0 10 6" aria-hidden>
@@ -108,6 +110,12 @@ export function Header() {
         <small>Programs</small>
         <Link href="/business-advisory">Business Advisory</Link>
         <Link href="/mentorship">Mentorship</Link>
+        <small>Brands</small>
+        {NAV.find((n) => n.label === "Brands")?.children?.map((c) => (
+          <Link href={c.href} key={c.href}>
+            {c.label}
+          </Link>
+        ))}
         <small>More</small>
         <Link href="/knowledge-hub">Knowledge Hub</Link>
         <Link href="/speaking">Speaker</Link>
