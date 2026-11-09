@@ -31,6 +31,12 @@ export interface BrandPage {
   website?: string;
   /** Pull quote, when there is a real one. */
   quote?: [string, string];
+  /** What the experience taught Anjan, in his words. The human part. */
+  lesson?: string;
+  /** Short first-person note that closes the page. */
+  note?: string;
+  /** Year the relationship started, when known. */
+  since?: string;
   /** True while the page is a short summary rather than a full case study. */
   draft?: boolean;
 }
@@ -55,6 +61,9 @@ export const BRAND_PAGES: BrandPage[] = [
     ],
     cases: ["case-study-assure-clinic", "case-study-ev-launch", "case-study-fortune-500-conglomerate"],
     website: "https://noboruworld.com",
+    lesson:
+      "A business isn't the idea or the logo. It's whether people pay you, again and again, at a price that leaves something over. Noboru taught me that the expensive way, and it's the first thing I check in any business I advise now.",
+    note: "If you're where I was in year one of Noboru, more confidence than clarity, that's exactly the conversation I like having.",
   },
   {
     slug: "lushful",
@@ -81,6 +90,9 @@ export const BRAND_PAGES: BrandPage[] = [
     ],
     cases: ["case-study-lushful"],
     quote: ["They became an extension of the internal team.", "Neelabh Singh, Co-founder, Lushful"],
+    lesson:
+      "Retention is the whole game in D2C. The first order is marketing; the third order is a business. Every decision we made that worked was really a decision about the third order.",
+    note: "Running a food brand with farmers on one side and customers on the other keeps me honest about margins. It's why I ask founders about unit economics before anything else.",
   },
   {
     slug: "filing-buddy",
@@ -98,6 +110,8 @@ export const BRAND_PAGES: BrandPage[] = [
       "Pricing and packaging recurring compliance services",
       "Building process so the work is done the same way every time",
     ],
+    lesson:
+      "Boring businesses are underrated. Recurring revenue, a clear process and customers who stay because you never miss a deadline. There's no story to tell at a dinner party, and that's exactly why it works.",
     draft: true,
   },
   {
@@ -145,6 +159,33 @@ export const BRAND_PAGES: BrandPage[] = [
     draft: true,
   },
   {
+    slug: "assure-clinic",
+    name: "Assure Clinic",
+    kind: "advised",
+    role: "Growth partner, through Noboru World",
+    sector: "Healthcare · dermatology and hair transplant",
+    headline: "Nine times the revenue in twelve months, with the cost per patient falling, not rising.",
+    story: [
+      "Assure was expanding into new cities and needed patient inquiries to grow faster than ad spend. Healthcare marketing punishes waste: every wrong click is expensive, and trust decides who a patient calls.",
+      "We built a performance engine across Google and Meta, tuned city by city, around high-intent treatment searches rather than generic awareness, and put real doctors and real outcomes in the creative, because proof is what converts in healthcare.",
+    ],
+    work: [
+      "Performance engine across Google and Meta, tuned city by city",
+      "PPC built around high-intent treatment searches, not awareness",
+      "Social campaigns with real doctors and real outcomes",
+    ],
+    metrics: [
+      ["9×", "revenue growth in 12 months"],
+      ["+300%", "daily leads"],
+      ["−55%", "cost per customer"],
+      ["3.4", "ROAS on Google and Meta"],
+    ],
+    cases: ["case-study-assure-clinic"],
+    quote: ["Noboru helped us attract more patients, reduce ad costs and grow our clinic.", "Dr. Priyanka, Assure Clinic"],
+    lesson:
+      "In healthcare, intent beats reach. A hundred right clicks outperform a million wrong ones, and falling acquisition cost is what lets growth fund itself. The growth supported expansion to 13 outlets and a ₹15 Cr raise.",
+  },
+  {
     slug: "fortune-500",
     name: "Fortune 500 conglomerate",
     kind: "advised",
@@ -157,6 +198,8 @@ export const BRAND_PAGES: BrandPage[] = [
     ],
     work: ["Information architecture", "UX revamp", "Technical SEO"],
     cases: ["case-study-fortune-500-conglomerate"],
+    lesson:
+      "Size doesn't protect you from the basics. The most valuable thing we did for a company that large was make its website answer the three questions a visitor actually arrives with.",
   },
 ];
 

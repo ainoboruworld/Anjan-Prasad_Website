@@ -5,6 +5,8 @@ import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
 import { SpeakingForm } from "@/components/forms/SpeakingForm";
+import { Faq } from "@/components/seo/Faq";
+import { SPEAKING_FAQS } from "@/lib/data/faqs";
 
 
 const TALKS = [
@@ -159,6 +161,15 @@ export default async function SpeakingPage() {
           <SpeakingForm />
         </div>
       </section>
+      <Faq
+        items={SPEAKING_FAQS}
+        label="Before you invite"
+        title={
+          <>
+            The usual <em>questions.</em>
+          </>
+        }
+      />
     </main>
   );
 }
