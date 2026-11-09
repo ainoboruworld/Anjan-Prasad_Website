@@ -5,6 +5,9 @@ import { getSections, secHeading, pageMetadata, getAreas } from "@/lib/sanity";
 import Link from "next/link";
 import { Cta } from "@/components/ui/Cta";
 import { Diagnosis } from "@/components/consultation/Diagnosis";
+import { Faq } from "@/components/seo/Faq";
+import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { ADVISORY_FAQS } from "@/lib/data/faqs";
 
 
 const WHO = [
@@ -223,9 +226,20 @@ export default async function BusinessAdvisoryPage({
         </section>
       )}
 
-
-
-
+      <Faq
+        items={ADVISORY_FAQS}
+        title={
+          <>
+            Before you write in, <em>the honest answers.</em>
+          </>
+        }
+      />
+      <ServiceSchema
+        name="Business Advisory"
+        type="ProfessionalService"
+        path="/business-advisory"
+        description="One-to-one business advisory and consulting for founders and business owners in India, from a single focused session to an ongoing advisory seat. Pricing, unit economics, go-to-market, growth, hiring and operations."
+      />
     </main>
   );
 }

@@ -5,6 +5,9 @@ import { getSections, secHeading, pageMetadata } from "@/lib/sanity";
 import { Cta } from "@/components/ui/Cta";
 import { Signature } from "@/components/ui/Signature";
 import { ConsultationForm } from "@/components/forms/ConsultationForm";
+import { Faq } from "@/components/seo/Faq";
+import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { MENTORSHIP_FAQS } from "@/lib/data/faqs";
 
 
 const DIFF = [
@@ -145,6 +148,20 @@ export default async function MentorshipPage() {
           </div>
         </section>
       )}
+
+      <Faq
+        items={MENTORSHIP_FAQS}
+        title={
+          <>
+            What founders ask <em>before they apply.</em>
+          </>
+        }
+      />
+      <ServiceSchema
+        name="Founder Mentorship"
+        path="/mentorship"
+        description="Long-term mentorship for a small number of early-stage founders in India, sometimes with equity. Hands-on, honest and over the whole journey."
+      />
 
       <section className="sec apply" id="apply">
         <div className="wrap">

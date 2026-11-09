@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BRAND_KIND_LABEL, BRAND_PAGES, brandLogo } from "@/lib/data/brandPages";
+import { HAS_TILE } from "@/lib/data/brands";
+
+const hasLogo = (slug: string) => HAS_TILE.has(slug) || ["pinkfly", "auxman", "fundamentals", "sapiens"].includes(slug);
 
 export const metadata: Metadata = {
   title: "Brands — built, led and advised",
@@ -29,10 +32,16 @@ export default function BrandsPage() {
               <div className="brgrid">
                 {items.map((b) => (
                   <Link href={`/brands/${b.slug}`} key={b.slug} className="brcard">
-                    <span className="brlogo">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={brandLogo(b.slug)} alt={b.name} loading="lazy" />
-                    </span>
+                    {hasLogo(b.slug) ? (
+                      <span className="brlogo">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={brandLogo(b.slug)} alt={b.name} loading="lazy" />
+                      </span>
+                    ) : (
+                      <span className="brlogo mono" aria-hidden>
+                        {b.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("")}
+                      </span>
+                    )}
                     <small>{b.role}</small>
                     <b>{b.name}</b>
                     <span className="brsec">{b.sector}</span>

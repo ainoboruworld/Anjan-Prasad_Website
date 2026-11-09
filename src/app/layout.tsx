@@ -71,10 +71,20 @@ export const metadata: Metadata = {
 const PERSON_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${env.siteUrl}/#person`,
   name: "Anjan Prasad",
+  url: env.siteUrl,
+  image: `${env.siteUrl}/images/portrait-anjan.jpg`,
   jobTitle: "Business Consultant, Business Advisor and Business Mentor",
   description: SITE.description,
-  worksFor: { "@type": "Organization", name: "Noboru World" },
+  email: SITE.email,
+  nationality: { "@type": "Country", name: "India" },
+  worksFor: { "@type": "Organization", name: "Noboru World", url: "https://noboruworld.com" },
+  founder: [
+    { "@type": "Organization", name: "Noboru World", url: "https://noboruworld.com" },
+    { "@type": "Organization", name: "Lushful" },
+    { "@type": "Organization", name: "Filing Buddy" },
+  ],
   alumniOf: ["IIFT", "IMT Ghaziabad", "BML Munjal University"],
   knowsAbout: [
     "Business Strategy",
@@ -84,7 +94,7 @@ const PERSON_JSONLD = {
     "Operations",
     "Startup Mentorship",
   ],
-  sameAs: [SITE.linkedin, SITE.instagram],
+  sameAs: [SITE.linkedin, SITE.instagram, SITE.youtube, SITE.substack, SITE.twitter],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -44,6 +44,8 @@ export const NAV: NavItem[] = [
       { label: "Auxman", href: "/brands/auxman" },
       { label: "Fundamentals", href: "/brands/fundamentals" },
       { label: "Sapiens", href: "/brands/sapiens" },
+      { label: "Assure Clinic", href: "/brands/assure-clinic" },
+      { label: "Fortune 500 conglomerate", href: "/brands/fortune-500" },
       { label: "All brands", href: "/brands" },
     ],
   },
