@@ -8,6 +8,7 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "../styles/site.css";
+@import "../styles/brands.css";
 
 /* Brand fonts come from next/font (see src/app/layout.tsx). */
 :root {
