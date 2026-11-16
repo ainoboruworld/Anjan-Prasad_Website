@@ -144,6 +144,17 @@ export default async function BrandPage({ params }: { params: Params }) {
         </div>
       </section>
 
+      {b.cover && (
+        <section className="bc">
+          <div className="aw">
+            <figure className="bc-fig">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={b.cover} alt="" />
+            </figure>
+          </div>
+        </section>
+      )}
+
       {/* Numbers, when there are real ones. */}
       {b.metrics && (
         <section className="bm">
@@ -164,14 +175,36 @@ export default async function BrandPage({ params }: { params: Params }) {
       <section className="bs">
         <div className="aw bs-grid">
           <div className="bs-main">
-            <span className="lab">The story</span>
+            <div className="bs-toc" role="navigation" aria-label="On this page">
+              <a href="#overview">Overview</a>
+              {b.challenge && <a href="#challenge">The challenge</a>}
+              <a href="#approach">What I did</a>
+              {b.results && <a href="#results">Results</a>}
+              {b.photos && b.photos.length > 0 && <a href="#photos">Photos</a>}
+              {b.lesson && <a href="#lesson">What it taught me</a>}
+            </div>
+
+            <span className="lab" id="overview">
+              Overview
+            </span>
             {b.story.map((p, i) => (
               <p key={i} className={i === 0 ? "bs-first" : undefined}>
                 {p}
               </p>
             ))}
 
-            <span className="lab bs-lab">What I did</span>
+            {b.challenge && (
+              <>
+                <span className="lab bs-lab" id="challenge">
+                  The challenge
+                </span>
+                <p>{b.challenge}</p>
+              </>
+            )}
+
+            <span className="lab bs-lab" id="approach">
+              What I did
+            </span>
             <ol className="bs-steps">
               {b.work.map((w, i) => (
                 <li key={w}>
@@ -181,8 +214,21 @@ export default async function BrandPage({ params }: { params: Params }) {
               ))}
             </ol>
 
+            {b.results && (
+              <>
+                <span className="lab bs-lab" id="results">
+                  The results
+                </span>
+                <ul className="bs-results">
+                  {b.results.map((r) => (
+                    <li key={r}>{r}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+
             {b.lesson && (
-              <div className="bs-lesson">
+              <div className="bs-lesson" id="lesson">
                 <span className="lab">What it taught me</span>
                 <p>{b.lesson}</p>
               </div>
@@ -214,6 +260,28 @@ export default async function BrandPage({ params }: { params: Params }) {
           </aside>
         </div>
       </section>
+
+      {b.photos && b.photos.length > 0 && (
+        <section className="bp" id="photos">
+          <div className="aw">
+            <span className="lab">In pictures</span>
+            <div className={`bp-grid n${Math.min(b.photos.length, 4)}`}>
+              {b.photos.map((ph) => (
+                <figure key={ph.src} className="bp-fig">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={ph.src} alt={ph.alt} loading="lazy" />
+                  {(ph.caption || ph.placeholder) && (
+                    <figcaption>
+                      {ph.caption}
+                      {ph.placeholder && <em> Placeholder: swap with a real photo.</em>}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* A note from Anjan, then the way forward. */}
       <section className="bn">

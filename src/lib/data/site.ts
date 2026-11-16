@@ -17,6 +17,8 @@ export const SITE = {
 export interface NavChild {
   label: string;
   href: string;
+  /** Optional group heading inside the dropdown, e.g. "Brands built". */
+  group?: string;
 }
 export interface NavItem {
   label: string;
@@ -37,15 +39,15 @@ export const NAV: NavItem[] = [
     label: "Brands",
     href: "/brands",
     children: [
-      { label: "Noboru World", href: "/brands/noboru-world" },
-      { label: "Lushful", href: "/brands/lushful" },
-      { label: "Filing Buddy", href: "/brands/filing-buddy" },
-      { label: "Pinkfly", href: "/brands/pinkfly" },
-      { label: "Auxman", href: "/brands/auxman" },
-      { label: "Fundamentals", href: "/brands/fundamentals" },
-      { label: "Sapiens", href: "/brands/sapiens" },
-      { label: "Assure Clinic", href: "/brands/assure-clinic" },
-      { label: "Fortune 500 conglomerate", href: "/brands/fortune-500" },
+      { group: "Brands built", label: "Noboru World", href: "/brands/noboru-world" },
+      { group: "Brands built", label: "Lushful", href: "/brands/lushful" },
+      { group: "Brands built", label: "Filing Buddy", href: "/brands/filing-buddy" },
+      { group: "Brands built", label: "Pinkfly", href: "/brands/pinkfly" },
+      { group: "Brands built", label: "Auxman", href: "/brands/auxman" },
+      { group: "Brands built", label: "Fundamentals", href: "/brands/fundamentals" },
+      { group: "Brands built", label: "Sapiens", href: "/brands/sapiens" },
+      { group: "Brands advised", label: "Assure Clinic", href: "/brands/assure-clinic" },
+      { group: "Brands advised", label: "Fortune 500 conglomerate", href: "/brands/fortune-500" },
       { label: "All brands", href: "/brands" },
     ],
   },
