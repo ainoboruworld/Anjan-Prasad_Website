@@ -31,6 +31,19 @@ export interface BrandPage {
   website?: string;
   /** Pull quote, when there is a real one. */
   quote?: [string, string];
+  /** The problem as it stood when the work began. */
+  challenge?: string;
+  /** What came out of it, as short bullets. Verified only. */
+  results?: string[];
+  /** Wide image for the top of the page (public path or URL). */
+  cover?: string;
+  /**
+   * Gallery: product, team, place. Drop the files in public/brands/<slug>/
+   * and list them here, e.g.
+   *   photos: [{ src: "/brands/lushful/farm.jpg", alt: "At the farm", caption: "Sourcing starts at the farm." }]
+   * Set `placeholder: true` on stand-ins so the page flags them.
+   */
+  photos?: { src: string; alt: string; caption?: string; placeholder?: boolean }[];
   /** What the experience taught Anjan, in his words. The human part. */
   lesson?: string;
   /** Short first-person note that closes the page. */
@@ -58,6 +71,13 @@ export const BRAND_PAGES: BrandPage[] = [
       "Launch campaigns, booking platforms and conversion work for new categories",
       "Brand, web and growth for D2C businesses, end to end",
       "Digital experience and technical SEO for enterprise teams",
+    ],
+    challenge:
+      "Year one was the classic first-business problem: plenty of work, thin margins, and no clear answer to which clients were worth keeping. Growth looked fine on revenue and terrible on cash.",
+    results: [
+      "A growth practice that now serves clients from first-customer startups to Fortune 500 teams",
+      "Case studies with real numbers: 9× revenue for a dermatology chain, 5,000 EV bookings in four days",
+      "The operating lessons that every business I've advised since has benefited from",
     ],
     cases: ["case-study-assure-clinic", "case-study-ev-launch", "case-study-fortune-500-conglomerate"],
     website: "https://noboruworld.com",
@@ -87,6 +107,13 @@ export const BRAND_PAGES: BrandPage[] = [
       ["+446%", "monthly orders"],
       ["+87%", "average order value"],
       ["57%", "customer retention"],
+    ],
+    challenge:
+      "Start a food brand from zero, with farmers on one side and a crowded D2C market on the other, and make the unit economics work before the marketing budget did.",
+    results: [
+      "₹2.5 Cr ARR, from a standing start",
+      "Monthly orders up 446% and average order value up 87%",
+      "57% of customers come back, which is where the business actually lives",
     ],
     cases: ["case-study-lushful"],
     quote: ["They became an extension of the internal team.", "Neelabh Singh, Co-founder, Lushful"],
@@ -179,6 +206,14 @@ export const BRAND_PAGES: BrandPage[] = [
       ["+300%", "daily leads"],
       ["−55%", "cost per customer"],
       ["3.4", "ROAS on Google and Meta"],
+    ],
+    challenge:
+      "Patient inquiries had to grow faster than ad spend while the brand opened in new cities. In healthcare every wrong click is expensive, and trust decides who a patient calls.",
+    results: [
+      "Revenue grew 9× in twelve months",
+      "Daily leads up 300% while cost per customer fell 55%",
+      "3.4 ROAS held on Google and Meta",
+      "Growth supported expansion to 13 outlets and a ₹15 Cr raise",
     ],
     cases: ["case-study-assure-clinic"],
     quote: ["Noboru helped us attract more patients, reduce ad costs and grow our clinic.", "Dr. Priyanka, Assure Clinic"],

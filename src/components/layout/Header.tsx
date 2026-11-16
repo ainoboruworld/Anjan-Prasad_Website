@@ -4,7 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ApMark } from "../brand/ApMark";
-import { NAV } from "@/lib/data/site";
+import { NAV, type NavChild } from "@/lib/data/site";
+
+/** Children in order, bucketed by their optional group heading. */
+function groupChildren(children: NavChild[]): [string | undefined, NavChild[]][] {
+  const out: [string | undefined, NavChild[]][] = [];
+  for (const c of children) {
+    const last = out[out.length - 1];
+    if (last && last[0] === c.group) last[1].push(c);
+    else out.push([c.group, [c]]);
+  }
+  return out;
+}
 
 /**
  * Site navigation. Desktop: the prototype's absolute header with a hover
@@ -72,11 +83,19 @@ export function Header() {
                       <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.4" />
                     </svg>
                   </button>
-                  <div className="menu" id={`dd-${item.label.toLowerCase().replace(/\s+/g, "-")}`}>
-                    {item.children.map((c) => (
-                      <Link key={c.href} href={c.href} className={isCurrent(c.href) ? "cur" : undefined}>
-                        {c.label}
-                      </Link>
+                  <div
+                    className={`menu${item.children.some((c) => c.group) ? " grouped" : ""}`}
+                    id={`dd-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    {groupChildren(item.children).map(([group, links]) => (
+                      <div className="menu-g" key={group ?? "_"}>
+                        {group && <small>{group}</small>}
+                        {links.map((c) => (
+                          <Link key={c.href} href={c.href} className={isCurrent(c.href) ? "cur" : undefined}>
+                            {c.label}
+                          </Link>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -110,11 +129,15 @@ export function Header() {
         <small>Programs</small>
         <Link href="/business-advisory">Business Advisory</Link>
         <Link href="/mentorship">Mentorship</Link>
-        <small>Brands</small>
-        {NAV.find((n) => n.label === "Brands")?.children?.map((c) => (
-          <Link href={c.href} key={c.href}>
-            {c.label}
-          </Link>
+        {groupChildren(NAV.find((n) => n.label === "Brands")?.children ?? []).map(([group, links]) => (
+          <div key={group ?? "_brands"}>
+            <small>{group ?? "Brands"}</small>
+            {links.map((c) => (
+              <Link href={c.href} key={c.href}>
+                {c.label}
+              </Link>
+            ))}
+          </div>
         ))}
         <small>More</small>
         <Link href="/knowledge-hub">Knowledge Hub</Link>
