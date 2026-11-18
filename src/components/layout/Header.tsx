@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ApMark } from "../brand/ApMark";
 import { NAV, type NavChild } from "@/lib/data/site";
-import { BrandsMega } from "./BrandsMega";
 import type { BrandsMenuData } from "@/lib/brands";
 
 /** Children in order, bucketed by their optional group heading. */
@@ -76,24 +75,19 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
           </Link>
 
           <div className="l">
-            {NAV.map((item) =>
-              item.label === "Brands" && brands?.categories.length ? (
-                <div className={`dd dd-mega${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
-                  <button
-                    type="button"
-                    className="ddbtn"
-                    aria-haspopup="true"
-                    aria-expanded={isDdOpen(item.label)}
-                    onClick={() => setDdOpen(item.label, !isDdOpen(item.label))}
-                  >
-                    {item.label}
-                    <svg viewBox="0 0 10 6" aria-hidden>
-                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.4" />
-                    </svg>
-                  </button>
-                  <BrandsMega data={brands} open={isDdOpen(item.label)} onNavigate={() => setDdKey(null)} />
-                </div>
-              ) : item.children ? (
+            {NAV.map((item0) => {
+              // Brands: the catalogue (Sanity over built-in) supplies the groups.
+              const item =
+                item0.label === "Brands" && brands?.categories.length
+                  ? {
+                      ...item0,
+                      children: [
+                        ...brands.categories.flatMap((c) => c.brands.map((b) => ({ group: c.name, label: b.name, href: `/brands/${b.slug}` }))),
+                        { label: "All brands", href: "/brands" },
+                      ],
+                    }
+                  : item0;
+              return item.children ? (
                 <div className={`dd${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
                   <button
                     type="button"
@@ -128,8 +122,8 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
                 <Link key={item.href} href={item.href} className={isCurrent(item.href) ? "cur" : undefined}>
                   {item.label}
                 </Link>
-              )
-            )}
+              );
+            })}
           </div>
 
           <button
