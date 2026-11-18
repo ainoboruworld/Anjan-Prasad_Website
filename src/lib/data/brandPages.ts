@@ -245,8 +245,17 @@ export function brandPage(slug: string): BrandPage | undefined {
 /** Brands that ship a colour logo file but no white tile. */
 const COLOUR_ONLY = new Set(["pinkfly", "auxman", "fundamentals", "sapiens"]);
 
-/** Local logo path, or undefined when no file exists for the brand. */
+/**
+ * Local logo path for brand pages and menus. The white tile carries the
+ * brand's true colours; the page knocks its white out with a multiply blend
+ * so the mark sits transparently on the off-white. Brands with no tile use
+ * their transparent colour file. Undefined when no file exists.
+ */
+/** Brands whose wall files are light variants; these page files carry the true colours. */
+const PAGE_LOGO: Record<string, string> = { auxman: "/brand-logos/auxman-page.png" };
+
 export function brandLogo(slug: string): string | undefined {
+  if (PAGE_LOGO[slug]) return PAGE_LOGO[slug];
   if (HAS_TILE.has(slug)) return tileSrc(slug);
   if (COLOUR_ONLY.has(slug)) return logoSrc(slug, true);
   return undefined;

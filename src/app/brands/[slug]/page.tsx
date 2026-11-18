@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { ApMark } from "@/components/brand/ApMark";
 import { BrandCarousel } from "@/components/brands/BrandCarousel";
-import { getAllBrands, getBrand, type Brand } from "@/lib/brands";
+import { getAllBrands, getBrand, getBrandCatalog, type Brand } from "@/lib/brands";
 import { sized } from "@/lib/sanity-image";
 import { env } from "@/lib/env";
 
@@ -58,17 +58,16 @@ export default async function BrandPage({ params }: { params: Params }) {
   const { slug } = await params;
   const b = await getBrand(slug);
   if (!b) notFound();
-  const all = await getAllBrands();
+  const cats = await getBrandCatalog();
+  const all = cats.flatMap((c) => c.brands);
+  const categoryName = cats.find((c) => c.slug === b.categorySlug)?.name;
   const others = all.filter((x) => x.slug !== b.slug && !x.draft).slice(0, 3);
   const site = env.siteUrl.replace(/\/$/, "");
   const host = b.website ? new URL(b.website).hostname.replace(/^www\./, "") : null;
   const heroCtaHref = b.heroCtaHref ?? b.website;
   const heroCtaLabel = b.heroCtaLabel ?? (host ? `Visit ${host}` : undefined);
   const hasAbout = Boolean(b.aboutBody?.length || b.aboutParagraphs?.length);
-  // When the hero strip shows numbers, the Information section carries industry,
-  // role and website; otherwise the strip already shows them.
-  const inStrip = !b.metrics;
-  const hasInfo = Boolean(b.services?.length || b.positioning || (!inStrip && (b.industry || b.website || b.role)));
+  const hasInfo = Boolean(b.services?.length || b.positioning);
   const hasCta = Boolean(b.ctaHeading || b.ctaLabel);
   const mono = b.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
   const photos = b.gallery?.length
@@ -117,11 +116,6 @@ export default async function BrandPage({ params }: { params: Params }) {
                     {heroCtaLabel} <span>{heroCtaHref.startsWith("http") ? "↗" : "→"}</span>
                   </a>
                 )}
-                {b.cases && b.cases.length > 0 && (
-                  <Link href={`/knowledge-hub/${b.cases[0].slug}`} className="bh-alt">
-                    Read the case study →
-                  </Link>
-                )}
               </div>
             </div>
             <div className="bh2-media">
@@ -134,27 +128,21 @@ export default async function BrandPage({ params }: { params: Params }) {
               )}
             </div>
           </div>
-          {(b.metrics || b.industry || b.role || host) && (
+          {(b.industry || b.role || host) && (
             <div className="bh2-facts">
-              {b.metrics?.map(([v, l]) => (
-                <div key={l} className="num">
-                  <b>{v}</b>
-                  <small>{l}</small>
-                </div>
-              ))}
-              {!b.metrics && b.industry && (
+              {b.industry && (
                 <div>
                   <small>Industry</small>
                   <b>{b.industry}</b>
                 </div>
               )}
-              {!b.metrics && b.role && (
+              {b.role && (
                 <div>
                   <small>Anjan&rsquo;s role</small>
                   <b>{b.role}</b>
                 </div>
               )}
-              {!b.metrics && host && (
+              {host ? (
                 <div>
                   <small>Website</small>
                   <b>
@@ -163,7 +151,24 @@ export default async function BrandPage({ params }: { params: Params }) {
                     </a>
                   </b>
                 </div>
+              ) : (
+                categoryName && (
+                  <div>
+                    <small>Listed under</small>
+                    <b>{categoryName}</b>
+                  </div>
+                )
               )}
+            </div>
+          )}
+          {b.metrics && (
+            <div className="bh2-nums">
+              {b.metrics.map(([v, l]) => (
+                <div key={l}>
+                  <b>{v}</b>
+                  <small>{l}</small>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -256,49 +261,27 @@ export default async function BrandPage({ params }: { params: Params }) {
         </section>
       )}
 
-      {/* D. Information */}
+      {/* D. What I did / positioning (industry, role and website live in the hero strip) */}
       {hasInfo && (
         <section className="bi">
           <div className="aw">
             <dl className="bi-grid">
-              {!inStrip && b.industry && (
-                <div>
-                  <dt>Industry</dt>
-                  <dd>{b.industry}</dd>
-                </div>
-              )}
-              {!inStrip && b.role && (
-                <div>
-                  <dt>Anjan&rsquo;s role</dt>
-                  <dd>{b.role}</dd>
-                </div>
-              )}
               {b.services && b.services.length > 0 && (
                 <div className="wide">
                   <dt>{b.source === "cms" ? "Services" : "What I did"}</dt>
                   <dd>
                     <ul>
-                      {b.services.map((s) => (
-                        <li key={s}>{s}</li>
+                      {b.services.map((x) => (
+                        <li key={x}>{x}</li>
                       ))}
                     </ul>
                   </dd>
                 </div>
               )}
               {b.positioning && (
-                <div className="wide">
+                <div>
                   <dt>Positioning</dt>
                   <dd>{b.positioning}</dd>
-                </div>
-              )}
-              {!inStrip && host && (
-                <div>
-                  <dt>Website</dt>
-                  <dd>
-                    <a href={b.website} target="_blank" rel="noopener noreferrer">
-                      {host} ↗
-                    </a>
-                  </dd>
                 </div>
               )}
             </dl>
