@@ -80,6 +80,7 @@ nav .l .dd .menu-g small{display:block;font:500 10.5px var(--font-sans);letter-s
 .bs-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:start}
 .bs-main > .lab{display:block;margin-bottom:16px}
 .bs-main p{font:400 18px/1.75 var(--font-sans);color:#1d2b3d;margin:0 0 20px;max-width:62ch}
+.bs-main > .lab:first-child{display:block;margin-bottom:16px}
 .bs-main .bs-first{font:400 clamp(20px,1.9vw,23px)/1.55 var(--font-serif);color:var(--navy)}
 .bs-lab{display:block;margin:34px 0 14px}
 .bs-steps{list-style:none;margin:0 0 36px;padding:0;display:grid}
@@ -229,7 +230,7 @@ nav .l .dd .menu.acc .all::after{display:none!important}
 .bcar-arrow:focus-visible{outline:2px solid var(--gold);outline-offset:2px;opacity:1}
 .bcar figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:12px;font:400 13px/1.5 var(--font-sans);color:var(--harb)}
 .bcar figcaption small{font:500 11px var(--font-sans);letter-spacing:.14em;color:var(--slate)}
-.ba-grid.has-img .bcar{position:sticky;top:110px}
+.bs-side .bcar{margin:0}
 @media(hover:none){.bcar-arrow{opacity:1}}
 @media(prefers-reduced-motion:reduce){.bcar-slide,.bcar-slide img{transition:none}}
 @media(max-width:900px){.bh2{grid-template-columns:1fr;gap:30px}.bh2-facts{grid-template-columns:1fr}.bh2-nums{grid-template-columns:1fr 1fr}.bh.v2{padding:104px 0 30px}.ba-grid.has-img .bcar{position:static}}

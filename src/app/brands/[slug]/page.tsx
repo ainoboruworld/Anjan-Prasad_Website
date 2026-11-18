@@ -67,7 +67,6 @@ export default async function BrandPage({ params }: { params: Params }) {
   const heroCtaHref = b.heroCtaHref ?? b.website;
   const heroCtaLabel = b.heroCtaLabel ?? (host ? `Visit ${host}` : undefined);
   const hasAbout = Boolean(b.aboutBody?.length || b.aboutParagraphs?.length);
-  const hasInfo = Boolean(b.services?.length || b.positioning);
   const hasCta = Boolean(b.ctaHeading || b.ctaLabel);
   const mono = b.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
   const photos = b.gallery?.length
@@ -98,71 +97,67 @@ export default async function BrandPage({ params }: { params: Params }) {
     <main className="pg on" id="main" data-p="brand">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* A. Hero: name, one line, action, then the numbers and facts as a quiet strip. */}
-      <section className="bh v2">
+      {/* Hero: name and one line on the left; a facts card with the photos on the right. */}
+      <section className="bh">
         <div className="aw">
           <Link href="/brands" className="back">
             ← All brands
           </Link>
-          <div className="bh2">
-            <div className="bh2-copy">
-              <Logo b={b} large />
-              {b.role && <span className="lab">{b.role}</span>}
+          <div className="bh-grid">
+            <div className="bh-copy">
+              {(categoryName || b.role) && (
+                <span className="lab">
+                  {[categoryName, b.role].filter(Boolean).join(" · ")}
+                </span>
+              )}
               <h1>{b.name}</h1>
+              {b.industry && <p className="bh-sector">{b.industry}</p>}
               {b.shortDescription && <p className="bh-line">{b.shortDescription}</p>}
-              <div className="bh-actions">
-                {heroCtaHref && heroCtaLabel && (
+              {heroCtaHref && heroCtaLabel && (
+                <div className="bh-actions">
                   <a href={heroCtaHref} className="cta" target={heroCtaHref.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
                     {heroCtaLabel} <span>{heroCtaHref.startsWith("http") ? "↗" : "→"}</span>
                   </a>
-                )}
-              </div>
-            </div>
-            <div className="bh2-media">
-              {b.heroImage ? (
-                <figure className="bh2-fig">
-                  <Image src={sized(b.heroImage.url, 1400)!} alt={b.heroImage.alt ?? ""} width={1400} height={1050} priority sizes="(max-width: 900px) 100vw, 560px" />
-                </figure>
-              ) : (
-                <BrandCarousel photos={photos} label={`${b.name} in pictures`} mono={mono} />
+                </div>
               )}
+            </div>
+            <div className="bh-card">
+              <Logo b={b} large />
+              <dl>
+                {b.role && (
+                  <div>
+                    <dt>My role</dt>
+                    <dd>{b.role}</dd>
+                  </div>
+                )}
+                {b.industry && (
+                  <div>
+                    <dt>Sector</dt>
+                    <dd>{b.industry}</dd>
+                  </div>
+                )}
+                {host && (
+                  <div>
+                    <dt>Website</dt>
+                    <dd>
+                      <a href={b.website} target="_blank" rel="noopener noreferrer">
+                        {host} ↗
+                      </a>
+                    </dd>
+                  </div>
+                )}
+              </dl>
+              {b.draft && <span className="ph-flag">Short version · full story coming</span>}
             </div>
           </div>
-          {(b.industry || b.role || host) && (
-            <div className="bh2-facts">
-              {b.industry && (
-                <div>
-                  <small>Industry</small>
-                  <b>{b.industry}</b>
-                </div>
-              )}
-              {b.role && (
-                <div>
-                  <small>Anjan&rsquo;s role</small>
-                  <b>{b.role}</b>
-                </div>
-              )}
-              {host ? (
-                <div>
-                  <small>Website</small>
-                  <b>
-                    <a href={b.website} target="_blank" rel="noopener noreferrer">
-                      {host} ↗
-                    </a>
-                  </b>
-                </div>
-              ) : (
-                categoryName && (
-                  <div>
-                    <small>Listed under</small>
-                    <b>{categoryName}</b>
-                  </div>
-                )
-              )}
-            </div>
-          )}
-          {b.metrics && (
-            <div className="bh2-nums">
+        </div>
+      </section>
+
+      {/* Numbers, when there are real ones. */}
+      {b.metrics && (
+        <section className="bm">
+          <div className="aw">
+            <div className="bm-row">
               {b.metrics.map(([v, l]) => (
                 <div key={l}>
                   <b>{v}</b>
@@ -170,81 +165,97 @@ export default async function BrandPage({ params }: { params: Params }) {
                 </div>
               ))}
             </div>
-          )}
+          </div>
+        </section>
+      )}
+
+      {/* The story: text on the left; photos, quote and case studies on the right. */}
+      <section className="bs">
+        <div className="aw bs-grid">
+          <div className="bs-main">
+            {hasAbout && (
+              <>
+                <span className="lab">{b.aboutHeading ?? "The story"}</span>
+                {b.aboutBody?.length ? (
+                  <PortableText value={b.aboutBody} />
+                ) : (
+                  b.aboutParagraphs?.map((t, i) => (
+                    <p key={i} className={i === 0 ? "bs-first" : undefined}>
+                      {t}
+                    </p>
+                  ))
+                )}
+              </>
+            )}
+
+            {b.services && b.services.length > 0 && (
+              <>
+                <span className="lab bs-lab">{b.source === "cms" ? "Services" : "What I did"}</span>
+                <ol className="bs-steps">
+                  {b.services.map((w, i) => (
+                    <li key={w}>
+                      <span>{String(i + 1).padStart(2, "0")}</span>
+                      {w}
+                    </li>
+                  ))}
+                </ol>
+              </>
+            )}
+
+            {b.results && (
+              <>
+                <span className="lab bs-lab">The results</span>
+                <ul className="bs-results">
+                  {b.results.map((r) => (
+                    <li key={r}>{r}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {b.positioning && (
+              <>
+                <span className="lab bs-lab">Positioning</span>
+                <p>{b.positioning}</p>
+              </>
+            )}
+
+            {b.lesson && (
+              <div className="bs-lesson">
+                <span className="lab">What it taught me</span>
+                <p>{b.lesson}</p>
+              </div>
+            )}
+          </div>
+
+          <aside className="bs-side">
+            <BrandCarousel photos={photos} label={`${b.name} in pictures`} mono={mono} />
+            {b.quote && (
+              <blockquote className="bs-quote">
+                <p>&ldquo;{b.quote[0]}&rdquo;</p>
+                <cite>{b.quote[1]}</cite>
+              </blockquote>
+            )}
+            {b.cases && b.cases.length > 0 && (
+              <div className="bs-cases">
+                <span className="lab">Read the full {b.cases.length > 1 ? "case studies" : "case study"}</span>
+                {b.cases.map((a) => (
+                  <Link href={`/knowledge-hub/${a.slug}`} key={a.slug} className="bs-case">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={a.image} alt="" loading="lazy" />
+                    <span>
+                      <small>{a.readTime}</small>
+                      <b>{a.title}</b>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </aside>
         </div>
       </section>
 
-      {/* B. About */}
-      {hasAbout && (
-        <section className="ba">
-          <div className={`aw ba-grid${b.aboutImage || b.heroImage ? " has-img" : ""}`}>
-            <div className="ba-copy">
-              <span className="lab">About</span>
-              {b.aboutHeading && <h2>{b.aboutHeading}</h2>}
-              {b.aboutBody?.length ? <PortableText value={b.aboutBody} /> : b.aboutParagraphs?.map((p, i) => <p key={i}>{p}</p>)}
-              {b.draft && <span className="ph-flag">Short version · full story coming</span>}
-            </div>
-            {b.aboutImage ? (
-              <figure className="ba-fig">
-                <Image src={sized(b.aboutImage.url, 1000)!} alt={b.aboutImage.alt ?? ""} width={1000} height={1250} sizes="(max-width: 900px) 100vw, 480px" />
-              </figure>
-            ) : b.heroImage ? (
-              <BrandCarousel photos={photos} label={`${b.name} in pictures`} mono={mono} />
-            ) : null}
-          </div>
-        </section>
-      )}
-
-      {/* Built-in extras: results, lesson, quote, case studies. */}
-      {Boolean(b.results || b.lesson || b.quote || b.cases?.length) && (
-        <section className="bs">
-          <div className="aw bs-grid">
-            <div className="bs-main">
-              {b.results && (
-                <>
-                  <span className="lab bs-lab">The results</span>
-                  <ul className="bs-results">
-                    {b.results.map((r) => (
-                      <li key={r}>{r}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-              {b.lesson && (
-                <div className="bs-lesson">
-                  <span className="lab">What it taught me</span>
-                  <p>{b.lesson}</p>
-                </div>
-              )}
-            </div>
-            <aside className="bs-side">
-              {b.quote && (
-                <blockquote className="bs-quote">
-                  <p>&ldquo;{b.quote[0]}&rdquo;</p>
-                  <cite>{b.quote[1]}</cite>
-                </blockquote>
-              )}
-              {b.cases && b.cases.length > 0 && (
-                <div className="bs-cases">
-                  <span className="lab">Read the full {b.cases.length > 1 ? "case studies" : "case study"}</span>
-                  {b.cases.map((a) => (
-                    <Link href={`/knowledge-hub/${a.slug}`} key={a.slug} className="bs-case">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={a.image} alt="" loading="lazy" />
-                      <span>
-                        <small>{a.readTime}</small>
-                        <b>{a.title}</b>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </aside>
-          </div>
-        </section>
-      )}
-
-      {/* C. Gallery grid, for brands with four or more real photos. */}
+      {/* Gallery grid for brands with four or more real photos. */}
       {b.gallery && b.gallery.length >= 4 && (
         <section className="bp" id="photos">
           <div className="aw">
@@ -261,35 +272,7 @@ export default async function BrandPage({ params }: { params: Params }) {
         </section>
       )}
 
-      {/* D. What I did / positioning (industry, role and website live in the hero strip) */}
-      {hasInfo && (
-        <section className="bi">
-          <div className="aw">
-            <dl className="bi-grid">
-              {b.services && b.services.length > 0 && (
-                <div className="wide">
-                  <dt>{b.source === "cms" ? "Services" : "What I did"}</dt>
-                  <dd>
-                    <ul>
-                      {b.services.map((x) => (
-                        <li key={x}>{x}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              )}
-              {b.positioning && (
-                <div>
-                  <dt>Positioning</dt>
-                  <dd>{b.positioning}</dd>
-                </div>
-              )}
-            </dl>
-          </div>
-        </section>
-      )}
-
-      {/* E. Call to action (optional) + Anjan's note for built-in brands */}
+      {/* A note from Anjan, or the editor's CTA, then more brands. */}
       <section className="bn">
         <div className="aw">
           {hasCta ? (
@@ -309,7 +292,7 @@ export default async function BrandPage({ params }: { params: Params }) {
                 </div>
               )}
             </div>
-          ) : b.source === "seed" ? (
+          ) : (
             <div className="bn-card">
               <div className="bn-mark">
                 <ApMark title="Anjan Prasad" />
@@ -328,7 +311,7 @@ export default async function BrandPage({ params }: { params: Params }) {
                 </Link>
               </div>
             </div>
-          ) : null}
+          )}
 
           {others.length > 0 && (
             <div className="more-r">
