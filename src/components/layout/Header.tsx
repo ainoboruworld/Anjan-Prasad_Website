@@ -84,7 +84,7 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
                       children: [
                         ...brands.categories.flatMap((c) => c.brands.map((b) => ({ group: c.name, label: b.name, href: `/brands/${b.slug}` }))),
                         { label: "All brands", href: "/brands" },
-                      ],
+                      ] as NavChild[],
                     }
                   : item0;
               return item.children ? (
@@ -103,7 +103,7 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
                     </svg>
                   </button>
                   <div
-                    className={`menu${item.children.some((c) => c.group) ? " grouped" : ""}`}
+                    className={`menu${item.children.some((c) => c.group) ? " grouped" : ""}${item.children.some((c) => c.desc) ? " described" : ""}`}
                     id={`dd-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {groupChildren(item.children).map(([group, links]) => (
@@ -111,7 +111,14 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
                         {group && <small>{group}</small>}
                         {links.map((c) => (
                           <Link key={c.href} href={c.href} className={isCurrent(c.href) ? "cur" : undefined}>
-                            {c.label}
+                            {c.desc ? (
+                              <>
+                                <b>{c.label}</b>
+                                <small>{c.desc}</small>
+                              </>
+                            ) : (
+                              c.label
+                            )}
                           </Link>
                         ))}
                       </div>
@@ -146,8 +153,11 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
           ×
         </button>
         <small>Programs</small>
-        <Link href="/business-advisory">Business Advisory</Link>
-        <Link href="/mentorship">Mentorship</Link>
+        {NAV.find((n) => n.label === "Programs")?.children?.map((c) => (
+          <Link href={c.href} key={c.href}>
+            {c.label}
+          </Link>
+        ))}
         {brands?.categories.length
           ? brands.categories.map((c, i) => (
               <details key={c.slug} className="mb" open={i === 0}>

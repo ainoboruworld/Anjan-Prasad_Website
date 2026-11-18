@@ -137,6 +137,13 @@ nav .l .dd .menu-g+.menu-g{margin-top:6px;padding-top:6px;border-top:1px solid v
 nav .l .dd .menu-g small{display:block;font:500 10px var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);padding:8px 12px 4px}
 nav .l .dd .menu-g:last-child:not(:first-child) a{font-size:13px;color:var(--harb)!important}
 
+/* Programs dropdown: each item with a one-line description. */
+nav .l .dd .menu.described{min-width:340px;padding:12px}
+nav .l .dd .menu.described a{padding:12px 14px;border-radius:8px}
+nav .l .dd .menu.described a b{display:block;font:400 17px var(--font-serif);color:var(--navy);margin-bottom:3px}
+nav .l .dd .menu.described a small{display:block;font:400 12.5px/1.45 var(--font-sans);color:var(--harb)}
+nav .l .dd .menu.described a.cur b{color:var(--navy)}
+
 /* Mobile sheet: categories as expandable groups with small logos. */
 .mnav details.mb summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding-right:4px}
 .mnav details.mb summary::-webkit-details-marker{display:none}
