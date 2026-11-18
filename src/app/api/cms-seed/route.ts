@@ -5,6 +5,7 @@ import { ARTICLES, type ArticleBlock } from "@/lib/data/articles";
 import { TESTIMONIALS, JOURNEY, LIFE_PHOTOS } from "@/lib/data/site";
 import { AREAS } from "@/lib/data/areas";
 import { VENTURES, COMPANIES_ADVISED, CAREER, FACULTY, logoSrc } from "@/lib/data/brands";
+import { BRAND_PAGES, brandLogo } from "@/lib/data/brandPages";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -690,6 +691,48 @@ export async function GET(req: Request) {
         ...(colour ? { colourLogo: { _type: "image", asset: { _type: "reference", _ref: colour } } } : {}),
       });
     }
+  }
+
+  // Brands menu + brand pages: two categories and one document per built-in
+  // brand, each with its logo uploaded, so the Studio starts full. Existing
+  // documents are left exactly as the editor last saved them.
+  const brandCats = [
+    { id: "brand-category-built", slug: "built", name: "Brands built", kind: "founded", order: 1 },
+    { id: "brand-category-advised", slug: "advised", name: "Brands advised", kind: "advised", order: 2 },
+  ] as const;
+  for (const c of brandCats) {
+    await createIfMissing({ _id: c.id, _type: "brandCategory", name: c.name, slug: { _type: "slug", current: c.slug }, order: c.order, active: true });
+  }
+  for (let i = 0; i < BRAND_PAGES.length; i++) {
+    const b = BRAND_PAGES[i];
+    const id = `brand-${b.slug}`;
+    const existing = await client.getDocument(id).catch(() => null);
+    if (existing) {
+      skipped.push(id);
+      continue;
+    }
+    const cat = brandCats.find((c) => c.kind === b.kind) ?? brandCats[0];
+    const logoPath = brandLogo(b.slug);
+    const logoAsset = logoPath ? await uploadImage(logoPath) : null;
+    const toBlocks = (paras: string[]) =>
+      paras.map((t, k) => ({ _type: "block", _key: `p${k}`, style: "normal", markDefs: [], children: [{ _type: "span", _key: `s${k}`, text: t, marks: [] }] }));
+    await createIfMissing({
+      _id: id,
+      _type: "brand",
+      name: b.name,
+      slug: { _type: "slug", current: b.slug },
+      category: { _type: "reference", _ref: cat.id },
+      published: true,
+      order: i + 1,
+      role: b.role,
+      shortDescription: b.headline,
+      aboutHeading: b.challenge ? "The challenge" : undefined,
+      aboutBody: toBlocks([...b.story, ...(b.challenge ? [b.challenge] : [])]),
+      industry: b.sector,
+      services: b.work,
+      website: b.website,
+      ...(logoAsset ? { logo: { _type: "image", asset: { _type: "reference", _ref: logoAsset } } } : {}),
+    });
   }
 
   // Venture upgrades: Lushful's role changed and Filing Buddy left the

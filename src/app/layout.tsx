@@ -3,6 +3,7 @@ import { Geist, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { Header } from "@/components/layout/Header";
+import { getBrandsMenu } from "@/lib/brands";
 import { Footer } from "@/components/layout/Footer";
 import { Loader } from "@/components/shared/Loader";
 import { NewsletterPopup } from "@/components/shared/NewsletterPopup";
@@ -97,7 +98,8 @@ const PERSON_JSONLD = {
   sameAs: [SITE.linkedin, SITE.instagram, SITE.youtube, SITE.substack, SITE.twitter],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const brandsMenu = await getBrandsMenu();
   return (
     <html lang="en" className={`${geist.variable} ${instrumentSerif.variable}`}>
       <body>
@@ -105,7 +107,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <QueryProvider>
           <SiteChrome>
             <Loader />
-            <Header />
+            <Header brands={brandsMenu} />
           </SiteChrome>
           {children}
           <SiteChrome>

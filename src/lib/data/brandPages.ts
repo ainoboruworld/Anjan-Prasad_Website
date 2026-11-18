@@ -242,8 +242,14 @@ export function brandPage(slug: string): BrandPage | undefined {
   return BRAND_PAGES.find((b) => b.slug === slug);
 }
 
-export function brandLogo(slug: string): string {
-  return HAS_TILE.has(slug) ? tileSrc(slug) : logoSrc(slug, true);
+/** Brands that ship a colour logo file but no white tile. */
+const COLOUR_ONLY = new Set(["pinkfly", "auxman", "fundamentals", "sapiens"]);
+
+/** Local logo path, or undefined when no file exists for the brand. */
+export function brandLogo(slug: string): string | undefined {
+  if (HAS_TILE.has(slug)) return tileSrc(slug);
+  if (COLOUR_ONLY.has(slug)) return logoSrc(slug, true);
+  return undefined;
 }
 
 export const BRAND_KIND_LABEL: Record<BrandKind, string> = {

@@ -81,3 +81,27 @@ label and link, an optional image (a cut-out on a transparent background sits
 best on the arch), optional "show from / show until" dates, and an order
 number. Toggle **Enabled** to hide a slide without deleting it. Changes appear
 on the site within five minutes. With no extra slides the hero is static.
+
+## Brands (menu + brand pages)
+
+Open **Brands** in the Studio.
+
+- **Categories**: the groups in the Brands menu ("Brands built", "Brands
+  advised"). Add one with a name, generate its slug, set an order, keep it
+  active. An inactive category hides itself and its brands.
+- **All brands**: one document per brand. Required: name, page URL (generate
+  from the name), category. Everything else is optional and its section on the
+  brand page appears only when filled: short description and hero image (Hero),
+  about heading and text with an optional image (About), gallery images with
+  captions (Gallery, drag to reorder), industry, services, positioning and
+  website (Information), CTA heading, description, button text and link
+  (Call to action). **Menu preview image** is what shows on the right of the
+  menu when the brand is hovered; without it the logo is used. **Published**
+  off hides the brand everywhere. **Display order** sorts within the category.
+
+Until a brand exists in the Studio, the site shows the built-in version of
+that brand; once you create the document with the same page URL, your fields
+win and the built-in extras (numbers, lesson, case-study links) stay. Run
+`/api/cms-seed?run=1` once to create the two categories and the nine built-in
+brands with their logos, so you edit rather than start from scratch.
+Changes appear on the site within five minutes.
