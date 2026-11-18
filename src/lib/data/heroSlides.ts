@@ -67,4 +67,14 @@ export const SAMPLE_SLIDES: HeroSlide[] = [
     imageUrl: HERO_DEFAULTS.imageUrl,
     imageAlt: HERO_DEFAULTS.imageAlt,
   },
+  {
+    id: "sample-letter",
+    eyebrow: "The weekly letter",
+    heading: "One operator’s letter. *Every week.*",
+    body: "Playbooks, margins and field notes on building profitable businesses in India. No motivation, only method.",
+    ctaLabel: "Read the latest",
+    ctaHref: "/knowledge-hub",
+    imageUrl: HERO_DEFAULTS.imageUrl,
+    imageAlt: HERO_DEFAULTS.imageAlt,
+  },
 ];
