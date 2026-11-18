@@ -19,6 +19,8 @@ export interface NavChild {
   href: string;
   /** Optional group heading inside the dropdown, e.g. "Brands built". */
   group?: string;
+  /** Optional one-line description shown under the label (Programs menu). */
+  desc?: string;
 }
 export interface NavItem {
   label: string;
@@ -31,8 +33,10 @@ export const NAV: NavItem[] = [
     label: "Programs",
     href: "/business-advisory",
     children: [
-      { label: "Business Advisory", href: "/business-advisory" },
-      { label: "Mentorship", href: "/mentorship" },
+      { label: "Business Advisory", href: "/business-advisory", desc: "One decision, one focused session, or an ongoing seat at your table." },
+      { label: "Business Coaching", href: "/business-coaching", desc: "Regular one-to-one sessions to sharpen how you lead and decide." },
+      { label: "Mentorship", href: "/mentorship", desc: "A long-term seat at your table for early-stage founders." },
+      { label: "Workshops", href: "/workshops", desc: "Half-day and full-day sessions for teams and cohorts." },
     ],
   },
   {
