@@ -45,3 +45,41 @@ export function defaultSlide(sec?: PageSection): HeroSlide {
   };
 }
 
+
+/**
+ * Sample slides shown only while Sanity has no hero banners or text slides,
+ * so the slideshow can be seen working. The first published banner or slide
+ * in the Studio replaces them.
+ */
+export const SAMPLE_SLIDES: HeroSlide[] = [
+  {
+    id: "sample-offer",
+    eyebrow: "Limited · this month",
+    heading: "Founder’s Diagnostic: *five seats this month.*",
+    body: "One 90-minute session on the decision in front of you. You bring the numbers; I bring seventeen years of having been wrong first.",
+    ctaLabel: "Book a seat",
+    ctaHref: "/business-advisory#capply",
+    imageUrl: HERO_DEFAULTS.imageUrl,
+    imageAlt: HERO_DEFAULTS.imageAlt,
+  },
+  {
+    id: "sample-mentorship",
+    eyebrow: "Mentorship · applications open",
+    heading: "A seat at your table, *for the whole journey.*",
+    body: "Long-term mentorship for a small number of early-stage founders. Sometimes with equity, always with skin in the game.",
+    ctaLabel: "Apply for mentorship",
+    ctaHref: "/mentorship",
+    imageUrl: HERO_DEFAULTS.imageUrl,
+    imageAlt: HERO_DEFAULTS.imageAlt,
+  },
+  {
+    id: "sample-letter",
+    eyebrow: "The weekly letter",
+    heading: "One operator’s letter. *Every week.*",
+    body: "Playbooks, margins and field notes on building profitable businesses in India. No motivation, only method.",
+    ctaLabel: "Read the latest",
+    ctaHref: "/knowledge-hub",
+    imageUrl: HERO_DEFAULTS.imageUrl,
+    imageAlt: HERO_DEFAULTS.imageAlt,
+  },
+];
