@@ -132,7 +132,7 @@ nav .l .dd .menu-g small{display:block;font:500 10.5px var(--font-sans);letter-s
 .faq-item p{font:400 16.5px/1.7 var(--font-sans);color:#1d2b3d;margin:0 0 22px;max-width:72ch}
 
 /* Brands dropdown: the Programs menu, with two small group headings. */
-nav .l .dd .menu.grouped{min-width:230px;padding:10px}
+nav .l .dd .menu.grouped{display:block;min-width:230px;padding:10px}
 nav .l .dd .menu-g+.menu-g{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
 nav .l .dd .menu-g small{display:block;font:500 10px var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);padding:8px 12px 4px}
 nav .l .dd .menu-g:last-child:not(:first-child) a{font-size:13px;color:var(--harb)!important}
