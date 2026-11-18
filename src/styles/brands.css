@@ -131,18 +131,20 @@ nav .l .dd .menu-g small{display:block;font:500 10.5px var(--font-sans);letter-s
 .faq-item[open] summary span{transform:rotate(45deg);border-color:#CDB27A;color:#CDB27A}
 .faq-item p{font:400 16.5px/1.7 var(--font-sans);color:#1d2b3d;margin:0 0 22px;max-width:72ch}
 
-/* Brands dropdown: the Programs menu, with two small group headings. */
-nav .l .dd .menu.grouped{display:block;min-width:230px;padding:10px}
-nav .l .dd .menu-g+.menu-g{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
-nav .l .dd .menu-g small{display:block;font:500 10px var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);padding:8px 12px 4px}
-nav .l .dd .menu-g:last-child:not(:first-child) a{font-size:13px;color:var(--harb)!important}
-
-/* Programs dropdown: each item with a one-line description. */
-nav .l .dd .menu.described{min-width:340px;padding:12px}
-nav .l .dd .menu.described a{padding:12px 14px;border-radius:8px}
-nav .l .dd .menu.described a b{display:block;font:400 17px var(--font-serif);color:var(--navy);margin-bottom:3px}
-nav .l .dd .menu.described a small{display:block;font:400 12.5px/1.45 var(--font-sans);letter-spacing:0;text-transform:none;color:var(--harb);padding:0}
-nav .l .dd .menu.described a.cur b{color:var(--navy)}
+/* Brands dropdown: two rows that expand in place to show their brands. */
+nav .l .dd .menu.acc{min-width:240px;padding:8px}
+nav .l .dd .menu.acc .acc-g>button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:10px 12px;border:0;border-radius:8px;background:none;font:inherit;font-size:14.5px;color:var(--harb);cursor:pointer;transition:background .2s,color .2s}
+nav .l .dd .menu.acc .acc-g>button span{color:var(--slate);font-size:17px;line-height:1;transition:transform .25s}
+nav .l .dd .menu.acc .acc-g>button:hover,nav .l .dd .menu.acc .acc-g.on>button{background:var(--mist);color:var(--navy)}
+nav .l .dd .menu.acc .acc-g.on>button span{transform:rotate(45deg)}
+nav .l .dd .menu.acc .acc-list{padding:4px 0 6px 10px;animation:accIn .22s ease both}
+@keyframes accIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+nav .l .dd .menu.acc .acc-list a{display:block;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--navy)!important;opacity:.85!important}
+nav .l .dd .menu.acc .acc-list a:hover{background:var(--mist);opacity:1!important}
+nav .l .dd .menu.acc .acc-list a::after{display:none!important}
+nav .l .dd .menu.acc .all{display:block;margin-top:6px;padding:10px 12px;border-top:1px solid var(--line);font:500 11px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--harb)!important;opacity:1!important}
+nav .l .dd .menu.acc .all::after{display:none!important}
+@media(prefers-reduced-motion:reduce){nav .l .dd .menu.acc .acc-list{animation:none}}
 
 /* Mobile sheet: categories as expandable groups with small logos. */
 .mnav details.mb summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding-right:4px}

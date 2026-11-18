@@ -33,10 +33,10 @@ export const NAV: NavItem[] = [
     label: "Programs",
     href: "/business-advisory",
     children: [
-      { label: "Business Advisory", href: "/business-advisory", desc: "One decision, one focused session, or an ongoing seat at your table." },
-      { label: "Business Coaching", href: "/business-coaching", desc: "Regular one-to-one sessions to sharpen how you lead and decide." },
-      { label: "Mentorship", href: "/mentorship", desc: "A long-term seat at your table for early-stage founders." },
-      { label: "Workshops", href: "/workshops", desc: "Half-day and full-day sessions for teams and cohorts." },
+      { label: "Business Advisory", href: "/business-advisory" },
+      { label: "Business Coaching", href: "/business-coaching" },
+      { label: "Mentorship", href: "/mentorship" },
+      { label: "Workshops", href: "/workshops" },
     ],
   },
   {
