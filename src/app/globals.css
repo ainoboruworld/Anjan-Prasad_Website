@@ -9,6 +9,7 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "../styles/site.css";
 @import "../styles/brands.css";
+@import "../styles/hero-slideshow.css";
 
 /* Brand fonts come from next/font (see src/app/layout.tsx). */
 :root {

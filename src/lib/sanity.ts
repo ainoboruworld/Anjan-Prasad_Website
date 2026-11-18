@@ -189,6 +189,7 @@ export async function getQuotes(): Promise<SiteQuote[] | null> {
 }
 
 import type { PageSection, Sections } from "./sections";
+import { HERO_DEFAULTS, type HeroSlide } from "./data/heroSlides";
 export { splitEm, secHeading } from "./sections";
 export type { SectionItem, PageSection, Sections } from "./sections";
 
@@ -209,6 +210,54 @@ export async function getSections(): Promise<Sections> {
   }
 }
 
+interface HeroSlideRow {
+  _id: string;
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  align?: "left" | "center";
+  imageSide?: "right" | "left";
+}
+
+/**
+ * Extra home-hero slides: enabled, inside their date window, in order.
+ * The main hero is not among them; the page adds it as slide 1.
+ */
+export async function getHeroSlides(): Promise<HeroSlide[]> {
+  const sanity = getSanityClient();
+  if (!sanity) return [];
+  try {
+    const rows = await sanity.fetch<HeroSlideRow[]>(
+      `*[_type == "heroSlide" && enabled != false && defined(heading)
+        && (!defined(startsAt) || startsAt <= now()) && (!defined(endsAt) || endsAt >= now())]
+        | order(order asc, _createdAt asc){
+          _id, eyebrow, heading, body, ctaLabel, ctaHref, align, imageSide,
+          "imageUrl": image.asset->url, "imageAlt": image.alt
+        }`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return rows.map((r) => ({
+      id: r._id,
+      eyebrow: r.eyebrow || undefined,
+      heading: r.heading!,
+      body: r.body || undefined,
+      ctaLabel: r.ctaLabel || HERO_DEFAULTS.ctaLabel,
+      ctaHref: r.ctaHref || HERO_DEFAULTS.ctaHref,
+      imageUrl: r.imageUrl || HERO_DEFAULTS.imageUrl,
+      imageAlt: r.imageAlt || HERO_DEFAULTS.imageAlt,
+      align: r.align,
+      imageSide: r.imageSide,
+    }));
+  } catch (err) {
+    console.warn("[sanity] hero slides fetch failed:", (err as Error).message);
+    return [];
+  }
+}
 
 export interface SiteSeo {
   metaTitle?: string;

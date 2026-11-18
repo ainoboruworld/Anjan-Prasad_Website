@@ -31,6 +31,7 @@ export const structure: StructureResolver = (S) =>
               )
             )
         ),
+      S.documentTypeListItem("heroSlide").title("Home hero slides"),
       S.divider(),
       S.listItem()
         .title("Blog Posts")
