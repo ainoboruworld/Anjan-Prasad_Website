@@ -82,9 +82,8 @@ image (**900 × 1800 px**, 1:2), alt text (the banner's message in one line),
 the destination link for the whole banner, order, and optional show-from /
 show-until dates. **Safe zone:** the site header floats over the top 150 px of
 the hero (about the top 18% of the artwork), and the arrows and dots sit
-bottom-left, so keep headlines and buttons out of those corners. **Enabled** off hides it. Until the first banner exists,
-three built-in samples from `public/banners/` rotate; publishing one banner
-replaces them. Changes appear within five minutes.
+bottom-left, so keep headlines and buttons out of those corners. **Enabled** off hides it. Until the first banner or text slide exists, three built-in sample text
+slides rotate; publishing one banner replaces them. Changes appear within five minutes.
 
 ## Home hero text slides
 
