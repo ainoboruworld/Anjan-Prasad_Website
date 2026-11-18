@@ -81,6 +81,8 @@ label and link, an optional image (a cut-out on a transparent background sits
 best on the arch), optional "show from / show until" dates, and an order
 number. Toggle **Enabled** to hide a slide without deleting it. Changes appear
 on the site within five minutes. With no extra slides the hero is static.
+The seed route creates two draft slides (an offer and mentorship), switched
+off: edit the copy and tick **Enabled** to start the slideshow.
 
 ## Brands (menu + brand pages)
 
