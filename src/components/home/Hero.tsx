@@ -1,5 +1,5 @@
 import { HeroSlideshow } from "./HeroSlideshow";
-import { SAMPLE_BANNERS, defaultSlide, type HeroSlide } from "@/lib/data/heroSlides";
+import { SAMPLE_SLIDES, defaultSlide, type HeroSlide } from "@/lib/data/heroSlides";
 import type { PageSection } from "@/lib/sanity";
 
 /**
@@ -19,7 +19,7 @@ export function Hero({
   banners?: HeroSlide[];
 }) {
   if (sec?.hidden) return null;
-  // Until the Studio has banners of its own, three samples show the slideshow working.
-  const extra = banners.length || slides.length ? [...banners, ...slides] : SAMPLE_BANNERS;
+  // Until the Studio has banners or slides of its own, three sample text slides show the slideshow working.
+  const extra = banners.length || slides.length ? [...banners, ...slides] : SAMPLE_SLIDES;
   return <HeroSlideshow slides={[defaultSlide(sec), ...extra]} />;
 }
