@@ -71,3 +71,13 @@ currently seed-only (defined in `src/lib/data/articles.ts`).
 
 Suggested categories: Business, Startup, Marketing, Society, Politics,
 Spirituality.
+
+## Home hero slides
+
+The home hero is a slideshow. Slide 1 is always **Pages → Home → Hero**. To add
+more banners, open **Home hero slides** in the Studio and create a document:
+internal name, heading (wrap the blue italic part in asterisks), text, button
+label and link, an optional image (a cut-out on a transparent background sits
+best on the arch), optional "show from / show until" dates, and an order
+number. Toggle **Enabled** to hide a slide without deleting it. Changes appear
+on the site within five minutes. With no extra slides the hero is static.
