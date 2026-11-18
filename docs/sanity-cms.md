@@ -80,7 +80,8 @@ internal name, heading (wrap the blue italic part in asterisks), text, button
 label and link, an optional image (a cut-out on a transparent background sits
 best on the arch), optional "show from / show until" dates, and an order
 number. Toggle **Enabled** to hide a slide without deleting it. Changes appear
-on the site within five minutes. With no extra slides the hero is static.
+on the site within five minutes. While the Studio has no slides, two built-in samples rotate so the slideshow
+can be seen; the first published slide replaces them.
 The seed route creates two draft slides (an offer and mentorship), switched
 off: edit the copy and tick **Enabled** to start the slideshow.
 
