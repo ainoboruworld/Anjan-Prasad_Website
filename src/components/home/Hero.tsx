@@ -1,5 +1,5 @@
 import { HeroSlideshow } from "./HeroSlideshow";
-import { defaultSlide, type HeroSlide } from "@/lib/data/heroSlides";
+import { SAMPLE_SLIDES, defaultSlide, type HeroSlide } from "@/lib/data/heroSlides";
 import type { PageSection } from "@/lib/sanity";
 
 /**
@@ -9,5 +9,7 @@ import type { PageSection } from "@/lib/sanity";
  */
 export function Hero({ sec = {} as PageSection, slides = [] }: { sec?: PageSection; slides?: HeroSlide[] }) {
   if (sec?.hidden) return null;
-  return <HeroSlideshow slides={[defaultSlide(sec), ...slides]} />;
+  // Until the Studio has slides of its own, two samples show the slideshow working.
+  const extra = slides.length ? slides : SAMPLE_SLIDES;
+  return <HeroSlideshow slides={[defaultSlide(sec), ...extra]} />;
 }
