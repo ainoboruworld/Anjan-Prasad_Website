@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { ApMark } from "@/components/brand/ApMark";
+import { BrandCarousel } from "@/components/brands/BrandCarousel";
 import { getAllBrands, getBrand, type Brand } from "@/lib/brands";
 import { sized } from "@/lib/sanity-image";
 import { env } from "@/lib/env";
@@ -64,8 +65,15 @@ export default async function BrandPage({ params }: { params: Params }) {
   const heroCtaHref = b.heroCtaHref ?? b.website;
   const heroCtaLabel = b.heroCtaLabel ?? (host ? `Visit ${host}` : undefined);
   const hasAbout = Boolean(b.aboutBody?.length || b.aboutParagraphs?.length);
-  const hasInfo = Boolean(b.industry || b.services?.length || b.positioning || b.website || b.role);
+  // When the hero strip shows numbers, the Information section carries industry,
+  // role and website; otherwise the strip already shows them.
+  const inStrip = !b.metrics;
+  const hasInfo = Boolean(b.services?.length || b.positioning || (!inStrip && (b.industry || b.website || b.role)));
   const hasCta = Boolean(b.ctaHeading || b.ctaLabel);
+  const mono = b.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
+  const photos = b.gallery?.length
+    ? b.gallery.map((g) => ({ src: sized(g.url, 1200), alt: g.alt, caption: g.caption }))
+    : [{ caption: `${b.name} · photo 1` }, { caption: `${b.name} · photo 2` }, { caption: `${b.name} · photo 3` }];
 
   const jsonLd = [
     {
@@ -91,71 +99,99 @@ export default async function BrandPage({ params }: { params: Params }) {
     <main className="pg on" id="main" data-p="brand">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* A. Hero */}
-      <section className="bh">
+      {/* A. Hero: name, one line, action, then the numbers and facts as a quiet strip. */}
+      <section className="bh v2">
         <div className="aw">
           <Link href="/brands" className="back">
             ← All brands
           </Link>
-          <div className="bh-top">
-            <Logo b={b} large />
-            <div className="bh-copy">
+          <div className="bh2">
+            <div className="bh2-copy">
+              <Logo b={b} large />
               {b.role && <span className="lab">{b.role}</span>}
               <h1>{b.name}</h1>
               {b.shortDescription && <p className="bh-line">{b.shortDescription}</p>}
-              {heroCtaHref && heroCtaLabel && (
-                <div className="bh-actions">
+              <div className="bh-actions">
+                {heroCtaHref && heroCtaLabel && (
                   <a href={heroCtaHref} className="cta" target={heroCtaHref.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
                     {heroCtaLabel} <span>{heroCtaHref.startsWith("http") ? "↗" : "→"}</span>
                   </a>
-                </div>
+                )}
+                {b.cases && b.cases.length > 0 && (
+                  <Link href={`/knowledge-hub/${b.cases[0].slug}`} className="bh-alt">
+                    Read the case study →
+                  </Link>
+                )}
+              </div>
+            </div>
+            <div className="bh2-media">
+              {b.heroImage ? (
+                <figure className="bh2-fig">
+                  <Image src={sized(b.heroImage.url, 1400)!} alt={b.heroImage.alt ?? ""} width={1400} height={1050} priority sizes="(max-width: 900px) 100vw, 560px" />
+                </figure>
+              ) : (
+                <BrandCarousel photos={photos} label={`${b.name} in pictures`} mono={mono} />
               )}
             </div>
           </div>
-          {b.heroImage && (
-            <figure className="bh-fig">
-              <Image src={sized(b.heroImage.url, 1800)!} alt={b.heroImage.alt ?? ""} width={1800} height={900} priority sizes="(max-width: 900px) 100vw, 1320px" />
-            </figure>
-          )}
-        </div>
-      </section>
-
-      {b.metrics && (
-        <section className="bm">
-          <div className="aw">
-            <div className="bm-row">
-              {b.metrics.map(([v, l]) => (
-                <div key={l}>
+          {(b.metrics || b.industry || b.role || host) && (
+            <div className="bh2-facts">
+              {b.metrics?.map(([v, l]) => (
+                <div key={l} className="num">
                   <b>{v}</b>
                   <small>{l}</small>
                 </div>
               ))}
+              {!b.metrics && b.industry && (
+                <div>
+                  <small>Industry</small>
+                  <b>{b.industry}</b>
+                </div>
+              )}
+              {!b.metrics && b.role && (
+                <div>
+                  <small>Anjan&rsquo;s role</small>
+                  <b>{b.role}</b>
+                </div>
+              )}
+              {!b.metrics && host && (
+                <div>
+                  <small>Website</small>
+                  <b>
+                    <a href={b.website} target="_blank" rel="noopener noreferrer">
+                      {host} ↗
+                    </a>
+                  </b>
+                </div>
+              )}
             </div>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
 
       {/* B. About */}
       {hasAbout && (
         <section className="ba">
-          <div className={`aw ba-grid${b.aboutImage ? " has-img" : ""}`}>
+          <div className={`aw ba-grid${b.aboutImage || b.heroImage ? " has-img" : ""}`}>
             <div className="ba-copy">
               <span className="lab">About</span>
               {b.aboutHeading && <h2>{b.aboutHeading}</h2>}
               {b.aboutBody?.length ? <PortableText value={b.aboutBody} /> : b.aboutParagraphs?.map((p, i) => <p key={i}>{p}</p>)}
               {b.draft && <span className="ph-flag">Short version · full story coming</span>}
             </div>
-            {b.aboutImage && (
+            {b.aboutImage ? (
               <figure className="ba-fig">
                 <Image src={sized(b.aboutImage.url, 1000)!} alt={b.aboutImage.alt ?? ""} width={1000} height={1250} sizes="(max-width: 900px) 100vw, 480px" />
               </figure>
-            )}
+            ) : b.heroImage ? (
+              <BrandCarousel photos={photos} label={`${b.name} in pictures`} mono={mono} />
+            ) : null}
           </div>
         </section>
       )}
 
       {/* Built-in extras: results, lesson, quote, case studies. */}
-      {(b.results || b.lesson || b.quote || b.cases?.length) && (
+      {Boolean(b.results || b.lesson || b.quote || b.cases?.length) && (
         <section className="bs">
           <div className="aw bs-grid">
             <div className="bs-main">
@@ -203,8 +239,8 @@ export default async function BrandPage({ params }: { params: Params }) {
         </section>
       )}
 
-      {/* C. Gallery */}
-      {b.gallery && b.gallery.length > 0 && (
+      {/* C. Gallery grid, for brands with four or more real photos. */}
+      {b.gallery && b.gallery.length >= 4 && (
         <section className="bp" id="photos">
           <div className="aw">
             <span className="lab">In pictures</span>
@@ -225,13 +261,13 @@ export default async function BrandPage({ params }: { params: Params }) {
         <section className="bi">
           <div className="aw">
             <dl className="bi-grid">
-              {b.industry && (
+              {!inStrip && b.industry && (
                 <div>
                   <dt>Industry</dt>
                   <dd>{b.industry}</dd>
                 </div>
               )}
-              {b.role && (
+              {!inStrip && b.role && (
                 <div>
                   <dt>Anjan&rsquo;s role</dt>
                   <dd>{b.role}</dd>
@@ -255,7 +291,7 @@ export default async function BrandPage({ params }: { params: Params }) {
                   <dd>{b.positioning}</dd>
                 </div>
               )}
-              {host && (
+              {!inStrip && host && (
                 <div>
                   <dt>Website</dt>
                   <dd>
