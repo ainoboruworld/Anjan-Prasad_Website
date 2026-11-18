@@ -259,6 +259,36 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
   }
 }
 
+/** Full-image hero banners: enabled, inside their date window, in order. */
+export async function getHeroBanners(): Promise<HeroSlide[]> {
+  const sanity = getSanityClient();
+  if (!sanity) return [];
+  try {
+    const rows = await sanity.fetch<{ _id: string; alt?: string; href?: string; imageUrl?: string; mobileUrl?: string }[]>(
+      `*[_type == "heroBanner" && enabled != false && defined(image)
+        && (!defined(startsAt) || startsAt <= now()) && (!defined(endsAt) || endsAt >= now())]
+        | order(order asc, _createdAt asc){ _id, alt, href, "imageUrl": image.asset->url, "mobileUrl": mobileImage.asset->url }`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return rows
+      .filter((r) => r.imageUrl)
+      .map((r) => ({
+        id: r._id,
+        kind: "image" as const,
+        heading: r.alt ?? "",
+        ctaLabel: "",
+        ctaHref: r.href || HERO_DEFAULTS.ctaHref,
+        imageUrl: r.imageUrl!,
+        imageAlt: r.alt ?? "",
+        banner: { desktop: r.imageUrl!, mobile: r.mobileUrl || undefined, href: r.href || HERO_DEFAULTS.ctaHref },
+      }));
+  } catch (err) {
+    console.warn("[sanity] hero banners fetch failed:", (err as Error).message);
+    return [];
+  }
+}
+
 /* ── Brands (menu + pages) ─────────────────────────────────────────────── */
 
 export interface CmsBrandCategory {

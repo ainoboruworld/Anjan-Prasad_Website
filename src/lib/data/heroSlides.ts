@@ -7,6 +7,10 @@ import type { PageSection } from "@/lib/sections";
  */
 export interface HeroSlide {
   id: string;
+  /** "text" (default): the composed hero. "image": one complete banner artwork. */
+  kind?: "text" | "image";
+  /** Image banners: desktop artwork, optional mobile artwork, and where it links. */
+  banner?: { desktop: string; mobile?: string; href: string };
   eyebrow?: string;
   /** May carry the `*italic part*` convention; split with `splitEm`. */
   heading: string;
@@ -42,39 +46,39 @@ export function defaultSlide(sec?: PageSection): HeroSlide {
 }
 
 /**
- * Sample slides shown only while Sanity has no Hero slide documents, so the
- * slideshow can be seen working. The first published slide in the Studio
- * replaces them. Edit or remove freely.
+ * Sample banners shown only while Sanity has no Hero banner documents, so the
+ * image slideshow can be seen working. Replace them in the Studio; the first
+ * published banner there retires these. Artwork lives in public/banners/.
  */
-export const SAMPLE_SLIDES: HeroSlide[] = [
+export const SAMPLE_BANNERS: HeroSlide[] = [
+  {
+    id: "sample-advisory",
+    kind: "image",
+    heading: "Business Advisory: clear decisions for founders who are building for the long run.",
+    ctaLabel: "Book a consultation",
+    ctaHref: "/business-advisory#capply",
+    imageUrl: "/banners/sample-advisory.jpg",
+    imageAlt: "Business Advisory: clear decisions for founders who are building for the long run. Book a consultation.",
+    banner: { desktop: "/banners/sample-advisory.jpg", mobile: "/banners/sample-advisory-mobile.jpg", href: "/business-advisory#capply" },
+  },
+  {
+    id: "sample-growth",
+    kind: "image",
+    heading: "Business Growth: from zero to ₹2.5 Cr ARR, one decision at a time.",
+    ctaLabel: "See how it was done",
+    ctaHref: "/knowledge-hub/case-study-lushful",
+    imageUrl: "/banners/sample-growth.jpg",
+    imageAlt: "Business Growth: from zero to ₹2.5 Cr ARR, one decision at a time. See how it was done.",
+    banner: { desktop: "/banners/sample-growth.jpg", mobile: "/banners/sample-growth-mobile.jpg", href: "/knowledge-hub/case-study-lushful" },
+  },
   {
     id: "sample-offer",
-    eyebrow: "Limited · this month",
-    heading: "Founder’s Diagnostic: *five seats this month.*",
-    body: "One 90-minute session on the decision in front of you. You bring the numbers; I bring seventeen years of having been wrong first.",
+    kind: "image",
+    heading: "Founder’s Diagnostic: five seats this month.",
     ctaLabel: "Book a seat",
     ctaHref: "/business-advisory#capply",
-    imageUrl: HERO_DEFAULTS.imageUrl,
-    imageAlt: HERO_DEFAULTS.imageAlt,
-  },
-  {
-    id: "sample-mentorship",
-    eyebrow: "Mentorship · applications open",
-    heading: "A seat at your table, *for the whole journey.*",
-    body: "Long-term mentorship for a small number of early-stage founders. Sometimes with equity, always with skin in the game.",
-    ctaLabel: "Apply for mentorship",
-    ctaHref: "/mentorship",
-    imageUrl: HERO_DEFAULTS.imageUrl,
-    imageAlt: HERO_DEFAULTS.imageAlt,
-  },
-  {
-    id: "sample-letter",
-    eyebrow: "The weekly letter",
-    heading: "One operator’s letter. *Every week.*",
-    body: "Playbooks, margins and field notes on building profitable businesses in India. No motivation, only method.",
-    ctaLabel: "Read the latest",
-    ctaHref: "/knowledge-hub",
-    imageUrl: HERO_DEFAULTS.imageUrl,
-    imageAlt: HERO_DEFAULTS.imageAlt,
+    imageUrl: "/banners/sample-offer.jpg",
+    imageAlt: "Limited this month. Founder’s Diagnostic: five seats this month. Book a seat.",
+    banner: { desktop: "/banners/sample-offer.jpg", mobile: "/banners/sample-offer-mobile.jpg", href: "/business-advisory#capply" },
   },
 ];

@@ -13,6 +13,19 @@
 .hero.has-slides .slide .stage{z-index:2}
 .hero.has-slides .slide .wrap{z-index:4}
 
+/* Full-image banners: the artwork fills the hero exactly as slide 1 sizes it. */
+.hero.has-slides .slide-img{display:block;position:absolute;inset:0;overflow:hidden;background:var(--navy)}
+.hero.has-slides .slide-img picture,.hero.has-slides .slide-img img{display:block;width:100%;height:100%}
+.hero.has-slides .slide-img img{object-fit:cover;object-position:center;transform:scale(1.02);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.hero.has-slides .slide-img.is-active img{transform:scale(1)}
+.hero.has-slides .slide-img:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+/* The site header floats over the hero, so banner slides get a soft light
+   fade across the top: the logo and nav stay readable on any artwork. */
+.hero.has-slides .slide-img::after{content:"";position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,rgba(244,241,235,.92) 0%,rgba(244,241,235,.6) 45%,rgba(244,241,235,0) 100%);pointer-events:none}
+@media(max-width:900px){.hero.has-slides .slide-img::after{height:120px}}
+/* Controls sit over the artwork on banner slides, so give them a soft backing. */
+.hero.has-slides .sl-ctl{padding:4px 8px;border-radius:30px;background:rgba(244,241,235,.72);backdrop-filter:blur(8px)}
+
 /* Image: a barely visible settle on arrival, no continuous drift. */
 .hero.has-slides .fig{transform:translateX(-50%) scale(1.035);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
 .hero.has-slides .slide.is-active .fig{transform:translateX(-50%) scale(1)}
@@ -54,7 +67,7 @@
 /* Phones: each slide keeps the portrait-first column; controls sit after
    the text instead of floating over it. */
 @media(max-width:900px){
-.hero.has-slides .slide{display:flex;flex-direction:column}
+.hero.has-slides .slide:not(.slide-img){display:flex;flex-direction:column}
 .hero.has-slides .slide[data-side="left"] .stage{left:auto}
 .hero.has-slides .slide[data-side="left"] .wrap,.hero.has-slides .slide[data-side="left"] .sl-text{align-items:flex-start;text-align:left}
 .hero.has-slides .slide .wrap{padding-bottom:56px}
@@ -62,5 +75,5 @@
 }
 
 @media(prefers-reduced-motion:reduce){
-.hero.has-slides .slide,.hero.has-slides .fig,.hero.has-slides .sl-text>*{transition:none}
+.hero.has-slides .slide,.hero.has-slides .fig,.hero.has-slides .slide-img img,.hero.has-slides .sl-text>*{transition:none}
 }

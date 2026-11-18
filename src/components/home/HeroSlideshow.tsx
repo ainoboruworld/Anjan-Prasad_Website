@@ -90,8 +90,29 @@ export function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
       {slides.map((s, i) => {
         const title = splitEm(s.heading);
         const isActive = i === active;
-        const Wrapper = many ? "div" : "span";
-        void Wrapper;
+        if (s.kind === "image" && s.banner) {
+          // One complete artwork: the image carries its own copy and CTA; the
+          // whole banner links. Desktop and mobile artwork via <picture>.
+          return (
+            <a
+              key={s.id}
+              href={s.banner.href}
+              className={`slide slide-img${isActive ? " is-active" : ""}`}
+              aria-hidden={!isActive}
+              aria-label={s.imageAlt || undefined}
+              role="group"
+              aria-roledescription="slide"
+              tabIndex={isActive ? 0 : -1}
+              {...(!isActive ? { inert: true } : {})}
+            >
+              <picture>
+                {s.banner.mobile && <source media="(max-width: 900px)" srcSet={s.banner.mobile} />}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={s.banner.desktop} alt={s.imageAlt} loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+              </picture>
+            </a>
+          );
+        }
         const content = (
           <>
             <div className="stage">

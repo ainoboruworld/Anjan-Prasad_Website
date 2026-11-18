@@ -11,7 +11,7 @@ import { Testimonials } from "@/components/home/Testimonials";
 import { KnowledgeTeaser } from "@/components/home/KnowledgeTeaser";
 import { CloseCta } from "@/components/shared/CloseCta";
 import type { Metadata } from "next";
-import { getArticles, getSections, getPageSeo, getBrandLogos, getAreas, getHeroSlides, splitEm } from "@/lib/sanity";
+import { getArticles, getSections, getPageSeo, getBrandLogos, getAreas, getHeroSlides, getHeroBanners, splitEm } from "@/lib/sanity";
 
 export const revalidate = 300;
 
@@ -39,7 +39,7 @@ function initials(name: string): string {
 }
 
 export default async function HomePage() {
-  const [all, sec, logos, areas, heroSlides] = await Promise.all([getArticles(), getSections(), getBrandLogos(), getAreas(), getHeroSlides()]);
+  const [all, sec, logos, areas, heroSlides, heroBanners] = await Promise.all([getArticles(), getSections(), getBrandLogos(), getAreas(), getHeroSlides(), getHeroBanners()]);
   const articles = all.filter((a) => !a.caseStudy);
   const close = sec["home-close"];
   const closeTitle = close?.heading ? splitEm(close.heading) : null;
@@ -49,7 +49,7 @@ export default async function HomePage() {
 
   return (
     <main className="pg on" data-p="home" id="main">
-      <Hero sec={sec["home-hero"]} slides={heroSlides} />
+      <Hero sec={sec["home-hero"]} slides={heroSlides} banners={heroBanners} />
       <TrustWall sec={sec["home-trust"]} logos={logos} />
       <CasesRow sec={sec["home-cases"]} cases={all.filter((a) => a.caseStudy)} />
       <RecordBand sec={sec["home-record"]} />

@@ -31,7 +31,8 @@ export const structure: StructureResolver = (S) =>
               )
             )
         ),
-      S.documentTypeListItem("heroSlide").title("Home hero slides"),
+      S.documentTypeListItem("heroBanner").title("Home hero banners"),
+      S.documentTypeListItem("heroSlide").title("Home hero text slides"),
       S.divider(),
       S.listItem()
         .title("Brands")
