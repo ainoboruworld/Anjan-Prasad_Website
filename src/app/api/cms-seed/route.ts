@@ -693,6 +693,34 @@ export async function GET(req: Request) {
     }
   }
 
+  // Home hero slides: two drafts, switched off, so the slideshow can be
+  // turned on from the Studio by editing the copy and ticking Enabled.
+  const heroSlides = [
+    {
+      _id: "hero-slide-offer",
+      title: "Offer: Founder's Diagnostic",
+      eyebrow: "Limited · this month",
+      heading: "Founder’s Diagnostic: *five seats this month.*",
+      body: "One 90-minute session on the decision in front of you. You bring the numbers; I bring seventeen years of having been wrong first.",
+      ctaLabel: "Book a seat",
+      ctaHref: "/business-advisory#capply",
+      order: 10,
+    },
+    {
+      _id: "hero-slide-mentorship",
+      title: "Mentorship applications",
+      eyebrow: "Mentorship · applications open",
+      heading: "A seat at your table, *for the whole journey.*",
+      body: "Long-term mentorship for a small number of early-stage founders. Sometimes with equity, always with skin in the game.",
+      ctaLabel: "Apply for mentorship",
+      ctaHref: "/mentorship",
+      order: 20,
+    },
+  ];
+  for (const h of heroSlides) {
+    await createIfMissing({ ...h, _type: "heroSlide", enabled: false, align: "left", imageSide: "right" });
+  }
+
   // Brands menu + brand pages: two categories and one document per built-in
   // brand, each with its logo uploaded, so the Studio starts full. Existing
   // documents are left exactly as the editor last saved them.
