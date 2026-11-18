@@ -141,7 +141,7 @@ nav .l .dd .menu-g:last-child:not(:first-child) a{font-size:13px;color:var(--har
 nav .l .dd .menu.described{min-width:340px;padding:12px}
 nav .l .dd .menu.described a{padding:12px 14px;border-radius:8px}
 nav .l .dd .menu.described a b{display:block;font:400 17px var(--font-serif);color:var(--navy);margin-bottom:3px}
-nav .l .dd .menu.described a small{display:block;font:400 12.5px/1.45 var(--font-sans);color:var(--harb)}
+nav .l .dd .menu.described a small{display:block;font:400 12.5px/1.45 var(--font-sans);letter-spacing:0;text-transform:none;color:var(--harb);padding:0}
 nav .l .dd .menu.described a.cur b{color:var(--navy)}
 
 /* Mobile sheet: categories as expandable groups with small logos. */
