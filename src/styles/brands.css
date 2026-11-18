@@ -131,21 +131,11 @@ nav .l .dd .menu-g small{display:block;font:500 10.5px var(--font-sans);letter-s
 .faq-item[open] summary span{transform:rotate(45deg);border-color:#CDB27A;color:#CDB27A}
 .faq-item p{font:400 16.5px/1.7 var(--font-sans);color:#1d2b3d;margin:0 0 22px;max-width:72ch}
 
-/* Brands dropdown: two rows, each with a small flyout of brand names. */
-nav .l .dd .menu.cats{min-width:200px;padding:8px;overflow:visible}
-nav .l .dd .menu.cats .cat{position:relative}
-nav .l .dd .menu.cats .cat>button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:10px 12px;border:0;border-radius:8px;background:none;font:inherit;font-size:14.5px;color:var(--harb);cursor:pointer;transition:background .2s,color .2s}
-nav .l .dd .menu.cats .cat>button span{color:var(--slate);font-size:16px;line-height:1}
-nav .l .dd .menu.cats .cat.on>button,nav .l .dd .menu.cats .cat>button:hover{background:var(--mist);color:var(--navy)}
-nav .l .dd .menu.cats .fly{position:absolute;top:-8px;left:calc(100% + 8px);min-width:210px;padding:8px;background:var(--off);box-shadow:0 20px 40px -18px rgba(11,26,46,.3);border-radius:10px;opacity:0;pointer-events:none;transform:translateX(-4px);transition:opacity .2s ease,transform .2s ease}
-nav .l .dd .menu.cats .fly::before{content:"";position:absolute;left:-10px;top:0;bottom:0;width:10px}
-nav .l .dd .menu.cats .cat.on .fly,nav .l .dd .menu.cats .cat:focus-within .fly{opacity:1;pointer-events:auto;transform:none}
-nav .l .dd .menu.cats .fly a{display:block;padding:9px 12px;border-radius:8px;font-size:14.5px;color:var(--navy)!important;opacity:.85!important;transition:background .2s,opacity .2s}
-nav .l .dd .menu.cats .fly a:hover{background:var(--mist);opacity:1!important}
-nav .l .dd .menu.cats .fly a::after{display:none!important}
-nav .l .dd .menu.cats .all{display:block;margin-top:6px;padding:10px 12px;border-top:1px solid var(--line);font:500 11px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--harb)!important;opacity:1!important}
-nav .l .dd .menu.cats .all::after{display:none!important}
-@media(prefers-reduced-motion:reduce){nav .l .dd .menu.cats .fly{transition:none}}
+/* Brands dropdown: the Programs menu, with two small group headings. */
+nav .l .dd .menu.grouped{min-width:230px;padding:10px}
+nav .l .dd .menu-g+.menu-g{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+nav .l .dd .menu-g small{display:block;font:500 10px var(--font-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);padding:8px 12px 4px}
+nav .l .dd .menu-g:last-child:not(:first-child) a{font-size:13px;color:var(--harb)!important}
 
 /* Mobile sheet: categories as expandable groups with small logos. */
 .mnav details.mb summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding-right:4px}
