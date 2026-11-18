@@ -36,6 +36,7 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
   const isDdOpen = (label: string) => ddKey === `${pathname}|${label}`;
   const setDdOpen = (label: string, next: boolean) => setDdKey(next ? `${pathname}|${label}` : null);
   const ddRef = useRef<HTMLDivElement>(null);
+  const [catOpen, setCatOpen] = useState(0);
   const anyDdOpen = ddKey !== null && ddKey.startsWith(`${pathname}|`);
   useEffect(() => {
     if (!anyDdOpen) return;
@@ -76,18 +77,48 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
 
           <div className="l">
             {NAV.map((item0) => {
-              // Brands: the catalogue (Sanity over built-in) supplies the groups.
-              const item =
-                item0.label === "Brands" && brands?.categories.length
-                  ? {
-                      ...item0,
-                      children: [
-                        ...brands.categories.flatMap((c) => c.brands.map((b) => ({ group: c.name, label: b.name, href: `/brands/${b.slug}` }))),
-                        { label: "All brands", href: "/brands" },
-                      ],
-                    }
-                  : item0;
-              return item.children ? (
+              const item = item0;
+              const isBrands = item0.label === "Brands" && Boolean(brands?.categories.length);
+              return isBrands ? (
+                <div className={`dd dd-brands${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
+                  <button
+                    type="button"
+                    className="ddbtn"
+                    aria-haspopup="true"
+                    aria-controls="dd-brands"
+                    aria-expanded={isDdOpen(item.label)}
+                    onClick={() => {
+                      setCatOpen(0);
+                      setDdOpen(item.label, !isDdOpen(item.label));
+                    }}
+                  >
+                    {item.label}
+                    <svg viewBox="0 0 10 6" aria-hidden>
+                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  </button>
+                  <div className="menu cats" id="dd-brands">
+                    {brands!.categories.map((c, i) => (
+                      <div className={`cat${i === catOpen ? " on" : ""}`} key={c.slug} onMouseEnter={() => setCatOpen(i)}>
+                        <button type="button" aria-expanded={i === catOpen} onClick={() => setCatOpen(i)} onFocus={() => setCatOpen(i)}>
+                          {c.name}
+                          <span aria-hidden>›</span>
+                        </button>
+                        <div className="fly" aria-label={c.name}>
+                          {c.brands.map((b) => (
+                            <Link key={b.slug} href={`/brands/${b.slug}`} onClick={() => setDdKey(null)}>
+                              {b.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    <Link href="/brands" className="all" onClick={() => setDdKey(null)}>
+                      All brands
+                    </Link>
+                  </div>
+                </div>
+              ) : item.children ? (
                 <div className={`dd${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
                   <button
                     type="button"
