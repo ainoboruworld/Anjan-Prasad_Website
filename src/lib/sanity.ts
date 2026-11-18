@@ -259,6 +259,91 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
   }
 }
 
+/* ── Brands (menu + pages) ─────────────────────────────────────────────── */
+
+export interface CmsBrandCategory {
+  slug: string;
+  name: string;
+  order?: number;
+}
+
+export interface CmsBrand {
+  slug: string;
+  name: string;
+  categorySlug: string;
+  published: boolean;
+  order?: number;
+  role?: string;
+  logoUrl?: string;
+  previewUrl?: string;
+  shortDescription?: string;
+  heroImageUrl?: string;
+  heroImageAlt?: string;
+  heroCtaLabel?: string;
+  heroCtaHref?: string;
+  aboutHeading?: string;
+  aboutBody?: PortableTextBlock[];
+  aboutImageUrl?: string;
+  aboutImageAlt?: string;
+  gallery?: { url?: string; alt?: string; caption?: string }[];
+  industry?: string;
+  services?: string[];
+  positioning?: string;
+  website?: string;
+  ctaHeading?: string;
+  ctaDescription?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+/** Active brand categories, in display order. Empty when none exist yet. */
+export async function getBrandCategoriesCms(): Promise<CmsBrandCategory[]> {
+  const sanity = getSanityClient();
+  if (!sanity) return [];
+  try {
+    const rows = await sanity.fetch<{ slug?: string; name?: string; order?: number }[]>(
+      `*[_type == "brandCategory" && active != false && defined(slug.current)] | order(coalesce(order, 9999) asc, name asc){"slug": slug.current, name, order}`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return rows.filter((r): r is CmsBrandCategory => Boolean(r.slug && r.name));
+  } catch (err) {
+    console.warn("[sanity] brand categories fetch failed:", (err as Error).message);
+    return [];
+  }
+}
+
+/**
+ * Every brand document with a slug, published or not, so the catalogue can
+ * hide a built-in brand that an editor has unpublished. Inactive categories
+ * drop their brands here.
+ */
+export async function getBrandsCms(): Promise<CmsBrand[]> {
+  const sanity = getSanityClient();
+  if (!sanity) return [];
+  try {
+    const rows = await sanity.fetch<(Omit<CmsBrand, "slug" | "categorySlug" | "published"> & { slug?: string; categorySlug?: string; categoryActive?: boolean; published?: boolean })[]>(
+      `*[_type == "brand" && defined(slug.current)] | order(coalesce(order, 9999) asc, name asc){
+        "slug": slug.current, name, published, order, role,
+        "categorySlug": category->slug.current, "categoryActive": category->active,
+        "logoUrl": logo.asset->url, "previewUrl": previewImage.asset->url,
+        shortDescription, "heroImageUrl": heroImage.asset->url, "heroImageAlt": heroImage.alt, heroCtaLabel, heroCtaHref,
+        aboutHeading, aboutBody, "aboutImageUrl": aboutImage.asset->url, "aboutImageAlt": aboutImage.alt,
+        "gallery": gallery[]{"url": asset->url, alt, caption},
+        industry, services, positioning, website, ctaHeading, ctaDescription, ctaLabel, ctaHref
+      }`,
+      {},
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    );
+    return rows
+      .filter((r) => r.slug && r.name && r.categorySlug)
+      .map((r) => ({ ...r, slug: r.slug!, categorySlug: r.categorySlug!, published: r.published !== false && r.categoryActive !== false }));
+  } catch (err) {
+    console.warn("[sanity] brands fetch failed:", (err as Error).message);
+    return [];
+  }
+}
+
 export interface SiteSeo {
   metaTitle?: string;
   metaDescription?: string;

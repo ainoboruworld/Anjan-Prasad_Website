@@ -1,9 +1,10 @@
-import { BRAND_PAGES } from "@/lib/data/brandPages";
+import { getAllBrands } from "@/lib/brands";
 import { ARTICLES } from "@/lib/data/articles";
 import { env } from "@/lib/env";
 
 /** llms.txt: a plain-text map of the site for AI crawlers and assistants. */
-export function GET() {
+export async function GET() {
+  const brands = await getAllBrands();
   const site = env.siteUrl.replace(/\/$/, "");
   const lines = [
     "# Anjan Prasad",
@@ -18,7 +19,7 @@ export function GET() {
     `- [Speaking](${site}/speaking): podcasts, business schools and events.`,
     "",
     "## Brands built, led and advised",
-    ...BRAND_PAGES.map((b) => `- [${b.name}](${site}/brands/${b.slug}): ${b.role}. ${b.headline}`),
+    ...brands.map((b) => `- [${b.name}](${site}/brands/${b.slug}): ${[b.role, b.shortDescription].filter(Boolean).join(". ")}`),
     "",
     "## Case studies and articles",
     ...ARTICLES.map((a) => `- [${a.title}](${site}/knowledge-hub/${a.slug}): ${a.excerpt}`),

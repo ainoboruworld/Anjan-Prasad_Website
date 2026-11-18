@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ApMark } from "../brand/ApMark";
 import { NAV, type NavChild } from "@/lib/data/site";
+import { BrandsMega } from "./BrandsMega";
+import type { BrandsMenuData } from "@/lib/brands";
 
 /** Children in order, bucketed by their optional group heading. */
 function groupChildren(children: NavChild[]): [string | undefined, NavChild[]][] {
@@ -21,7 +23,7 @@ function groupChildren(children: NavChild[]): [string | undefined, NavChild[]][]
  * Site navigation. Desktop: the prototype's absolute header with a hover
  * "Programs" dropdown. Mobile: a full-screen navy sheet.
  */
-export function Header() {
+export function Header({ brands }: { brands?: BrandsMenuData }) {
   const pathname = usePathname();
   // Keyed open-state: any navigation renders the sheet closed without an effect.
   const [openedAt, setOpenedAt] = useState<string | null>(null);
@@ -41,8 +43,15 @@ export function Header() {
     const onDown = (e: MouseEvent) => {
       if (ddRef.current && !ddRef.current.contains(e.target as Node)) setDdKey(null);
     };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDdKey(null);
+    };
     window.addEventListener("pointerdown", onDown);
-    return () => window.removeEventListener("pointerdown", onDown);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [anyDdOpen]);
 
   // Lock body scroll while the sheet is open.
@@ -68,7 +77,23 @@ export function Header() {
 
           <div className="l">
             {NAV.map((item) =>
-              item.children ? (
+              item.label === "Brands" && brands?.categories.length ? (
+                <div className={`dd dd-mega${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
+                  <button
+                    type="button"
+                    className="ddbtn"
+                    aria-haspopup="true"
+                    aria-expanded={isDdOpen(item.label)}
+                    onClick={() => setDdOpen(item.label, !isDdOpen(item.label))}
+                  >
+                    {item.label}
+                    <svg viewBox="0 0 10 6" aria-hidden>
+                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  </button>
+                  <BrandsMega data={brands} open={isDdOpen(item.label)} onNavigate={() => setDdKey(null)} />
+                </div>
+              ) : item.children ? (
                 <div className={`dd${isDdOpen(item.label) ? " open" : ""}`} key={item.label} ref={isDdOpen(item.label) ? ddRef : undefined}>
                   <button
                     type="button"
@@ -129,16 +154,37 @@ export function Header() {
         <small>Programs</small>
         <Link href="/business-advisory">Business Advisory</Link>
         <Link href="/mentorship">Mentorship</Link>
-        {groupChildren(NAV.find((n) => n.label === "Brands")?.children ?? []).map(([group, links]) => (
-          <div key={group ?? "_brands"}>
-            <small>{group ?? "Brands"}</small>
-            {links.map((c) => (
-              <Link href={c.href} key={c.href}>
-                {c.label}
-              </Link>
+        {brands?.categories.length
+          ? brands.categories.map((c, i) => (
+              <details key={c.slug} className="mb" open={i === 0}>
+                <summary>
+                  <small>{c.name}</small>
+                  <span aria-hidden>+</span>
+                </summary>
+                {c.brands.map((b) => (
+                  <Link href={`/brands/${b.slug}`} key={b.slug} className="mb-item">
+                    {b.logoUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={b.logoUrl} alt="" loading="lazy" />
+                    ) : (
+                      <i>{b.name[0]}</i>
+                    )}
+                    {b.name}
+                  </Link>
+                ))}
+              </details>
+            ))
+          : groupChildren(NAV.find((n) => n.label === "Brands")?.children ?? []).map(([group, links]) => (
+              <div key={group ?? "_brands"}>
+                <small>{group ?? "Brands"}</small>
+                {links.map((c) => (
+                  <Link href={c.href} key={c.href}>
+                    {c.label}
+                  </Link>
+                ))}
+              </div>
             ))}
-          </div>
-        ))}
+        {brands?.categories.length ? <Link href="/brands">All brands</Link> : null}
         <small>More</small>
         <Link href="/knowledge-hub">Knowledge Hub</Link>
         <Link href="/speaking">Speaker</Link>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BRAND_KIND_LABEL, BRAND_PAGES, brandLogo } from "@/lib/data/brandPages";
-import { HAS_TILE } from "@/lib/data/brands";
+import { getBrandCatalog, type Brand } from "@/lib/brands";
+import { sized } from "@/lib/sanity-image";
 
-const hasLogo = (slug: string) => HAS_TILE.has(slug) || ["pinkfly", "auxman", "fundamentals", "sapiens"].includes(slug);
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Brands — built, led and advised",
@@ -12,8 +12,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/brands" },
 };
 
-export default function BrandsPage() {
-  const groups = (["founded", "advised"] as const).map((k) => ({ k, items: BRAND_PAGES.filter((b) => b.kind === k) }));
+function Logo({ b }: { b: Brand }) {
+  const src = sized(b.logoUrl, 240);
+  if (!src) return <span className="brlogo mono" aria-hidden>{b.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("")}</span>;
+  return (
+    <span className="brlogo">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={b.name} loading="lazy" />
+    </span>
+  );
+}
+
+export default async function BrandsPage() {
+  const cats = await getBrandCatalog();
   return (
     <main className="pg on" id="main" data-p="brands">
       <section className="bri">
@@ -26,25 +37,16 @@ export default function BrandsPage() {
             One page on each business: what the problem was, what I did, and what it produced. Where there is a full case
             study, it&rsquo;s linked.
           </p>
-          {groups.map(({ k, items }) => (
-            <div className="brg" key={k}>
-              <span className="lab">{BRAND_KIND_LABEL[k]}</span>
+          {cats.map((c) => (
+            <div className="brg" key={c.slug}>
+              <span className="lab">{c.name}</span>
               <div className="brgrid">
-                {items.map((b) => (
+                {c.brands.map((b) => (
                   <Link href={`/brands/${b.slug}`} key={b.slug} className="brcard">
-                    {hasLogo(b.slug) ? (
-                      <span className="brlogo">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={brandLogo(b.slug)} alt={b.name} loading="lazy" />
-                      </span>
-                    ) : (
-                      <span className="brlogo mono" aria-hidden>
-                        {b.name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("")}
-                      </span>
-                    )}
-                    <small>{b.role}</small>
+                    <Logo b={b} />
+                    {b.role && <small>{b.role}</small>}
                     <b>{b.name}</b>
-                    <span className="brsec">{b.sector}</span>
+                    {b.industry && <span className="brsec">{b.industry}</span>}
                   </Link>
                 ))}
               </div>

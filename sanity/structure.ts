@@ -34,6 +34,17 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("heroSlide").title("Home hero slides"),
       S.divider(),
       S.listItem()
+        .title("Brands")
+        .child(
+          S.list()
+            .title("Brands")
+            .items([
+              S.documentTypeListItem("brand").title("All brands"),
+              S.documentTypeListItem("brandCategory").title("Categories"),
+            ])
+        ),
+      S.divider(),
+      S.listItem()
         .title("Blog Posts")
         .child(
           S.documentList()
