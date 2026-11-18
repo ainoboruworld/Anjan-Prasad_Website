@@ -252,7 +252,7 @@ const COLOUR_ONLY = new Set(["pinkfly", "auxman", "fundamentals", "sapiens"]);
  * their transparent colour file. Undefined when no file exists.
  */
 /** Brands whose wall files are light variants; these page files carry the true colours. */
-const PAGE_LOGO: Record<string, string> = { auxman: "/brand-logos/auxman-page.png", fundamentals: "/brand-logos/fundamentals-page.png" };
+const PAGE_LOGO: Record<string, string> = { auxman: "/brand-logos/auxman-page.png" };
 
 export function brandLogo(slug: string): string | undefined {
   if (PAGE_LOGO[slug]) return PAGE_LOGO[slug];
