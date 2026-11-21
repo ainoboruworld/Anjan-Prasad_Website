@@ -108,7 +108,13 @@ export function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
               <picture>
                 {s.banner.mobile && <source media="(max-width: 900px)" srcSet={s.banner.mobile} />}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.banner.desktop} alt={s.imageAlt} loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+                <img
+                  src={s.banner.desktop}
+                  alt={s.imageAlt}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "auto"}
+                  decoding="async"
+                />
               </picture>
             </a>
           );
@@ -125,6 +131,7 @@ export function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
                 width={698}
                 height={624}
                 priority={i === 0}
+                fetchPriority={i === 0 ? "high" : "auto"}
                 sizes="(max-width: 900px) 90vw, 600px"
               />
             </div>
