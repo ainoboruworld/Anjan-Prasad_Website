@@ -144,6 +144,10 @@ nav .wrap{height:100px}
 
 nav .logo svg{height:58px}
 
+/* Header lockup: the Ap mark with the name beneath it, in the hero's blue. */
+nav .logo.lockup{display:flex;flex-direction:column;align-items:center;gap:7px}
+nav .logo.lockup .wm{font:500 10.5px/1 var(--font-sans);letter-spacing:.34em;text-transform:uppercase;color:var(--slate);white-space:nowrap;padding-left:.34em}
+
 nav .l{gap:44px;font-size:14.5px;align-items:center}
 
 nav .l a{opacity:1;color:var(--harb);position:relative;padding:6px 0;transition:color .3s}
