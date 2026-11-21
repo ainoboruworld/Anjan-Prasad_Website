@@ -90,10 +90,10 @@ export const BRAND_PAGES: BrandPage[] = [
     name: "Lushful",
     kind: "founded",
     role: "Co-founder & Managing Director",
-    sector: "D2C food, working directly with farmers",
+    sector: "Farm to doorstep",
     headline: "A food brand built from zero to ₹2.5 Cr ARR, one decision at a time.",
     story: [
-      "Lushful is a direct-to-consumer food brand that works directly with farmers. I co-founded it and run it as Managing Director, which means I own the unit economics, not just the brand.",
+      "I co-founded Lushful, a food brand that goes from farm to doorstep, and I run it as Managing Director. That means I own the unit economics, not just the brand.",
       "We built it in one continuous journey: brand foundation and packaging, the website and apps, growth across search, social, email and WhatsApp, and the operations underneath all of it.",
     ],
     work: [
@@ -103,13 +103,19 @@ export const BRAND_PAGES: BrandPage[] = [
       "Retention: the repeat customer, not the first one, is the business",
     ],
     metrics: [
-      ["₹20L+", "monthly revenue"],
       ["+446%", "monthly orders"],
       ["+87%", "average order value"],
       ["57%", "customer retention"],
     ],
+    photos: [
+      {
+        src: "/brands/lushful/farm-team.jpg",
+        alt: "Anjan with two members of the farm team, holding fresh greens in the field",
+        caption: "Farm to doorstep: straight from the field, with the farmers we work with.",
+      },
+    ],
     challenge:
-      "Start a food brand from zero, with farmers on one side and a crowded D2C market on the other, and make the unit economics work before the marketing budget did.",
+      "I started a food brand from zero, with farmers on one side and a crowded D2C market on the other, and I had to make the unit economics work before the marketing budget did.",
     results: [
       "₹2.5 Cr ARR, from a standing start",
       "Monthly orders up 446% and average order value up 87%",
@@ -118,7 +124,7 @@ export const BRAND_PAGES: BrandPage[] = [
     cases: ["case-study-lushful"],
     quote: ["They became an extension of the internal team.", "Neelabh Singh, Co-founder, Lushful"],
     lesson:
-      "Retention is the whole game in D2C. The first order is marketing; the third order is a business. Every decision we made that worked was really a decision about the third order.",
+      "Retention is the whole game in D2C. The first order is marketing; the third order is a business. Every decision I made that worked was really a decision about the third order.",
     note: "Running a food brand with farmers on one side and customers on the other keeps me honest about margins. It's why I ask founders about unit economics before anything else.",
   },
   {
