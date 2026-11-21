@@ -90,7 +90,7 @@ export const BRAND_PAGES: BrandPage[] = [
     name: "Lushful",
     kind: "founded",
     role: "Co-founder & Managing Director",
-    sector: "Farm to doorstep",
+    sector: "D2C, farm to kitchen",
     headline: "A food brand built from zero to ₹2.5 Cr ARR, one decision at a time.",
     story: [
       "I co-founded Lushful, a food brand that goes from farm to doorstep, and I run it as Managing Director. That means I own the unit economics, not just the brand.",
