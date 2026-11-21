@@ -70,10 +70,11 @@ export function Header({ brands }: { brands?: BrandsMenuData }) {
       </a>
       <nav aria-label="Primary">
         <div className="wrap">
-          <Link href="/" className="logo" aria-label="Ap, home">
+          <Link href="/" className="logo lockup" aria-label="Anjan Prasad, home">
             <span className="lg-l">
-              <ApMark title="Anjan Prasad" />
+              <ApMark title="" />
             </span>
+            <span className="wm" aria-hidden="true">Anjan Prasad</span>
           </Link>
 
           <div className="l">
