@@ -6,22 +6,26 @@
 
 export type ArticleCategory =
   | "Business"
-  | "Startup"
-  | "Marketing"
-  | "Society"
-  | "Politics"
-  | "Spirituality"
+  | "Finance"
+  | "Marketing & Sales"
+  | "Startups"
+  | "Business News"
   | "Case Studies";
 
+/** Knowledge Hub categories, in the order the hub shows them. */
 export const CATEGORIES: ArticleCategory[] = [
   "Case Studies",
   "Business",
-  "Startup",
-  "Marketing",
-  "Society",
-  "Politics",
-  "Spirituality",
+  "Finance",
+  "Marketing & Sales",
+  "Startups",
+  "Business News",
 ];
+
+/** Sanity document id for a category, e.g. "Marketing & Sales" → "category-marketing-sales". */
+export function categoryId(name: string): string {
+  return `category-${name.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+}
 
 export interface CaseStudyDetails {
   /** Sector label shown on the card, e.g. "AgriTech". */

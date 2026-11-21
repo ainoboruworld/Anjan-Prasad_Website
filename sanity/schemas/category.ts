@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 
-/** Knowledge Hub category: Business, Startup, Marketing, Society, Politics, Spirituality. */
+/** Knowledge Hub category: Business, Finance, Marketing & Sales, Startups, Business News. */
 export const category = defineType({
   name: "category",
   title: "Category",
