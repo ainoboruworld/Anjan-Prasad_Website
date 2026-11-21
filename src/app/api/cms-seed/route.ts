@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import { env, serverEnv } from "@/lib/env";
-import { ARTICLES, type ArticleBlock } from "@/lib/data/articles";
+import { ARTICLES, categoryId, type ArticleBlock } from "@/lib/data/articles";
 import { TESTIMONIALS, JOURNEY, LIFE_PHOTOS } from "@/lib/data/site";
 import { AREAS } from "@/lib/data/areas";
 import { VENTURES, COMPANIES_ADVISED, CAREER, FACULTY, logoSrc } from "@/lib/data/brands";
@@ -21,7 +21,7 @@ export const maxDuration = 300;
  * SANITY_API_TOKEN with Editor permissions. Open /api/cms-seed?run=1.
  */
 
-const CATEGORIES = ["Business", "Startup", "Marketing", "Society", "Politics", "Spirituality"];
+const CATEGORIES = ["Business", "Finance", "Marketing & Sales", "Startups", "Business News"];
 
 const QUOTES: [string, string][] = [
   ["I don’t advise from a textbook.", "I advise from the other side of the table."],
@@ -440,7 +440,7 @@ export async function GET(req: Request) {
   }
 
   for (const c of CATEGORIES) {
-    await createIfMissing({ _id: `category-${c.toLowerCase()}`, _type: "category", title: c });
+    await createIfMissing({ _id: categoryId(c), _type: "category", title: c });
   }
 
   for (let i = 0; i < QUOTES.length; i++) {
@@ -598,7 +598,7 @@ export async function GET(req: Request) {
       _type: "blogPost",
       title: a.title,
       slug: { _type: "slug", current: a.slug },
-      ...(CATEGORIES.includes(a.category) ? { category: { _type: "reference", _ref: `category-${a.category.toLowerCase()}` } } : {}),
+      ...(CATEGORIES.includes(a.category) ? { category: { _type: "reference", _ref: categoryId(a.category) } } : {}),
       publishedAt: a.publishedAt,
       readTime: parseInt(a.readTime, 10) || 5,
       excerpt: a.excerpt,
