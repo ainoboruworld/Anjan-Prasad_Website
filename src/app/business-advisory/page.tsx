@@ -200,6 +200,39 @@ export default async function BusinessAdvisoryPage({
       />
 
 
+      <section className="sec">
+        <div className="wrap">
+          <div className="sh">
+            <div>
+              <span className="lab">Investment</span>
+              <h2>
+                ₹3,999 <em>per session.</em>
+              </h2>
+            </div>
+          </div>
+          <div className="c3 plain">
+            <div>
+              <span className="lab">01</span>
+              <h3>Minimum 60 minutes, one-to-one</h3>
+              <p>A consultation on one specific business problem, challenge or decision.</p>
+            </div>
+            <div>
+              <span className="lab">02</span>
+              <h3>Prepared in advance</h3>
+              <p>
+                You complete a detailed business questionnaire and share documents. Payment is completed, then I have at
+                least five working days to study the information before we speak.
+              </p>
+            </div>
+            <div>
+              <span className="lab">03</span>
+              <h3>Action points</h3>
+              <p>Personalised recommendations, key action points and practical next steps.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {!sec["advisory-help"]?.hidden && (
       <section className="sec ways">
           <div className="wrap wy2">

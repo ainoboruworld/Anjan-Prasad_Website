@@ -33,10 +33,10 @@ export const NAV: NavItem[] = [
     label: "Programs",
     href: "/business-advisory",
     children: [
-      { label: "Business Advisory", href: "/business-advisory" },
+      { label: "Business Advisory & Consultation", href: "/business-advisory" },
       { label: "Business Coaching", href: "/business-coaching" },
-      { label: "Mentorship", href: "/mentorship" },
-      { label: "Workshops", href: "/workshops" },
+      { label: "Business Mentorship", href: "/mentorship" },
+      { label: "Business Workshops", href: "/workshops" },
     ],
   },
   {
