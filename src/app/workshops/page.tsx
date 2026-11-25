@@ -5,31 +5,48 @@ import { SpeakingForm } from "@/components/forms/SpeakingForm";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 
 export const metadata: Metadata = {
-  title: "Workshops",
+  title: "Business Workshops",
   description:
-    "Half-day and full-day workshops with Anjan Prasad for founder cohorts, leadership teams and business schools: unit economics, pricing, go-to-market and the decisions that shape a business.",
+    "Live online group workshops of 60 to 90 minutes on how to start and how to build and grow a business. ₹199 per workshop.",
   alternates: { canonical: "/workshops" },
 };
 
-const FORMATS = [
-  { n: "01", h: "Founder cohorts", p: "A half day on the decisions that shape a young business: pricing, cash, first hires, first customers." },
-  { n: "02", h: "Leadership teams", p: "A full day inside one company, on its own numbers. We leave with decisions made, not slides." },
-  { n: "03", h: "Business schools", p: "Sessions built from seventeen years of doing it, for students who want the version without the gloss." },
+const DETAILS = [
+  { n: "01", h: "Live online group workshop", p: "Duration 60–90 minutes, with live Q&A." },
+  { n: "02", h: "₹199 per workshop", p: "One workshop, one price." },
+  {
+    n: "03",
+    h: "Who it is for",
+    p: "People currently working a job, aspiring entrepreneurs, and anyone who wants to start their own business.",
+  },
 ];
 
-/** Workshops: the page is live so the menu never dead-ends; copy can move to Sanity like the others. */
+const TOPICS = [
+  { n: "01", h: "How to Start a Business from Scratch", p: "A step-by-step understanding of starting and setting up a business." },
+  { n: "02", h: "How to Build and Grow a Business", p: "A step-by-step understanding of building and growing a business." },
+];
+
+const RECEIVE = [
+  "Practical business knowledge",
+  "Step-by-step guidance",
+  "Real business examples and case studies",
+  "Live Q&A",
+  "Workshop notes and key takeaways",
+];
+
+/** Business workshops: the programme as published; the copy can move to Sanity like the others. */
 export default function WorkshopsPage() {
   return (
     <main className="pg on" data-p="advisory" id="main">
       <header className="ph1">
         <div className="wrap">
-          <span className="lab">Programs · Workshops</span>
+          <span className="lab">Programs · Business Workshops</span>
           <h1>
-            A room full of founders, <em>and real numbers.</em>
+            Start or grow a business, <em>step by step.</em>
           </h1>
           <p>
-            Half-day and full-day sessions for teams, cohorts and classrooms. No motivation, only method: everyone
-            leaves with something they can use on Monday.
+            Live online group workshops for people working a job, aspiring entrepreneurs and anyone planning to start their
+            own business. 60–90 minutes, ₹199 per workshop.
           </p>
           <Cta href="#apply">Ask about a workshop</Cta>
         </div>
@@ -39,14 +56,14 @@ export default function WorkshopsPage() {
         <div className="wrap">
           <div className="sh">
             <div>
-              <span className="lab">Formats</span>
+              <span className="lab">Details</span>
               <h2>
                 Built for <em>the room.</em>
               </h2>
             </div>
           </div>
           <div className="c3 plain">
-            {FORMATS.map((f) => (
+            {DETAILS.map((f) => (
               <div key={f.n}>
                 <span className="lab">{f.n}</span>
                 <h3>{f.h}</h3>
@@ -57,14 +74,58 @@ export default function WorkshopsPage() {
         </div>
       </section>
 
+      <section className="sec">
+        <div className="wrap">
+          <div className="sh">
+            <div>
+              <span className="lab">Workshop topics</span>
+              <h2>
+                Two <em>questions.</em>
+              </h2>
+            </div>
+          </div>
+          <div className="c3 plain">
+            {TOPICS.map((f) => (
+              <div key={f.n}>
+                <span className="lab">{f.n}</span>
+                <h3>{f.h}</h3>
+                <p>{f.p}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="sh">
+            <div>
+              <span className="lab">What participants receive</span>
+              <h2>
+                Something you can <em>use on Monday.</em>
+              </h2>
+            </div>
+          </div>
+          <div className="c3 plain">
+            {RECEIVE.map((item, i) => (
+              <div key={item}>
+                <span className="lab">{String(i + 1).padStart(2, "0")}</span>
+                <h3>{item}</h3>
+              </div>
+            ))}
+          </div>
+          <p>Outcome: understand the fundamentals of starting or growing a business and the steps involved.</p>
+        </div>
+      </section>
+
       <section className="sec apply" id="apply">
         <div className="wrap">
           <div className="al">
             <span className="lab">Enquire</span>
             <h2>
-              Tell me about <em>the room.</em>
+              Which workshop <em>would you like?</em>
             </h2>
-            <p>The audience, the format and the date you have in mind. I read every enquiry myself and reply within five working days.</p>
+            <p>Tell me which workshop you would like to attend and what you are doing now. I reply within five working days.</p>
             <Signature />
           </div>
           <SpeakingForm />
@@ -73,7 +134,7 @@ export default function WorkshopsPage() {
       <ServiceSchema
         name="Business Workshops"
         path="/workshops"
-        description="Half-day and full-day business workshops for founder cohorts, leadership teams and business schools in India."
+        description="Live online business workshops of 60 to 90 minutes for people starting or growing a business in India: ₹199 per workshop."
       />
     </main>
   );

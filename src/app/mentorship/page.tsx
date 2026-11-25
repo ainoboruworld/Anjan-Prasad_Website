@@ -163,6 +163,37 @@ export default async function MentorshipPage() {
         description="Long-term mentorship for a small number of early-stage founders in India, sometimes with equity. Hands-on, honest and over the whole journey."
       />
 
+      <section className="sec">
+        <div className="wrap">
+          <div className="sh">
+            <div>
+              <span className="lab">Investment</span>
+              <h2>
+                ₹999 <em>per week.</em>
+              </h2>
+              <p>Recommended duration: 6 months. Long-term one-to-one mentorship, not a one-off consultation.</p>
+            </div>
+          </div>
+          <div className="c3 plain">
+            <div>
+              <span className="lab">01</span>
+              <h3>Regular one-to-one conversations</h3>
+              <p>Experience-based guidance and practical business insights, shaped around your entrepreneurial journey.</p>
+            </div>
+            <div>
+              <span className="lab">02</span>
+              <h3>Guidance on important decisions</h3>
+              <p>Key learnings and takeaways from real business experiences, mistakes and successes.</p>
+            </div>
+            <div>
+              <span className="lab">03</span>
+              <h3>Long-term development</h3>
+              <p>Starting and building businesses, leadership, team management and managing uncertainty.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="sec apply" id="apply">
         <div className="wrap">
           <div className="al">

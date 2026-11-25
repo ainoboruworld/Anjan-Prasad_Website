@@ -2139,7 +2139,7 @@ to{opacity:1;transform:none}
 /* case cards */
 .cases{padding:84px 0 76px!important}
 
-.ccrow{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:4px 2px 28px}
+.ccrow{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:4px 2px 28px;scroll-padding-left:2px}
 .ccrow::-webkit-scrollbar{display:none}
 
 .cc{flex:0 0 calc((100% - 40px)/3);scroll-snap-align:start;background:#fff;border:1px solid rgba(11,26,46,.07);border-radius:20px;padding:26px 26px 22px;display:flex;flex-direction:column;box-shadow:0 24px 50px -36px rgba(11,26,46,.4);transition:transform .35s,box-shadow .35s;position:relative;overflow:hidden}

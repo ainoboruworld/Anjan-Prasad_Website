@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { Header } from "@/components/layout/Header";
@@ -115,6 +116,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <NewsletterPopup />
           </SiteChrome>
         </QueryProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
